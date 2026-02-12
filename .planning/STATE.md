@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 ## Current Position
 
 Phase: 2 of 7 (Content Extraction)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-12 — Completed 02-01-PLAN.md
+Last activity: 2026-02-12 — Completed 02-02-PLAN.md
 
-Progress: ██▓░░░░░░░ 24%
+Progress: ███░░░░░░░ 29%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 14 min
-- Total execution time: 0.9 hours
+- Total plans completed: 5
+- Average duration: 13 min
+- Total execution time: 1.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 Foundation & Theme | 3/3 | 45 min | 15 min |
-| 02 Content Extraction | 1/3 | 12 min | 12 min |
+| 02 Content Extraction | 2/3 | 20 min | 10 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 4 min, 35 min, 12 min
+- Last 5 plans: 6 min, 4 min, 35 min, 12 min, 8 min
 - Trend: —
 
 ## Accumulated Context
@@ -55,6 +55,9 @@ Recent decisions affecting current work:
 | 02-01 | Added MailAddress, QuickLink, RelatedOrg, EventLink types | Proper typing for nested data structures beyond original spec |
 | 02-01 | Jeromy Lipps role set to "Contact" | Wix source doesn't specify formal title |
 | 02-01 | Show results: static links only | Results page uses dynamic iframes; only button URLs extractable |
+| 02-02 | GAG program has 6 rules (not 5) | HTML source contains extra rule about non-placement |
+| 02-02 | 7 officers/board from contact page | More detailed than 4-member home page list |
+| 02-02 | Facebook link is RockingHLLC | Only social link found; not a dedicated SMRHA page |
 
 ### Deferred Issues
 
@@ -67,5 +70,5 @@ None — Tailwind v4 config concern from 01-01 resolved in 01-02.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 02-01-PLAN.md
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
