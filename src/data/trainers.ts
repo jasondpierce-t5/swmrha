@@ -12,7 +12,7 @@ export const intro =
 
 /**
  * Trainer listings extracted from find-a-trainer.html.
- * Image paths reference future public/images/trainers/ directory (Plan 02-03).
+ * Trainer headshot images are located in public/images/trainers/.
  */
 export const trainers: Trainer[] = [
   {

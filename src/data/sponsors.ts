@@ -26,35 +26,85 @@ export const signupLabel = "Click here..........";
 
 /**
  * Sponsors identified from logo images on the home page.
- * Sponsor names are derived from image filenames and alt text.
- * Image paths reference future public/images/sponsors/ directory (Plan 02-03).
+ * Sponsor names are derived from image filenames, alt text, and link targets.
+ * Organized by tier as displayed on the Wix home page.
  */
 export const sponsors: Sponsor[] = [
+  // Platinum
   {
     name: "Its All About Ruf",
-    image: "/images/sponsors/its-all-about-ruf-banner.jpg",
+    image: "/images/sponsors/its-all-about-ruf.jpg",
+    url: "https://tmreining.com/stallions/its-all-about-ruf/",
+    level: "Platinum",
+  },
+  {
+    name: "Cowtown USA",
+    image: "/images/sponsors/cowtown-usa.jpg",
+    url: "https://cowtownusainc.com/",
+    level: "Platinum",
   },
   {
     name: "Merhow Trailers",
-    image: "/images/sponsors/merhow-trailers-logo.jpg",
+    image: "/images/sponsors/merhow-trailers.jpg",
+    url: "https://merhow.com/",
+    level: "Platinum",
+  },
+  // Diamond
+  {
+    name: "Equine Oasis",
+    image: "/images/sponsors/equine-oasis.jpg",
+    url: "http://equineoasis.com/",
+    level: "Diamond",
+  },
+  // Gold
+  {
+    name: "RDS Financing",
+    image: "/images/sponsors/rds-financing.jpg",
+    url: "https://www.rdsfinancing.com/about.aspx",
+    level: "Gold",
   },
   {
     name: "Stateline Tack",
-    image: "/images/sponsors/stateline-tack-logo.jpg",
+    image: "/images/sponsors/stateline-tack.jpg",
+    url: "https://www.statelinetack.com/",
+    level: "Gold",
   },
+  // Silver
   {
     name: "Lipps Horse Training",
-    image: "/images/sponsors/lipps-logo.jpg",
+    image: "/images/sponsors/lipps.jpg",
     url: "http://www.lippshorsetraining.com/",
+    level: "Silver",
+  },
+  {
+    name: "Aussie Flair Performance Horses",
+    image: "/images/sponsors/aussie-flair.jpg",
+    url: "https://www.facebook.com/joeandelizabethhartin",
+    level: "Silver",
   },
   {
     name: "Reining Horse Unlimited",
     image: "/images/sponsors/reining-horse-unlimited.jpg",
     url: "https://www.facebook.com/Reininghorsesunlimited/",
+    level: "Silver",
+  },
+  {
+    name: "Shaffhauser Stables",
+    image: "/images/sponsors/shaffhauser-stables.jpg",
+    url: "https://www.facebook.com/randy.schaffhauser",
+    level: "Silver",
+  },
+  // Bronze
+  {
+    name: "Rocking H LLC",
+    image: "/images/sponsors/rocking-h.jpg",
+    url: "https://www.facebook.com/RockingHLLC",
+    level: "Bronze",
   },
   {
     name: "Circle X",
-    image: "/images/sponsors/circle-x-sponsor-banner.jpg",
+    image: "/images/sponsors/circle-x.jpg",
+    level: "Bronze",
   },
 ];
 

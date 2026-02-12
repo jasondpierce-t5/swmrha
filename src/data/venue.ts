@@ -41,7 +41,7 @@ export const warmUpInfo = [
 
 /**
  * Image references for stall chart and RV map.
- * Actual files will be copied in Plan 02-03 (media extraction).
+ * Files are located in public/images/venue/.
  */
 export const stallChartImage = "/images/venue/stall-chart.jpg";
 export const rvMapImage = "/images/venue/rv-map.jpg";

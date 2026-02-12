@@ -14,3 +14,4 @@ export * as trainers from "./trainers";
 export * as greenAsGrass from "./green-as-grass";
 export * as contact from "./contact";
 export * as venue from "./venue";
+export { images } from "./images";

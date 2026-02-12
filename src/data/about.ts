@@ -20,7 +20,7 @@ export const openInvitation =
  * Board members listed under "Friends of The SMRHA" on the home page.
  * The Wix site labels this section "Friends of The SMRHA" rather than
  * "Board of Directors," so the role is left undefined where not specified.
- * Images will be added in Plan 02-03 (media extraction).
+ * No individual board member photos were found in the Wix site media.
  */
 export const boardMembers: BoardMember[] = [
   { name: "Brett Kuhns/Kari Wilson" },
