@@ -17,8 +17,8 @@ None
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Theme** - Next.js 14+ project setup, Tailwind dark western theme, layout system with navigation and footer
-- [ ] **Phase 2: Content Extraction** *(In progress)* - Parse all Wix HTML pages, create static data files, organize and optimize images
-- [ ] **Phase 3: Home & About Pages** - Home page with hero imagery, events preview, welcome message; About page with mission, board of directors
+- [x] **Phase 2: Content Extraction** - Parse all Wix HTML pages, create static data files, organize and optimize images
+- [ ] **Phase 3: Home & About Pages** *(Up next)* - Home page with hero imagery, events preview, welcome message; About page with mission, board of directors
 - [ ] **Phase 4: Shows & Results Pages** - Show schedule page, show results/standings page, event detail layouts
 - [ ] **Phase 5: Membership & Resources** - Membership info, rules/classes, Green as Grass buckle program, FAQ, Find a Trainer
 - [ ] **Phase 6: Gallery, Sponsors & Contact** - Photo/video gallery, sponsors page with logos, contact page with form
@@ -47,7 +47,7 @@ Plans:
 Plans:
 - [x] 02-01: Parse core page HTML (home, about, membership, shows, results, FAQ)
 - [x] 02-02: Parse supplementary pages (sponsors, trainers, Green as Grass, stall/map info) and extract structured data
-- [ ] 02-03: Organize and optimize images — logos, board photos, event flyers, action shots
+- [x] 02-03: Organize and optimize images — logos, board photos, event flyers, action shots
 
 ### Phase 3: Home & About Pages
 **Goal**: A visually impressive home page with bold hero, upcoming events, welcome message, and quick links; an About page with mission/history and board of directors with photos.
@@ -109,7 +109,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
 | 1. Foundation & Theme | 3/3 | Complete | 2026-02-12 |
-| 2. Content Extraction | 2/3 | In progress | - |
+| 2. Content Extraction | 3/3 | Complete | 2026-02-12 |
 | 3. Home & About Pages | 0/2 | Not started | - |
 | 4. Shows & Results Pages | 0/2 | Not started | - |
 | 5. Membership & Resources | 0/2 | Not started | - |

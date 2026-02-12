@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** Phase 2 — Content Extraction
+**Current focus:** Phase 3 — Home & About Pages
 
 ## Current Position
 
-Phase: 2 of 7 (Content Extraction)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-12 — Completed 02-02-PLAN.md
+Phase: 2 of 7 (Content Extraction) — Complete
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-12 — Completed 02-03-PLAN.md
 
-Progress: ███░░░░░░░ 29%
+Progress: ████░░░░░░ 35%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 13 min
-- Total execution time: 1.1 hours
+- Total plans completed: 6
+- Average duration: 12 min
+- Total execution time: 1.2 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 Foundation & Theme | 3/3 | 45 min | 15 min |
-| 02 Content Extraction | 2/3 | 20 min | 10 min |
+| 02 Content Extraction | 3/3 | 28 min | 9 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 4 min, 35 min, 12 min, 8 min
+- Last 5 plans: 4 min, 35 min, 12 min, 8 min, 8 min
 - Trend: —
 
 ## Accumulated Context
@@ -58,6 +58,8 @@ Recent decisions affecting current work:
 | 02-02 | GAG program has 6 rules (not 5) | HTML source contains extra rule about non-placement |
 | 02-02 | 7 officers/board from contact page | More detailed than 4-member home page list |
 | 02-02 | Facebook link is RockingHLLC | Only social link found; not a dedicated SMRHA page |
+| 02-03 | 6 additional sponsors identified from HTML links | Cowtown USA, RDS Financing, Equine Oasis, Rocking H, Aussie Flair, Shaffhauser Stables |
+| 02-03 | Central image manifest pattern | src/data/images.ts as single source of truth for all image paths |
 
 ### Deferred Issues
 
@@ -70,5 +72,5 @@ None — Tailwind v4 config concern from 01-01 resolved in 01-02.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 02-02-PLAN.md
+Stopped at: Completed 02-03-PLAN.md — Phase 2 complete
 Resume file: None
