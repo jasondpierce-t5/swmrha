@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 ## Current Position
 
 Phase: 1 of 7 (Foundation & Theme)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-12 — Completed 01-01-PLAN.md
+Last activity: 2026-02-12 — Completed 01-02-PLAN.md
 
-Progress: █░░░░░░░░░ 6%
+Progress: ██░░░░░░░░ 12%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 6 min
-- Total execution time: 0.1 hours
+- Total plans completed: 2
+- Average duration: 5 min
+- Total execution time: 0.2 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01 Foundation & Theme | 1/3 | 6 min | 6 min |
+| 01 Foundation & Theme | 2/3 | 10 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min
+- Last 5 plans: 6 min, 4 min
 - Trend: —
 
 ## Accumulated Context
@@ -45,6 +45,10 @@ Recent decisions affecting current work:
 | 01-01 | Next.js 16.1.6 (not 14) | Latest stable, satisfies "14+" requirement |
 | 01-01 | Tailwind CSS v4 | Ships with latest create-next-app; uses CSS-based config (@import "tailwindcss") not tailwind.config.ts |
 | 01-01 | Package name "swmrha" (lowercase) | npm naming restriction on uppercase directory names |
+| 01-02 | @theme inline for all tokens | Tailwind v4 CSS-based config, no tailwind.config.ts |
+| 01-02 | Typography as CSS classes | .text-display, .text-heading-1/2/3 bundle font-size + line-height + weight + family |
+| 01-02 | Always-dark mode | Removed prefers-color-scheme; site is always dark western theme |
+| 01-02 | Montserrat + Inter via next/font/google | Replaced Geist fonts; font-display: swap for performance |
 
 ### Deferred Issues
 
@@ -52,10 +56,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Plan 01-02 must account for Tailwind v4 config model (CSS @theme directive, not tailwind.config.ts)
+None — Tailwind v4 config concern from 01-01 resolved in 01-02.
 
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 01-01-PLAN.md
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
