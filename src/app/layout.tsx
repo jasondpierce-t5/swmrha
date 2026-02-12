@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Inter } from "next/font/google";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -17,9 +19,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SWMRHA",
+  title: "SWMRHA - Southwest Missouri Reining Horse Association",
   description:
-    "Southwest Missouri Regional Housing Authority — Affordable housing programs and resources for southwest Missouri communities.",
+    "The official website of the Southwest Missouri Reining Horse Association — show schedules, results, membership, and resources for reining horse enthusiasts in southwest Missouri.",
 };
 
 export default function RootLayout({
@@ -32,7 +34,9 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${inter.variable} antialiased`}
       >
-        {children}
+        <Header />
+        <main className="min-h-screen pt-16 lg:pt-20">{children}</main>
+        <Footer />
       </body>
     </html>
   );
