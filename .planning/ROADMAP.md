@@ -16,7 +16,7 @@ None
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Theme** - Next.js 14+ project setup, Tailwind dark western theme, layout system with navigation and footer
+- [x] **Phase 1: Foundation & Theme** - Next.js 14+ project setup, Tailwind dark western theme, layout system with navigation and footer
 - [ ] **Phase 2: Content Extraction** - Parse all Wix HTML pages, create static data files, organize and optimize images
 - [ ] **Phase 3: Home & About Pages** - Home page with hero imagery, events preview, welcome message; About page with mission, board of directors
 - [ ] **Phase 4: Shows & Results Pages** - Show schedule page, show results/standings page, event detail layouts
@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01: Next.js 14+ project initialization with TypeScript, Tailwind CSS, App Router
 - [x] 01-02: Dark western theme system — color palette, typography, Tailwind config
-- [ ] 01-03: Layout shell — responsive header with navigation, footer, page wrapper
+- [x] 01-03: Layout shell — responsive header with navigation, footer, page wrapper
 
 ### Phase 2: Content Extraction
 **Goal**: All usable content from `./currentsite/` extracted into organized static data files and optimized images — the single source of truth for all page content.
@@ -108,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 1. Foundation & Theme | 2/3 | In progress | - |
+| 1. Foundation & Theme | 3/3 | Complete | 2026-02-12 |
 | 2. Content Extraction | 0/3 | Not started | - |
 | 3. Home & About Pages | 0/2 | Not started | - |
 | 4. Shows & Results Pages | 0/2 | Not started | - |
