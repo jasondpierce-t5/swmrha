@@ -48,11 +48,26 @@ export interface Sponsor {
   level?: string;
 }
 
+export interface SponsorLevel {
+  name: string;
+  amount: string;
+  benefits: string[];
+}
+
 export interface Trainer {
   name: string;
   role: string;
+  business?: string;
+  location?: string;
+  phone?: string;
   image?: string;
   url?: string;
+}
+
+export interface Venue {
+  name: string;
+  city: string;
+  state: string;
 }
 
 export interface PageContent {
