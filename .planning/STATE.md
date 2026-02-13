@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** Phase 3 — Home & About Pages
+**Current focus:** Phase 4 — Shows & Results Pages
 
 ## Current Position
 
-Phase: 2 of 7 (Content Extraction) — Complete
-Plan: 3 of 3 in current phase
+Phase: 3 of 7 (Home & About Pages) — Complete
+Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-02-12 — Completed 02-03-PLAN.md
+Last activity: 2026-02-13 — Completed 03-02-PLAN.md
 
-Progress: ████░░░░░░ 35%
+Progress: ████████░░ 57%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 12 min
-- Total execution time: 1.2 hours
+- Total plans completed: 8
+- Average duration: 10 min
+- Total execution time: 1.3 hours
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: ████░░░░░░ 35%
 |-------|-------|-------|----------|
 | 01 Foundation & Theme | 3/3 | 45 min | 15 min |
 | 02 Content Extraction | 3/3 | 28 min | 9 min |
+| 03 Home & About Pages | 2/2 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 35 min, 12 min, 8 min, 8 min
-- Trend: —
+- Last 5 plans: 12 min, 8 min, 8 min, 1 min, 5 min
+- Trend: Improving (automation-heavy UI tasks completing faster)
 
 ## Accumulated Context
 
@@ -60,6 +61,10 @@ Recent decisions affecting current work:
 | 02-02 | Facebook link is RockingHLLC | Only social link found; not a dedicated SMRHA page |
 | 02-03 | 6 additional sponsors identified from HTML links | Cowtown USA, RDS Financing, Equine Oasis, Rocking H, Aussie Flair, Shaffhauser Stables |
 | 02-03 | Central image manifest pattern | src/data/images.ts as single source of truth for all image paths |
+| 03-01 | Hero uses full-bleed Image with dark gradient overlay | Ensures text readability across varying background images |
+| 03-01 | Quick links in 4-column desktop, 2-column mobile | Optimizes for thumb-friendly tapping on mobile devices |
+| 03-02 | Placeholder avatars using UserCircleIcon | Board member photos don't exist in extracted data |
+| 03-02 | Phone/email as clickable tel:/mailto: links | Mobile UX optimization - one-tap to call or email |
 
 ### Deferred Issues
 
@@ -71,6 +76,6 @@ None — Tailwind v4 config concern from 01-01 resolved in 01-02.
 
 ## Session Continuity
 
-Last session: 2026-02-12
-Stopped at: Completed 02-03-PLAN.md — Phase 2 complete
+Last session: 2026-02-13
+Stopped at: Completed 03-02-PLAN.md — Phase 3 complete
 Resume file: None
