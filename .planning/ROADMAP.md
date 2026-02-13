@@ -19,8 +19,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation & Theme** - Next.js 14+ project setup, Tailwind dark western theme, layout system with navigation and footer
 - [x] **Phase 2: Content Extraction** - Parse all Wix HTML pages, create static data files, organize and optimize images
 - [x] **Phase 3: Home & About Pages** - Home page with hero imagery, events preview, welcome message; About page with mission, board of directors
-- [ ] **Phase 4: Shows & Results Pages** *(Up next)* - Show schedule page, show results/standings page, event detail layouts
-- [ ] **Phase 5: Membership & Resources** - Membership info, rules/classes, Green as Grass buckle program, FAQ, Find a Trainer
+- [x] **Phase 4: Shows & Results Pages** - Show schedule page, show results/standings page, event detail layouts
+- [x] **Phase 5: Membership & Resources** - Membership info, rules/classes, Green as Grass buckle program, FAQ, Find a Trainer
 - [ ] **Phase 6: Gallery, Sponsors & Contact** - Photo/video gallery, sponsors page with logos, contact page with form
 - [ ] **Phase 7: Polish & Deployment** - SEO/meta tags, accessibility audit, performance optimization, responsive testing, Vercel deployment
 
@@ -112,6 +112,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Content Extraction | 3/3 | Complete | 2026-02-12 |
 | 3. Home & About Pages | 2/2 | Complete | 2026-02-13 |
 | 4. Shows & Results Pages | 2/2 | Complete | 2026-02-13 |
-| 5. Membership & Resources | 0/2 | Not started | - |
+| 5. Membership & Resources | 2/2 | Complete | 2026-02-13 |
 | 6. Gallery, Sponsors & Contact | 0/2 | Not started | - |
 | 7. Polish & Deployment | 0/3 | Not started | - |

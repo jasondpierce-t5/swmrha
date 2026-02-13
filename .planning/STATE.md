@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** Phase 5 — Membership & Resources
+**Current focus:** Phase 6 — Gallery, Sponsors & Contact (next)
 
 ## Current Position
 
-Phase: 4 of 7 (Shows & Results Pages) — Complete
+Phase: 5 of 7 (Membership & Resources) — Complete
 Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-02-13 — Completed 04-02-PLAN.md via parallel execution
+Last activity: 2026-02-13 — Completed Phase 5 via parallel execution (05-01, 05-02)
 
-Progress: ██████████ 71%
+Progress: ████████████░ 71%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 8 min
-- Total execution time: 1.4 hours
+- Total plans completed: 12
+- Average duration: 7 min
+- Total execution time: 1.6 hours
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: ██████████ 71%
 | 02 Content Extraction | 3/3 | 28 min | 9 min |
 | 03 Home & About Pages | 2/2 | 6 min | 3 min |
 | 04 Shows & Results Pages | 2/2 | 6 min | 3 min |
+| 05 Membership & Resources | 2/2 | 10 min (parallel) | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 8 min, 1 min, 5 min, 3 min, 3 min
-- Trend: Stable (parallel execution maintains efficiency)
+- Last 5 plans: 1 min, 5 min, 3 min, 3 min, 5 min (avg)
+- Trend: Excellent (parallel execution maintaining high efficiency)
 
 ## Accumulated Context
 
@@ -71,6 +72,12 @@ Recent decisions affecting current work:
 | 04-02 | Icon selection based on link content | Trophy for champions, Camera for photos, ChartBar for standings, Document default |
 | 04-02 | 3-column results grid on desktop | Optimizes space while maintaining readability |
 | 04-02 | Provider URLs shown without https:// | Cleaner visual presentation |
+| 05-01 | Rules page as resource gateway | Concise page linking to NRHA Handbook, Pattern Book, main website vs heavy content |
+| 05-01 | 3-column resource card grid | Equal visual weight for NRHA resources |
+| 05-02 | Numbered cards for GAG rules | Individual cards with prominent numbering (1-6) vs simple list for scannability |
+| 05-02 | Q&A format for FAQs | "Q:" and "A:" prefixes for clarity |
+| 05-02 | Trainer cards: image-first hierarchy | Images at top, business name in gold for visual recognition |
+| 05-02 | tel: protocol for trainer phones | Mobile-first: one-tap calling on devices |
 
 ### Deferred Issues
 
@@ -83,5 +90,5 @@ None — Tailwind v4 config concern from 01-01 resolved in 01-02.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 04-02-PLAN.md via parallel execution — Phase 4 complete
+Stopped at: Completed Phase 5 via parallel execution (05-01, 05-02) — Phase 5 complete
 Resume file: None
