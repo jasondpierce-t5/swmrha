@@ -189,6 +189,71 @@ export default function Results() {
           )}
         </div>
       </section>
+
+      {/* Results Providers Section */}
+      <section className="bg-navy-800 py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-heading-2 text-center text-white mb-8">
+            Results Provided By
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="text-center">
+              <h3 className="text-heading-3 text-gold-500 mb-3">
+                {resultsProviders.whiteHorse.name}
+              </h3>
+              <a
+                href={resultsProviders.whiteHorse.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-teal-500 hover:text-teal-400 inline-flex items-center gap-2 text-lg"
+              >
+                <span>{resultsProviders.whiteHorse.url.replace("https://", "")}</span>
+                <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+              </a>
+            </div>
+
+            <div className="text-center">
+              <h3 className="text-heading-3 text-gold-500 mb-3">
+                {resultsProviders.tdPhoto.name}
+              </h3>
+              <a
+                href={resultsProviders.tdPhoto.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-teal-500 hover:text-teal-400 inline-flex items-center gap-2 text-lg"
+              >
+                <span>{resultsProviders.tdPhoto.url.replace("https://", "")}</span>
+                <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Live Results Information Section */}
+      <section className="bg-navy-900 py-12">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-heading-2 text-gold-500 mb-6">
+            Live Results
+          </h2>
+
+          <div className="space-y-4 text-lg text-slate-300">
+            <p>
+              Live results are posted during shows via White Horse Show Management and TD Photo links.
+            </p>
+            <p>
+              Final results and standings are published after each event.
+            </p>
+          </div>
+
+          <div className="mt-8 bg-navy-700 rounded-card border border-gold-500/20 p-6">
+            <p className="text-white font-semibold text-lg">
+              Check back after each show for updated standings and year-end points!
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
