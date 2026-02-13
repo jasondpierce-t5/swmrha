@@ -6,12 +6,14 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   MapPinIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 import {
   officers,
   subtitle,
   mailingAddress,
   socialMedia,
+  primaryContact,
 } from "@/data/contact";
 import { images } from "@/data/images";
 import type { Metadata } from "next";
@@ -47,6 +49,93 @@ export default function Contact() {
           <p className="text-gold-500 font-heading text-xl max-w-2xl">
             {subtitle}
           </p>
+        </div>
+      </section>
+
+      {/* Quick Contact Section */}
+      <section className="bg-navy-900 py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-navy-800 border border-gold-500/20 rounded-lg p-8">
+            <h2 className="text-heading-2 text-white text-center mb-6">
+              Need Help?
+            </h2>
+            <p className="text-slate-300 text-center mb-8">
+              Have questions about membership or shows? Contact our president
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Email Quick Link */}
+              <a
+                href={`mailto:${primaryContact.email}`}
+                className="flex items-center justify-center gap-3 bg-navy-900 border border-gold-500/20 hover:border-gold-500/40 rounded-lg p-6 transition-colors group"
+              >
+                <EnvelopeIcon className="w-8 h-8 text-gold-500" />
+                <div className="text-left">
+                  <p className="text-white font-heading font-bold mb-1">
+                    Email Us
+                  </p>
+                  <p className="text-teal-500 text-sm group-hover:text-teal-400 transition-colors">
+                    {primaryContact.email}
+                  </p>
+                </div>
+              </a>
+
+              {/* Phone Quick Link */}
+              <a
+                href={`tel:${primaryContact.phone.replace(/[^0-9]/g, "")}`}
+                className="flex items-center justify-center gap-3 bg-navy-900 border border-gold-500/20 hover:border-gold-500/40 rounded-lg p-6 transition-colors group"
+              >
+                <PhoneIcon className="w-8 h-8 text-gold-500" />
+                <div className="text-left">
+                  <p className="text-white font-heading font-bold mb-1">
+                    Call Us
+                  </p>
+                  <p className="text-teal-500 text-sm group-hover:text-teal-400 transition-colors">
+                    {primaryContact.phone}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Primary Contact Callout */}
+      <section className="bg-navy-800 py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-navy-900 border border-gold-500 rounded-lg p-8">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <StarIcon className="w-8 h-8 text-gold-500" />
+              <h2 className="text-heading-2 text-white">Primary Contact</h2>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div>
+                <h3 className="text-white font-heading font-bold text-xl mb-2">
+                  {primaryContact.name}
+                </h3>
+                <p className="text-gold-500 font-heading">{primaryContact.role}</p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a
+                  href={`tel:${primaryContact.phone.replace(/[^0-9]/g, "")}`}
+                  className="flex items-center gap-2 text-teal-500 hover:text-teal-400 transition-colors"
+                >
+                  <PhoneIcon className="w-5 h-5" />
+                  <span className="text-lg">{primaryContact.phone}</span>
+                </a>
+                <span className="hidden sm:inline text-slate-600">|</span>
+                <a
+                  href={`mailto:${primaryContact.email}`}
+                  className="flex items-center gap-2 text-teal-500 hover:text-teal-400 transition-colors"
+                >
+                  <EnvelopeIcon className="w-5 h-5" />
+                  <span className="text-lg">{primaryContact.email}</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
