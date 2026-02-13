@@ -1,12 +1,67 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { CameraIcon } from "@heroicons/react/24/outline";
+import { useState, useEffect } from "react";
+import {
+  CameraIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { images } from "@/data/images";
 
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedIndex(null);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handlePrevious();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedIndex]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedIndex]);
+
+  const handlePrevious = () => {
+    setSelectedIndex((prev) => {
+      if (prev === null) return null;
+      return prev === 0 ? images.gallery.length - 1 : prev - 1;
+    });
+  };
+
+  const handleNext = () => {
+    setSelectedIndex((prev) => {
+      if (prev === null) return null;
+      return prev === images.gallery.length - 1 ? 0 : prev + 1;
+    });
+  };
+
+  const handleClose = () => {
+    setSelectedIndex(null);
+  };
 
   return (
     <>
@@ -61,6 +116,68 @@ export default function Gallery() {
           </div>
         </div>
       </section>
+
+      {/* Modal Lightbox */}
+      {selectedIndex !== null && (
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
+          onClick={handleClose}
+        >
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 text-white hover:text-gold-500 transition-colors z-[60]"
+            aria-label="Close lightbox"
+          >
+            <XMarkIcon className="w-10 h-10" />
+          </button>
+
+          {/* Previous Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrevious();
+            }}
+            className="absolute left-4 text-white hover:text-gold-500 transition-colors z-[60]"
+            aria-label="Previous photo"
+          >
+            <ChevronLeftIcon className="w-12 h-12" />
+          </button>
+
+          {/* Next Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+            className="absolute right-4 text-white hover:text-gold-500 transition-colors z-[60]"
+            aria-label="Next photo"
+          >
+            <ChevronRightIcon className="w-12 h-12" />
+          </button>
+
+          {/* Image Container */}
+          <div
+            className="relative max-w-5xl max-h-screen w-full h-full p-4 flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative w-full h-full">
+              <Image
+                src={images.gallery[selectedIndex]}
+                alt={`Gallery photo ${selectedIndex + 1}`}
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Image Counter */}
+          <div className="absolute bottom-4 right-4 text-white font-heading text-lg z-[60]">
+            Photo {selectedIndex + 1} of {images.gallery.length}
+          </div>
+        </div>
+      )}
     </>
   );
 }
