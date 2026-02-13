@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** Phase 4 — Shows & Results Pages
+**Current focus:** Phase 5 — Membership & Resources
 
 ## Current Position
 
-Phase: 3 of 7 (Home & About Pages) — Complete
+Phase: 4 of 7 (Shows & Results Pages) — Complete
 Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-02-13 — Completed 03-02-PLAN.md
+Last activity: 2026-02-13 — Completed 04-02-PLAN.md via parallel execution
 
-Progress: ████████░░ 57%
+Progress: ██████████ 71%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 10 min
-- Total execution time: 1.3 hours
+- Total plans completed: 10
+- Average duration: 8 min
+- Total execution time: 1.4 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: ████████░░ 57%
 | 01 Foundation & Theme | 3/3 | 45 min | 15 min |
 | 02 Content Extraction | 3/3 | 28 min | 9 min |
 | 03 Home & About Pages | 2/2 | 6 min | 3 min |
+| 04 Shows & Results Pages | 2/2 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 12 min, 8 min, 8 min, 1 min, 5 min
-- Trend: Improving (automation-heavy UI tasks completing faster)
+- Last 5 plans: 8 min, 1 min, 5 min, 3 min, 3 min
+- Trend: Stable (parallel execution maintains efficiency)
 
 ## Accumulated Context
 
@@ -65,6 +66,11 @@ Recent decisions affecting current work:
 | 03-01 | Quick links in 4-column desktop, 2-column mobile | Optimizes for thumb-friendly tapping on mobile devices |
 | 03-02 | Placeholder avatars using UserCircleIcon | Board member photos don't exist in extracted data |
 | 03-02 | Phone/email as clickable tel:/mailto: links | Mobile UX optimization - one-tap to call or email |
+| 04-01 | images.events.hero1 for shows page hero | Maintains visual consistency with Phase 3 hero patterns |
+| 04-01 | BuildingStorefrontIcon and TicketIcon for venue/entry | Provides visual interest and section identification |
+| 04-02 | Icon selection based on link content | Trophy for champions, Camera for photos, ChartBar for standings, Document default |
+| 04-02 | 3-column results grid on desktop | Optimizes space while maintaining readability |
+| 04-02 | Provider URLs shown without https:// | Cleaner visual presentation |
 
 ### Deferred Issues
 
@@ -77,5 +83,5 @@ None — Tailwind v4 config concern from 01-01 resolved in 01-02.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 03-02-PLAN.md — Phase 3 complete
+Stopped at: Completed 04-02-PLAN.md via parallel execution — Phase 4 complete
 Resume file: None
