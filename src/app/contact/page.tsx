@@ -19,9 +19,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | SMRHA",
+  title: "Contact Us | SWMRHA",
   description:
-    "Get in touch with SMRHA officers and board members. Find contact information, mailing address, and social media links.",
+    "Get in touch with SWMRHA officers and board members. Find contact information, mailing address, and social media links",
+  openGraph: {
+    title: "Contact Us | SWMRHA",
+    description:
+      "Get in touch with SWMRHA officers and board members. Find contact information, mailing address, and social media links",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | SWMRHA",
+    description:
+      "Get in touch with SWMRHA officers and board members. Find contact information, mailing address, and social media links",
+  },
 };
 
 export default function Contact() {

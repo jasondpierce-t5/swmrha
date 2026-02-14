@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import type { Metadata } from "next";
 import {
   heroImage,
   heroTitle,
@@ -14,6 +15,26 @@ import {
   showAnnouncements,
   gagBuckleInfo,
 } from "@/data/home";
+
+export const metadata: Metadata = {
+  title: "Home | SWMRHA",
+  description:
+    "Southwest Missouri Reining Horse Association — show schedules, results, membership info, and resources for reining enthusiasts",
+  openGraph: {
+    title: "Home | SWMRHA",
+    description:
+      "Southwest Missouri Reining Horse Association — show schedules, results, membership info, and resources for reining enthusiasts",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Home | SWMRHA",
+    description:
+      "Southwest Missouri Reining Horse Association — show schedules, results, membership info, and resources for reining enthusiasts",
+  },
+};
 
 export default function Home() {
   return (

@@ -14,9 +14,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Green as Grass Buckle Program | SMRHA",
+  title: "Green as Grass Buckle Program | SWMRHA",
   description:
-    "The Green As Grass program offers a non-competitive start to showing where riders earn points and graduate with a buckle after accumulating 40 points.",
+    "The Green As Grass program offers a non-competitive start to showing where riders earn points and graduate with a buckle",
+  openGraph: {
+    title: "Green as Grass Buckle Program | SWMRHA",
+    description:
+      "The Green As Grass program offers a non-competitive start to showing where riders earn points and graduate with a buckle",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Green as Grass Buckle Program | SWMRHA",
+    description:
+      "The Green As Grass program offers a non-competitive start to showing where riders earn points and graduate with a buckle",
+  },
 };
 
 export default function GreenAsGrass() {

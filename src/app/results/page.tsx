@@ -10,8 +10,23 @@ import { resultsLinks, resultsProviders } from "@/data/shows";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Results & Standings | SMRHA",
-  description: "View show results, year-end champions, current standings, and performance records for Southwest Missouri Reining Horse Association events.",
+  title: "Results & Standings | SWMRHA",
+  description:
+    "View show results, year-end champions, current standings, and performance records for SWMRHA reining events",
+  openGraph: {
+    title: "Results & Standings | SWMRHA",
+    description:
+      "View show results, year-end champions, current standings, and performance records for SWMRHA reining events",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Results & Standings | SWMRHA",
+    description:
+      "View show results, year-end champions, current standings, and performance records for SWMRHA reining events",
+  },
 };
 
 // Helper to determine which icon to use based on link label

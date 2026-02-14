@@ -5,9 +5,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Rules & Classes | SMRHA",
+  title: "Rules & Classes | SWMRHA",
   description:
-    "SMRHA follows NRHA rules and regulations. Access the official NRHA Handbook, Pattern Book, and resources for complete rules and class information.",
+    "SWMRHA follows NRHA rules and regulations. Access the official NRHA Handbook, Pattern Book, and resources for complete rules",
+  openGraph: {
+    title: "Rules & Classes | SWMRHA",
+    description:
+      "SWMRHA follows NRHA rules and regulations. Access the official NRHA Handbook, Pattern Book, and resources for complete rules",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rules & Classes | SWMRHA",
+    description:
+      "SWMRHA follows NRHA rules and regulations. Access the official NRHA Handbook, Pattern Book, and resources for complete rules",
+  },
 };
 
 export default function Rules() {

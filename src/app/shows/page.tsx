@@ -11,9 +11,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Show Schedule | SMRHA",
+  title: "Show Schedule | SWMRHA",
   description:
-    "View the 2025 show schedule for Southwest Missouri Reining Horse Association - upcoming reining shows at Lucky J Arena in Carthage, MO.",
+    "View SWMRHA show schedules, event dates, locations, classes, and entry information for reining competitions",
+  openGraph: {
+    title: "Show Schedule | SWMRHA",
+    description:
+      "View SWMRHA show schedules, event dates, locations, classes, and entry information for reining competitions",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Show Schedule | SWMRHA",
+    description:
+      "View SWMRHA show schedules, event dates, locations, classes, and entry information for reining competitions",
+  },
 };
 
 export default function Shows() {

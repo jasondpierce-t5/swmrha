@@ -4,9 +4,23 @@ import { officers, subtitle } from "@/data/contact";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About - SWMRHA",
+  title: "About | SWMRHA",
   description:
-    "Learn about the Southwest Missouri Reining Horse Association - our mission, officers, and board members dedicated to promoting reining at the grassroots level.",
+    "Learn about SWMRHA's mission, history, and meet our board of directors leading southwest Missouri's premier reining association",
+  openGraph: {
+    title: "About | SWMRHA",
+    description:
+      "Learn about SWMRHA's mission, history, and meet our board of directors leading southwest Missouri's premier reining association",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About | SWMRHA",
+    description:
+      "Learn about SWMRHA's mission, history, and meet our board of directors leading southwest Missouri's premier reining association",
+  },
 };
 
 export default function About() {

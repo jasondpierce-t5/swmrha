@@ -5,9 +5,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FAQ | SMRHA",
+  title: "FAQ | SWMRHA",
   description:
-    "Frequently asked questions about Southwest Missouri Reining Horse Association - membership, horses, rules, and more.",
+    "Frequently asked questions about Southwest Missouri Reining Horse Association - membership, horses, rules, and more",
+  openGraph: {
+    title: "FAQ | SWMRHA",
+    description:
+      "Frequently asked questions about Southwest Missouri Reining Horse Association - membership, horses, rules, and more",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ | SWMRHA",
+    description:
+      "Frequently asked questions about Southwest Missouri Reining Horse Association - membership, horses, rules, and more",
+  },
 };
 
 export default function FAQ() {

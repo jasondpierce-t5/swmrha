@@ -5,9 +5,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Find a Trainer | SMRHA",
+  title: "Find a Trainer | SWMRHA",
   description:
-    "Connect with professional reining horse trainers in the Southwest Missouri region. Browse trainer profiles with contact information and websites.",
+    "Connect with professional reining horse trainers in the Southwest Missouri region. Browse trainer profiles with contact info",
+  openGraph: {
+    title: "Find a Trainer | SWMRHA",
+    description:
+      "Connect with professional reining horse trainers in the Southwest Missouri region. Browse trainer profiles with contact info",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Find a Trainer | SWMRHA",
+    description:
+      "Connect with professional reining horse trainers in the Southwest Missouri region. Browse trainer profiles with contact info",
+  },
 };
 
 export default function FindATrainer() {

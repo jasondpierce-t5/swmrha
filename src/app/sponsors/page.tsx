@@ -15,9 +15,23 @@ import { images } from "@/data/images";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sponsors | SMRHA",
+  title: "Sponsors | SWMRHA",
   description:
-    "Thank you to our sponsors who make SMRHA shows and events possible. Learn about sponsorship opportunities and benefits.",
+    "Thank you to our sponsors who make SWMRHA shows and events possible. Learn about sponsorship opportunities and benefits",
+  openGraph: {
+    title: "Sponsors | SWMRHA",
+    description:
+      "Thank you to our sponsors who make SWMRHA shows and events possible. Learn about sponsorship opportunities and benefits",
+    type: "website",
+    locale: "en_US",
+    siteName: "SWMRHA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sponsors | SWMRHA",
+    description:
+      "Thank you to our sponsors who make SWMRHA shows and events possible. Learn about sponsorship opportunities and benefits",
+  },
 };
 
 export default function Sponsors() {
