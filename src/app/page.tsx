@@ -207,7 +207,9 @@ export default function Home() {
           <div className="relative">
             <div className="flex gap-8 animate-scroll">
               {/* Double the sponsors array for seamless loop */}
-              {[...sponsors, ...sponsors].map((sponsor, index) => (
+              {[...sponsors, ...sponsors]
+                .filter((sponsor) => sponsor.image)
+                .map((sponsor, index) => (
                 <div
                   key={index}
                   className="flex-shrink-0 w-48 h-32 bg-white rounded-lg p-4 flex items-center justify-center"
@@ -220,7 +222,7 @@ export default function Home() {
                       className="w-full h-full flex items-center justify-center"
                     >
                       <Image
-                        src={sponsor.image}
+                        src={sponsor.image!}
                         alt={sponsor.name}
                         width={160}
                         height={100}
@@ -229,7 +231,7 @@ export default function Home() {
                     </a>
                   ) : (
                     <Image
-                      src={sponsor.image}
+                      src={sponsor.image!}
                       alt={sponsor.name}
                       width={160}
                       height={100}
