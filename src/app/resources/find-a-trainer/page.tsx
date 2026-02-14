@@ -75,12 +75,12 @@ export default function FindATrainer() {
               >
                 {/* Trainer Image */}
                 {trainer.image && (
-                  <div className="relative h-64 w-full">
+                  <div className="relative h-64 w-full bg-navy-800">
                     <Image
                       src={trainer.image}
                       alt={trainer.name}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                 )}

@@ -5,7 +5,7 @@
 
 import type { Event, QuickLink, RelatedOrg } from "./types";
 
-export const heroImage = "/images/events/hero-1.jpg";
+export const heroImage = "/images/gallery/lipps_updated.png";
 
 export const heroTitle = "Southwest Missouri Reining Horse Association";
 

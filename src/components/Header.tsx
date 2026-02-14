@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { navigation, type NavItem } from "@/lib/navigation";
@@ -65,13 +66,14 @@ export default function Header() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between lg:h-20">
             {/* Logo */}
-            <Link href="/" className="flex flex-col leading-tight shrink-0">
-              <span className="font-heading text-gold-500 font-bold text-xl lg:text-2xl">
-                SWMRHA
-              </span>
-              <span className="text-slate-400 text-[10px] lg:text-xs leading-tight hidden sm:block">
-                Southwest Missouri Reining Horse Association
-              </span>
+            <Link href="/" className="flex items-center shrink-0">
+              <Image
+                src="/images/logos/swmrha-logo.jpg"
+                alt="SWMRHA - Southwest Missouri Reining Horse Association"
+                width={60}
+                height={60}
+                className="rounded-full object-cover"
+              />
             </Link>
 
             {/* Desktop Navigation */}

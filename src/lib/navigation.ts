@@ -6,13 +6,13 @@ export type NavItem = {
 
 export const navigation: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   {
-    label: "Shows & Events",
+    label: "Shows",
     href: "/shows",
     children: [
       { label: "Show Schedule", href: "/shows/schedule" },
       { label: "Results & Standings", href: "/shows/results" },
+      { label: "Gallery", href: "/gallery" },
     ],
   },
   {
@@ -22,17 +22,18 @@ export const navigation: NavItem[] = [
       { label: "Join SWMRHA", href: "/membership/join" },
       { label: "Rules & Classes", href: "/membership/rules" },
       { label: "Green as Grass", href: "/membership/green-as-grass" },
+      { label: "Demo (Online Payments)", href: "/board-demo" },
     ],
   },
   {
-    label: "Resources",
-    href: "/resources",
+    label: "About",
+    href: "/about",
     children: [
-      { label: "FAQ", href: "/resources/faq" },
+      { label: "About Us", href: "/about" },
       { label: "Find a Trainer", href: "/resources/find-a-trainer" },
+      { label: "Sponsors", href: "/sponsors" },
+      { label: "FAQ", href: "/resources/faq" },
+      { label: "Contact", href: "/contact" },
     ],
   },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Sponsors", href: "/sponsors" },
-  { label: "Contact", href: "/contact" },
 ];

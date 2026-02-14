@@ -12,9 +12,8 @@ import {
   contactCallout,
   upcomingEvents,
   quickLinks,
-  showAnnouncements,
-  gagBuckleInfo,
 } from "@/data/home";
+import { sponsors } from "@/data/sponsors";
 
 export const metadata: Metadata = {
   title: "Home | SWMRHA",
@@ -47,7 +46,7 @@ export default function Home() {
           alt="Southwest Missouri Reining Horse Association"
           fill
           priority
-          className="object-cover"
+          className="object-contain"
         />
 
         {/* Dark Overlay */}
@@ -197,28 +196,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Show Announcements + GAG Section */}
-      <section className="bg-navy-900 py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          {showAnnouncements.map((announcement, index) => (
-            <p
-              key={index}
-              className={
-                index === 0
-                  ? "text-heading-2 text-gold-500 mb-4"
-                  : "text-lg text-slate-300 mb-2"
-              }
-            >
-              {announcement}
-            </p>
-          ))}
+      {/* Sponsors Scrolling Bar */}
+      <section className="bg-navy-900 py-12 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-heading-2 text-center text-gold-500 mb-8">
+            Our Sponsors
+          </h2>
 
-          <div className="mt-8">
-            {gagBuckleInfo.map((info, index) => (
-              <p key={index} className="text-gold-400 font-semibold">
-                {info}
-              </p>
-            ))}
+          {/* Scrolling container */}
+          <div className="relative">
+            <div className="flex gap-8 animate-scroll">
+              {/* Double the sponsors array for seamless loop */}
+              {[...sponsors, ...sponsors].map((sponsor, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-48 h-32 bg-white rounded-lg p-4 flex items-center justify-center"
+                >
+                  {sponsor.url ? (
+                    <a
+                      href={sponsor.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full h-full flex items-center justify-center"
+                    >
+                      <Image
+                        src={sponsor.image}
+                        alt={sponsor.name}
+                        width={160}
+                        height={100}
+                        className="object-contain max-w-full max-h-full"
+                      />
+                    </a>
+                  ) : (
+                    <Image
+                      src={sponsor.image}
+                      alt={sponsor.name}
+                      width={160}
+                      height={100}
+                      className="object-contain max-w-full max-h-full"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
