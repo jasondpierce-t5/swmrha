@@ -29,8 +29,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Southwest Missouri Reining Horse Association",
+    alternateName: "SWMRHA",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://swmrha.org",
+    sameAs: ["https://www.facebook.com/RockingHLLC"],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "General Inquiries",
+      email: "jeromylipps@yahoo.com",
+    },
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${montserrat.variable} ${inter.variable} antialiased`}
       >
