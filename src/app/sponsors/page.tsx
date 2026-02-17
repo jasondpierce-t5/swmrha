@@ -3,14 +3,15 @@ import Link from "next/link";
 import {
   HeartIcon,
   ArrowTopRightOnSquareIcon,
+  BuildingStorefrontIcon,
 } from "@heroicons/react/24/outline";
 import {
-  sponsors,
   intro,
   signupUrl,
   sponsorLevels,
   sponsorLevelsHeading,
 } from "@/data/sponsors";
+import { getSponsors } from "@/lib/actions/sponsors";
 import { images } from "@/data/images";
 import type { Metadata } from "next";
 
@@ -34,7 +35,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Sponsors() {
+export default async function Sponsors() {
+  const result = await getSponsors();
+  const sponsors = Array.isArray(result) ? result : [];
+
   // Group sponsors by tier
   const tiers = ["Platinum", "Diamond", "Gold", "Silver", "Bronze"];
   const sponsorsByTier = tiers.map((tier) => ({
@@ -72,6 +76,14 @@ export default function Sponsors() {
       {/* Sponsors Grid by Tier */}
       <section className="bg-navy-800 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4">
+          {sponsors.length === 0 ? (
+            <div className="text-center py-12">
+              <BuildingStorefrontIcon className="w-12 h-12 text-gold-500/50 mx-auto mb-4" />
+              <p className="text-slate-300 text-lg">
+                No sponsors listed yet. Check back soon!
+              </p>
+            </div>
+          ) : (
           <div className="space-y-16">
             {sponsorsByTier.map(
               ({ tier, sponsors: tierSponsors }) =>
@@ -91,12 +103,12 @@ export default function Sponsors() {
 
                         const cardContent = (
                           <div className="bg-navy-900 border border-gold-500/20 rounded-lg p-6 flex flex-col items-center justify-center space-y-4 hover:border-gold-500/40 transition-colors group">
-                            {sponsor.image && (
+                            {sponsor.image_url && (
                               <div
                                 className={`relative ${logoHeight} w-full flex items-center justify-center`}
                               >
                                 <Image
-                                  src={sponsor.image}
+                                  src={sponsor.image_url}
                                   alt={sponsor.name}
                                   fill
                                   className="object-contain"
@@ -107,7 +119,7 @@ export default function Sponsors() {
                               <h3 className="text-white font-heading font-bold text-lg">
                                 {sponsor.name}
                               </h3>
-                              {sponsor.url && (
+                              {sponsor.website_url && (
                                 <div className="flex items-center justify-center gap-1 mt-2">
                                   <span className="text-teal-500 text-sm">
                                     Visit Website
@@ -119,10 +131,10 @@ export default function Sponsors() {
                           </div>
                         );
 
-                        return sponsor.url ? (
+                        return sponsor.website_url ? (
                           <Link
                             key={sponsor.name}
-                            href={sponsor.url}
+                            href={sponsor.website_url}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -137,6 +149,7 @@ export default function Sponsors() {
                 )
             )}
           </div>
+          )}
         </div>
       </section>
 
