@@ -8,7 +8,8 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import { createClient } from "@/lib/supabase/server";
-import { showSchedule, resultsLinks } from "@/data/shows";
+import { resultsLinks } from "@/data/shows";
+import { getShows } from "@/lib/actions/shows";
 import { sponsors } from "@/data/sponsors";
 
 export default async function AdminDashboardPage() {
@@ -21,10 +22,13 @@ export default async function AdminDashboardPage() {
     redirect("/login");
   }
 
+  const showsResult = await getShows();
+  const shows = Array.isArray(showsResult) ? showsResult : [];
+
   const contentCards = [
     {
       label: "Shows",
-      count: showSchedule.length,
+      count: shows.length,
       icon: CalendarDaysIcon,
       href: "/admin/shows",
     },
