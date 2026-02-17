@@ -1,0 +1,41 @@
+import {
+  HomeIcon,
+  CalendarDaysIcon,
+  BuildingStorefrontIcon,
+  TrophyIcon,
+} from "@heroicons/react/24/outline";
+import type { ComponentType, SVGProps } from "react";
+
+export type AdminNavItem = {
+  label: string;
+  href: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  description: string;
+};
+
+export const adminNavigation: AdminNavItem[] = [
+  {
+    label: "Dashboard",
+    href: "/admin",
+    icon: HomeIcon,
+    description: "Overview and quick actions",
+  },
+  {
+    label: "Shows",
+    href: "/admin/shows",
+    icon: CalendarDaysIcon,
+    description: "Manage show schedule and events",
+  },
+  {
+    label: "Sponsors",
+    href: "/admin/sponsors",
+    icon: BuildingStorefrontIcon,
+    description: "Manage sponsor listings",
+  },
+  {
+    label: "Results",
+    href: "/admin/results",
+    icon: TrophyIcon,
+    description: "Manage show results and standings",
+  },
+];
