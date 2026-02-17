@@ -53,3 +53,24 @@ export type SponsorInsert = Omit<SponsorRow, 'id' | 'created_at' | 'updated_at'>
 
 /** Fields allowed when updating a sponsor. */
 export type SponsorUpdate = Partial<SponsorInsert> & { id: string };
+
+// ---------------------------------------------------------------------------
+// Results table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `results` table. */
+export interface ResultRow {
+  id: string;
+  label: string;
+  url: string;
+  category: string;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Fields required to insert a new result. */
+export type ResultInsert = Omit<ResultRow, 'id' | 'created_at' | 'updated_at'>;
+
+/** Fields allowed when updating a result. */
+export type ResultUpdate = Partial<ResultInsert> & { id: string };
