@@ -8,9 +8,9 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import { createClient } from "@/lib/supabase/server";
-import { resultsLinks } from "@/data/shows";
 import { getShows } from "@/lib/actions/shows";
 import { getSponsors } from "@/lib/actions/sponsors";
+import { getResults } from "@/lib/actions/results";
 
 export default async function AdminDashboardPage() {
   const supabase = await createClient();
@@ -28,6 +28,9 @@ export default async function AdminDashboardPage() {
   const sponsorsResult = await getSponsors();
   const sponsorsList = Array.isArray(sponsorsResult) ? sponsorsResult : [];
 
+  const resultsResult = await getResults();
+  const resultsList = Array.isArray(resultsResult) ? resultsResult : [];
+
   const contentCards = [
     {
       label: "Shows",
@@ -43,7 +46,7 @@ export default async function AdminDashboardPage() {
     },
     {
       label: "Results",
-      count: resultsLinks.length,
+      count: resultsList.length,
       icon: TrophyIcon,
       href: "/admin/results",
     },
