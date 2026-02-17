@@ -8,6 +8,11 @@ A ground-up rebuild of the SWMRHA website from a downloaded Wix site to a modern
 
 None
 
+## Milestones
+
+- ✅ **v1.0 MVP** - Phases 1-7 (shipped 2026-02-14)
+- 🚧 **v1.1 Admin & Management** - Phases 8-13 (in progress)
+
 ## Phases
 
 **Phase Numbering:**
@@ -16,15 +21,8 @@ None
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [x] **Phase 1: Foundation & Theme** - Next.js 14+ project setup, Tailwind dark western theme, layout system with navigation and footer
-- [x] **Phase 2: Content Extraction** - Parse all Wix HTML pages, create static data files, organize and optimize images
-- [x] **Phase 3: Home & About Pages** - Home page with hero imagery, events preview, welcome message; About page with mission, board of directors
-- [x] **Phase 4: Shows & Results Pages** - Show schedule page, show results/standings page, event detail layouts
-- [x] **Phase 5: Membership & Resources** - Membership info, rules/classes, Green as Grass buckle program, FAQ, Find a Trainer
-- [ ] **Phase 6: Gallery, Sponsors & Contact** - Photo/video gallery, sponsors page with logos, contact page with form
-- [ ] **Phase 7: Polish & Deployment** - SEO/meta tags, accessibility audit, performance optimization, responsive testing, Vercel deployment
-
-## Phase Details
+<details>
+<summary>✅ v1.0 MVP (Phases 1-7) - SHIPPED 2026-02-14</summary>
 
 ### Phase 1: Foundation & Theme
 **Goal**: A working Next.js 14+ app with Tailwind CSS, the dark western-professional theme established (colors, typography, spacing), and a responsive layout shell with navigation and footer — ready to receive page content.
@@ -56,8 +54,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Home page — hero section, upcoming events cards, welcome message, quick links
-- [ ] 03-02: About page — mission/history section, board of directors grid with photos
+- [x] 03-01: Home page — hero section, upcoming events cards, welcome message, quick links
+- [x] 03-02: About page — mission/history section, board of directors grid with photos
 
 ### Phase 4: Shows & Results Pages
 **Goal**: A Shows & Events page with schedule, dates, locations, classes, and entry info; a Results/Standings page displaying points standings and past show results.
@@ -66,8 +64,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Shows & Events page — schedule table/cards, dates, locations, classes, entry info
-- [ ] 04-02: Results & Standings page — points standings tables, past show results display
+- [x] 04-01: Shows & Events page — schedule table/cards, dates, locations, classes, entry info
+- [x] 04-02: Results & Standings page — points standings tables, past show results display
 
 ### Phase 5: Membership & Resources
 **Goal**: Membership page with benefits and dues, Rules & Classes page, Green as Grass buckle program page, FAQ page, and Find a Trainer page.
@@ -76,8 +74,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Membership page (info, benefits, dues) and Rules & Classes page (reining class descriptions, association rules)
-- [ ] 05-02: Green as Grass buckle program, FAQ page, Find a Trainer page
+- [x] 05-01: Membership page (info, benefits, dues) and Rules & Classes page (reining class descriptions, association rules)
+- [x] 05-02: Green as Grass buckle program, FAQ page, Find a Trainer page
 
 ### Phase 6: Gallery, Sponsors & Contact
 **Goal**: Photo/video gallery page with existing site media, sponsors page with logos and links, contact page with form and social media links.
@@ -86,8 +84,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: Gallery page — photo/video grid with lightbox, responsive layout
-- [ ] 06-02: Sponsors page (logos grid with links) and Contact page (form, region info, social links)
+- [x] 06-01: Gallery page — photo/video grid with lightbox, responsive layout
+- [x] 06-02: Sponsors page (logos grid with links) and Contact page (form, region info, social links)
 
 ### Phase 7: Polish & Deployment
 **Goal**: Production-ready site with SEO meta tags, accessibility compliance, optimized performance, thorough responsive testing, and live deployment on Vercel.
@@ -97,21 +95,95 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: SEO — meta tags, Open Graph, structured data, sitemap generation
-- [ ] 07-02: Accessibility audit and fixes — contrast, semantic HTML, alt text, keyboard navigation
-- [ ] 07-03: Performance optimization, responsive testing across devices, Vercel deployment
+- [x] 07-01: SEO — meta tags, Open Graph, structured data, sitemap generation
+- [x] 07-02: Accessibility audit and fixes — contrast, semantic HTML, alt text, keyboard navigation
+- [x] 07-03: Performance optimization, responsive testing across devices, Vercel deployment
+
+</details>
+
+### 🚧 v1.1 Admin & Management (In Progress)
+
+**Milestone Goal:** Enable content management capabilities for show schedules, sponsors, and results with streamlined navigation and secure admin access.
+
+#### Phase 8: Navigation Consolidation
+
+**Goal**: Review and streamline the navigation menu structure, remove or consolidate unneeded items, improve information architecture for better user experience.
+**Depends on**: v1.0 complete
+**Research**: Unlikely (internal UI reorganization)
+**Plans**: TBD
+
+Plans:
+- [ ] 08-01: TBD (run /gsd:plan-phase 8 to break down)
+
+#### Phase 9: Authentication & Admin Foundation
+
+**Goal**: Establish authentication system with user roles, create protected admin layout, implement role-based access control for management features.
+**Depends on**: Phase 8
+**Research**: Likely (auth provider selection, implementation patterns, role-based access)
+**Research topics**: NextAuth.js vs Clerk vs Supabase Auth, role-based middleware patterns in Next.js 14, protected route strategies
+**Plans**: TBD
+
+Plans:
+- [ ] 09-01: TBD
+
+#### Phase 10: Show Schedule Management
+
+**Goal**: Build admin dashboard for creating, editing, and deleting show events with dates, locations, classes, and entry information.
+**Depends on**: Phase 9
+**Research**: Unlikely (CRUD patterns, established UI components)
+**Plans**: TBD
+
+Plans:
+- [ ] 10-01: TBD
+
+#### Phase 11: Sponsor Management
+
+**Goal**: Create admin interface for managing sponsors including adding/removing sponsors, uploading logos, and setting display order.
+**Depends on**: Phase 9
+**Research**: Likely (image upload handling, storage solution)
+**Research topics**: Cloudinary vs Uploadthing vs Vercel Blob storage, Next.js 14 image upload patterns, drag-and-drop file upload UX
+**Plans**: TBD
+
+Plans:
+- [ ] 11-01: TBD
+
+#### Phase 12: Results & Standings Management
+
+**Goal**: Develop admin tools for entering show results, managing point standings, and publishing results to the public site.
+**Depends on**: Phase 9
+**Research**: Unlikely (similar CRUD patterns from previous phases)
+**Plans**: TBD
+
+Plans:
+- [ ] 12-01: TBD
+
+#### Phase 13: Admin Polish & Testing
+
+**Goal**: Refine admin UX, implement comprehensive form validation, conduct thorough testing of all admin features, update deployment configuration.
+**Depends on**: Phases 10-12
+**Research**: Unlikely (polishing and refinement work)
+**Plans**: TBD
+
+Plans:
+- [ ] 13-01: TBD
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13
 
-| Phase | Plans Complete | Status | Completed |
-|-------|---------------|--------|-----------|
-| 1. Foundation & Theme | 3/3 | Complete | 2026-02-12 |
-| 2. Content Extraction | 3/3 | Complete | 2026-02-12 |
-| 3. Home & About Pages | 2/2 | Complete | 2026-02-13 |
-| 4. Shows & Results Pages | 2/2 | Complete | 2026-02-13 |
-| 5. Membership & Resources | 2/2 | Complete | 2026-02-13 |
-| 6. Gallery, Sponsors & Contact | 2/2 | Complete | 2026-02-13 |
-| 7. Polish & Deployment | 3/3 | Complete | 2026-02-14 |
+| Phase | Milestone | Plans | Status | Completed |
+|-------|-----------|-------|--------|-----------|
+| 1. Foundation & Theme | v1.0 | 3/3 | Complete | 2026-02-12 |
+| 2. Content Extraction | v1.0 | 3/3 | Complete | 2026-02-12 |
+| 3. Home & About Pages | v1.0 | 2/2 | Complete | 2026-02-13 |
+| 4. Shows & Results Pages | v1.0 | 2/2 | Complete | 2026-02-13 |
+| 5. Membership & Resources | v1.0 | 2/2 | Complete | 2026-02-13 |
+| 6. Gallery, Sponsors & Contact | v1.0 | 2/2 | Complete | 2026-02-13 |
+| 7. Polish & Deployment | v1.0 | 3/3 | Complete | 2026-02-14 |
+| 8. Navigation Consolidation | v1.1 | 0/? | Not started | - |
+| 9. Authentication & Admin Foundation | v1.1 | 0/? | Not started | - |
+| 10. Show Schedule Management | v1.1 | 0/? | Not started | - |
+| 11. Sponsor Management | v1.1 | 0/? | Not started | - |
+| 12. Results & Standings Management | v1.1 | 0/? | Not started | - |
+| 13. Admin Polish & Testing | v1.1 | 0/? | Not started | - |
