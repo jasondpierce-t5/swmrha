@@ -56,12 +56,12 @@ export default async function AdminDashboardPage() {
     {
       label: "Add Show",
       icon: PlusIcon,
-      href: "/admin/shows",
+      href: "/admin/shows/new",
     },
     {
       label: "Add Sponsor",
       icon: PlusIcon,
-      href: "/admin/sponsors",
+      href: "/admin/sponsors/new",
     },
     {
       label: "Update Results",
@@ -131,19 +131,6 @@ export default async function AdminDashboardPage() {
               </Link>
             );
           })}
-        </div>
-      </div>
-
-      {/* Recent activity placeholder */}
-      <div>
-        <h3 className="font-heading text-lg font-semibold text-white">
-          Recent Activity
-        </h3>
-        <div className="mt-3 rounded-lg border border-navy-700 bg-navy-800 p-6">
-          <p className="text-sm italic text-gray-400">
-            Activity tracking will be available once management features are
-            enabled.
-          </p>
         </div>
       </div>
     </div>
