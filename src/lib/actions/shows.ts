@@ -5,6 +5,21 @@ import { createClient } from '@/lib/supabase/server';
 import type { ShowRow, ShowInsert, ShowUpdate } from '@/types/database';
 
 // ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Map raw Supabase/PostgREST errors to user-friendly messages. */
+function sanitizeSupabaseError(error: { message: string; code?: string }): string {
+  const code = error.code ?? '';
+  if (code === '23505') return 'A show with this name already exists.';
+  if (code.startsWith('PGRST')) return 'Unable to save. Please try again.';
+  if (/timeout|connection|network/i.test(error.message)) {
+    return 'Unable to connect to database. Please try again.';
+  }
+  return 'An unexpected error occurred. Please try again.';
+}
+
+// ---------------------------------------------------------------------------
 // Read operations
 // ---------------------------------------------------------------------------
 
@@ -19,7 +34,7 @@ export async function getShows(): Promise<ShowRow[] | { error: string }> {
     .order('created_at', { ascending: false });
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return (data as ShowRow[]) ?? [];
@@ -42,7 +57,7 @@ export async function getShow(
     .maybeSingle();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return (data as ShowRow) ?? null;
@@ -70,6 +85,17 @@ export async function createShow(
     return { error: 'Show venue is required.' };
   }
 
+  // String length validation
+  if (data.name.trim().length > 200) {
+    return { error: 'Show name must be 200 characters or fewer.' };
+  }
+  if (data.location.trim().length > 200) {
+    return { error: 'Location must be 200 characters or fewer.' };
+  }
+  if (data.venue.trim().length > 200) {
+    return { error: 'Venue must be 200 characters or fewer.' };
+  }
+
   const supabase = await createClient();
 
   const { data: row, error } = await supabase
@@ -88,7 +114,7 @@ export async function createShow(
     .single();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/shows');
@@ -103,6 +129,17 @@ export async function updateShow(
 ): Promise<ShowRow | { error: string }> {
   if (!data.id || data.id.trim() === '') {
     return { error: 'Show ID is required.' };
+  }
+
+  // String length validation (only check fields that were provided)
+  if (data.name !== undefined && data.name.trim().length > 200) {
+    return { error: 'Show name must be 200 characters or fewer.' };
+  }
+  if (data.location !== undefined && data.location.trim().length > 200) {
+    return { error: 'Location must be 200 characters or fewer.' };
+  }
+  if (data.venue !== undefined && data.venue.trim().length > 200) {
+    return { error: 'Venue must be 200 characters or fewer.' };
   }
 
   // Build an update payload containing only the fields that were provided.
@@ -131,7 +168,7 @@ export async function updateShow(
     .single();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/shows');
@@ -153,7 +190,7 @@ export async function deleteShow(
   const { error } = await supabase.from('shows').delete().eq('id', id);
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/shows');

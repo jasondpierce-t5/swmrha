@@ -5,6 +5,26 @@ import { createClient } from '@/lib/supabase/server';
 import type { SponsorRow, SponsorInsert, SponsorUpdate } from '@/types/database';
 
 // ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Map raw Supabase/PostgREST errors to user-friendly messages. */
+function sanitizeSupabaseError(error: { message: string; code?: string }): string {
+  const code = error.code ?? '';
+  if (code === '23505') return 'This record already exists.';
+  if (code.startsWith('PGRST')) return 'Unable to save. Please try again.';
+  if (/timeout|connection|network/i.test(error.message)) {
+    return 'Unable to connect to database. Please try again.';
+  }
+  return 'An unexpected error occurred. Please try again.';
+}
+
+/** Check if a string is a valid URL (must start with http:// or https://). */
+function isValidUrl(url: string): boolean {
+  return /^https?:\/\//i.test(url);
+}
+
+// ---------------------------------------------------------------------------
 // Read operations
 // ---------------------------------------------------------------------------
 
@@ -19,7 +39,7 @@ export async function getSponsors(): Promise<SponsorRow[] | { error: string }> {
     .order('name', { ascending: true });
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return (data as SponsorRow[]) ?? [];
@@ -42,7 +62,7 @@ export async function getSponsor(
     .maybeSingle();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return (data as SponsorRow) ?? null;
@@ -63,6 +83,16 @@ export async function createSponsor(
     return { error: 'Sponsor level is required.' };
   }
 
+  // String length validation
+  if (data.name.trim().length > 200) {
+    return { error: 'Sponsor name must be 200 characters or fewer.' };
+  }
+
+  // URL format validation
+  if (data.website_url && data.website_url.trim() !== '' && !isValidUrl(data.website_url.trim())) {
+    return { error: 'Website URL must start with http:// or https://' };
+  }
+
   const supabase = await createClient();
 
   const { data: row, error } = await supabase
@@ -78,7 +108,7 @@ export async function createSponsor(
     .single();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/sponsors');
@@ -93,6 +123,16 @@ export async function updateSponsor(
 ): Promise<SponsorRow | { error: string }> {
   if (!data.id || data.id.trim() === '') {
     return { error: 'Sponsor ID is required.' };
+  }
+
+  // String length validation
+  if (data.name !== undefined && data.name.trim().length > 200) {
+    return { error: 'Sponsor name must be 200 characters or fewer.' };
+  }
+
+  // URL format validation
+  if (data.website_url !== undefined && data.website_url !== null && data.website_url.trim() !== '' && !isValidUrl(data.website_url.trim())) {
+    return { error: 'Website URL must start with http:// or https://' };
   }
 
   const updates: Record<string, unknown> = {};
@@ -117,7 +157,7 @@ export async function updateSponsor(
     .single();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/sponsors');
@@ -147,7 +187,7 @@ export async function deleteSponsor(
     .maybeSingle();
 
   if (fetchError) {
-    return { error: fetchError.message };
+    return { error: sanitizeSupabaseError(fetchError) };
   }
 
   // Clean up Storage logo if it's a Supabase Storage URL
@@ -161,7 +201,7 @@ export async function deleteSponsor(
   const { error } = await supabase.from('sponsors').delete().eq('id', id);
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/sponsors');
@@ -193,7 +233,7 @@ export async function uploadSponsorLogo(
     .upload(filename, file);
 
   if (uploadError) {
-    return { error: uploadError.message };
+    return { error: sanitizeSupabaseError(uploadError) };
   }
 
   const { data: publicUrlData } = supabase.storage
@@ -218,7 +258,7 @@ export async function deleteSponsorLogo(
     .remove([path]);
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return { success: true };

@@ -8,6 +8,26 @@ import type { ResultRow, ResultInsert, ResultUpdate } from '@/types/database';
 const VALID_CATEGORIES = ['current_year', 'past_results', 'standings'] as const;
 
 // ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Map raw Supabase/PostgREST errors to user-friendly messages. */
+function sanitizeSupabaseError(error: { message: string; code?: string }): string {
+  const code = error.code ?? '';
+  if (code === '23505') return 'This record already exists.';
+  if (code.startsWith('PGRST')) return 'Unable to save. Please try again.';
+  if (/timeout|connection|network/i.test(error.message)) {
+    return 'Unable to connect to database. Please try again.';
+  }
+  return 'An unexpected error occurred. Please try again.';
+}
+
+/** Check if a string is a valid URL (must start with http:// or https://). */
+function isValidUrl(url: string): boolean {
+  return /^https?:\/\//i.test(url);
+}
+
+// ---------------------------------------------------------------------------
 // Read operations
 // ---------------------------------------------------------------------------
 
@@ -22,7 +42,7 @@ export async function getResults(): Promise<ResultRow[] | { error: string }> {
     .order('sort_order', { ascending: true });
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return (data as ResultRow[]) ?? [];
@@ -45,7 +65,7 @@ export async function getResult(
     .maybeSingle();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   return (data as ResultRow) ?? null;
@@ -73,6 +93,19 @@ export async function createResult(
     return { error: `Invalid category. Must be one of: ${VALID_CATEGORIES.join(', ')}` };
   }
 
+  // String length validation
+  if (data.label.trim().length > 200) {
+    return { error: 'Label must be 200 characters or fewer.' };
+  }
+  if (data.url.trim().length > 500) {
+    return { error: 'URL must be 500 characters or fewer.' };
+  }
+
+  // URL format validation
+  if (!isValidUrl(data.url.trim())) {
+    return { error: 'URL must start with http:// or https://' };
+  }
+
   const supabase = await createClient();
 
   const { data: row, error } = await supabase
@@ -87,7 +120,7 @@ export async function createResult(
     .single();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/results');
@@ -114,6 +147,19 @@ export async function updateResult(
     }
   }
 
+  // String length validation (only check fields that were provided)
+  if (data.label !== undefined && data.label.trim().length > 200) {
+    return { error: 'Label must be 200 characters or fewer.' };
+  }
+  if (data.url !== undefined && data.url.trim().length > 500) {
+    return { error: 'URL must be 500 characters or fewer.' };
+  }
+
+  // URL format validation
+  if (data.url !== undefined && data.url.trim() !== '' && !isValidUrl(data.url.trim())) {
+    return { error: 'URL must start with http:// or https://' };
+  }
+
   // Build an update payload containing only the fields that were provided.
   const updates: Record<string, unknown> = {};
 
@@ -136,7 +182,7 @@ export async function updateResult(
     .single();
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/results');
@@ -158,7 +204,7 @@ export async function deleteResult(
   const { error } = await supabase.from('results').delete().eq('id', id);
 
   if (error) {
-    return { error: error.message };
+    return { error: sanitizeSupabaseError(error) };
   }
 
   revalidatePath('/admin/results');
