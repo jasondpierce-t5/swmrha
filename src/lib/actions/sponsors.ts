@@ -113,6 +113,7 @@ export async function createSponsor(
 
   revalidatePath('/admin/sponsors');
   revalidatePath('/sponsors');
+  revalidatePath('/');
 
   return row as SponsorRow;
 }
@@ -162,6 +163,7 @@ export async function updateSponsor(
 
   revalidatePath('/admin/sponsors');
   revalidatePath('/sponsors');
+  revalidatePath('/');
 
   return row as SponsorRow;
 }
@@ -206,6 +208,7 @@ export async function deleteSponsor(
 
   revalidatePath('/admin/sponsors');
   revalidatePath('/sponsors');
+  revalidatePath('/');
 
   return { success: true };
 }

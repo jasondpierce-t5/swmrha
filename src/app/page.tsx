@@ -12,8 +12,8 @@ import {
   contactCallout,
   quickLinks,
 } from "@/data/home";
-import { sponsors } from "@/data/sponsors";
 import { getShows } from "@/lib/actions/shows";
+import { getSponsors } from "@/lib/actions/sponsors";
 
 export const metadata: Metadata = {
   title: "Home | SWMRHA",
@@ -38,6 +38,8 @@ export const metadata: Metadata = {
 export default async function Home() {
   const showsResult = await getShows();
   const shows = Array.isArray(showsResult) ? showsResult : [];
+  const sponsorsResult = await getSponsors();
+  const sponsors = Array.isArray(sponsorsResult) ? sponsorsResult : [];
 
   return (
     <>
@@ -217,37 +219,36 @@ export default async function Home() {
           </h2>
 
           {/* Scrolling container */}
+          {sponsors.filter((s) => s.image_url).length === 0 ? (
+            <p className="text-center text-slate-400">No sponsors to display yet.</p>
+          ) : (
           <div className="relative">
             <div className="flex gap-8 animate-scroll">
               {/* Double the sponsors array for seamless loop */}
               {[...sponsors, ...sponsors]
-                .filter((sponsor) => sponsor.image)
+                .filter((sponsor) => sponsor.image_url)
                 .map((sponsor, index) => (
                 <div
                   key={index}
                   className="flex-shrink-0 w-48 h-32 bg-white rounded-lg p-4 flex items-center justify-center"
                 >
-                  {sponsor.url ? (
+                  {sponsor.website_url ? (
                     <a
-                      href={sponsor.url}
+                      href={sponsor.website_url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full h-full flex items-center justify-center"
                     >
-                      <Image
-                        src={sponsor.image!}
+                      <img
+                        src={sponsor.image_url!}
                         alt={sponsor.name}
-                        width={160}
-                        height={100}
                         className="object-contain max-w-full max-h-full"
                       />
                     </a>
                   ) : (
-                    <Image
-                      src={sponsor.image!}
+                    <img
+                      src={sponsor.image_url!}
                       alt={sponsor.name}
-                      width={160}
-                      height={100}
                       className="object-contain max-w-full max-h-full"
                     />
                   )}
@@ -255,6 +256,7 @@ export default async function Home() {
               ))}
             </div>
           </div>
+          )}
         </div>
       </section>
     </>
