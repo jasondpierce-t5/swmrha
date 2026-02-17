@@ -6,7 +6,8 @@ import {
   BuildingStorefrontIcon,
   TicketIcon,
 } from "@heroicons/react/24/outline";
-import { pageTitle, showSchedule, venue } from "@/data/shows";
+import { pageTitle, venue } from "@/data/shows";
+import { getShows } from "@/lib/actions/shows";
 import { images } from "@/data/images";
 import type { Metadata } from "next";
 
@@ -30,7 +31,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Shows() {
+export default async function Shows() {
+  const result = await getShows();
+  const shows = Array.isArray(result) ? result : [];
+
   return (
     <>
       {/* Hero Section */}
@@ -61,78 +65,87 @@ export default function Shows() {
       {/* Show Schedule Section */}
       <section className="bg-navy-900 py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {showSchedule.map((event, index) => (
-              <div
-                key={index}
-                className="bg-navy-800 border border-gold-500/20 p-6 rounded-lg"
-              >
-                {/* Event Name */}
-                <h2 className="text-heading-2 text-white mb-2">
-                  {event.name}
-                </h2>
+          {shows.length === 0 ? (
+            <div className="text-center py-12">
+              <CalendarDaysIcon className="w-12 h-12 text-gold-500/50 mx-auto mb-4" />
+              <p className="text-slate-300 text-lg">
+                No shows currently scheduled. Check back soon!
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {shows.map((show) => (
+                <div
+                  key={show.id}
+                  className="bg-navy-800 border border-gold-500/20 p-6 rounded-lg"
+                >
+                  {/* Event Name */}
+                  <h2 className="text-heading-2 text-white mb-2">
+                    {show.name}
+                  </h2>
 
-                {/* Subtitle */}
-                {event.subtitle && (
-                  <p className="text-gold-500 italic mb-4">{event.subtitle}</p>
-                )}
+                  {/* Subtitle */}
+                  {show.subtitle && (
+                    <p className="text-gold-500 italic mb-4">{show.subtitle}</p>
+                  )}
 
-                {/* Dates */}
-                <div className="flex items-start gap-2 mb-3">
-                  <CalendarDaysIcon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
-                  <p className="text-white font-medium">{event.dates}</p>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-start gap-2 mb-4">
-                  <MapPinIcon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
-                  <div className="text-slate-300">
-                    <p>{event.location}</p>
-                    <p>{event.venue}</p>
+                  {/* Dates */}
+                  <div className="flex items-start gap-2 mb-3">
+                    <CalendarDaysIcon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                    <p className="text-white font-medium">{show.dates}</p>
                   </div>
-                </div>
 
-                {/* Links */}
-                <div className="flex flex-wrap gap-3 mt-6">
-                  {event.links.map((link, linkIndex) =>
-                    link.external ? (
-                      <a
-                        key={linkIndex}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-teal-500 hover:text-teal-400 underline text-sm"
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={linkIndex}
-                        href={link.url}
-                        className="text-teal-500 hover:text-teal-400 underline text-sm"
-                      >
-                        {link.label}
-                      </Link>
-                    )
+                  {/* Location */}
+                  <div className="flex items-start gap-2 mb-4">
+                    <MapPinIcon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
+                    <div className="text-slate-300">
+                      <p>{show.location}</p>
+                      <p>{show.venue}</p>
+                    </div>
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex flex-wrap gap-3 mt-6">
+                    {show.links.map((link, linkIndex) =>
+                      link.external ? (
+                        <a
+                          key={linkIndex}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-teal-500 hover:text-teal-400 underline text-sm"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={linkIndex}
+                          href={link.url}
+                          className="text-teal-500 hover:text-teal-400 underline text-sm"
+                        >
+                          {link.label}
+                        </Link>
+                      )
+                    )}
+                  </div>
+
+                  {/* Notes */}
+                  {show.notes && show.notes.length > 0 && (
+                    <div className="mt-4 pt-4 border-t border-navy-700">
+                      {show.notes.map((note, noteIndex) => (
+                        <p
+                          key={noteIndex}
+                          className="text-sm text-gold-400 italic"
+                        >
+                          {note}
+                        </p>
+                      ))}
+                    </div>
                   )}
                 </div>
-
-                {/* Notes */}
-                {event.notes && event.notes.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-navy-700">
-                    {event.notes.map((note, noteIndex) => (
-                      <p
-                        key={noteIndex}
-                        className="text-sm text-gold-400 italic"
-                      >
-                        {note}
-                      </p>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
