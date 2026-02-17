@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 ## Current Position
 
 Phase: 8 of 13 (Navigation Consolidation)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-02-16 — Milestone v1.1 created with 6 phases (8-13)
+Plan: 1 of 1 in current phase
+Status: Phase complete
+Last activity: 2026-02-16 — Completed 08-01-PLAN.md
 
-Progress: ░░░░░░░░░░░░░ 0%
+Progress: ██░░░░░░░░░░░ 17%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
+- Total plans completed: 18
 - Average duration: 6 min
-- Total execution time: 1.8 hours
+- Total execution time: 1.9 hours
 
 **By Phase:**
 
@@ -35,9 +35,11 @@ Progress: ░░░░░░░░░░░░░ 0%
 | 06 Gallery, Sponsors & Contact | 2/2 | 6 min (parallel) | 3 min |
 | 07 Polish & Deployment | 3/3 | 18 min (hybrid) | 6 min |
 
+| 08 Navigation Consolidation | 1/1 | 4 min | 4 min |
+
 **Recent Trend:**
-- Last 5 plans: 4 min, 3 min, 3 min, 5 min, 8 min (avg 4.6 min)
-- Trend: Excellent (hybrid execution with parallel and sequential strategies)
+- Last 5 plans: 3 min, 3 min, 5 min, 8 min, 4 min (avg 4.6 min)
+- Trend: Excellent (subagent execution with checkpoint verification)
 
 ## Accumulated Context
 
@@ -82,6 +84,9 @@ Recent decisions affecting current work:
 | 05-02 | tel: protocol for trainer phones | Mobile-first: one-tap calling on devices |
 | 07-03 | Vercel + GitHub integration for deployment | Enables continuous deployment vs CLI deployment |
 | 07-03 | Static generation for all 21 pages | Optimal performance with pre-rendering at build time |
+| 08-01 | Split About dropdown → top-level About + Contact + Resources dropdown | Cleaner IA with logical groupings |
+| 08-01 | Remove Demo from public nav, keep pages accessible | Demo is admin feature, not public navigation |
+| 08-01 | Redirect /shows/results → /results | Backward compatibility for bookmarks/cached links |
 
 ### Deferred Issues
 
@@ -99,7 +104,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Milestone v1.1 initialization
+Stopped at: Completed 08-01-PLAN.md (Phase 8 complete)
 Resume file: None
 
 ## v1.0 Completion

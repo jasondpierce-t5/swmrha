@@ -113,7 +113,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 08-01: TBD (run /gsd:plan-phase 8 to break down)
+- [x] 08-01: Restructure navigation config, fix results routing, update footer
 
 #### Phase 9: Authentication & Admin Foundation
 
@@ -181,7 +181,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Membership & Resources | v1.0 | 2/2 | Complete | 2026-02-13 |
 | 6. Gallery, Sponsors & Contact | v1.0 | 2/2 | Complete | 2026-02-13 |
 | 7. Polish & Deployment | v1.0 | 3/3 | Complete | 2026-02-14 |
-| 8. Navigation Consolidation | v1.1 | 0/? | Not started | - |
+| 8. Navigation Consolidation | v1.1 | 1/1 | Complete | 2026-02-16 |
 | 9. Authentication & Admin Foundation | v1.1 | 0/? | Not started | - |
 | 10. Show Schedule Management | v1.1 | 0/? | Not started | - |
 | 11. Sponsor Management | v1.1 | 0/? | Not started | - |
