@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 
 ## Current Position
 
-Phase: 8 of 13 (Navigation Consolidation)
-Plan: 1 of 1 in current phase
+Phase: 9 of 13 (Authentication & Admin Foundation)
+Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-02-16 — Completed 08-01-PLAN.md
+Last activity: 2026-02-16 — Completed 09-03-PLAN.md (Phase 9 complete)
 
-Progress: ██░░░░░░░░░░░ 17%
+Progress: ████░░░░░░░░░ 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 21
 - Average duration: 6 min
-- Total execution time: 1.9 hours
+- Total execution time: 2.3 hours
 
 **By Phase:**
 
@@ -36,10 +36,11 @@ Progress: ██░░░░░░░░░░░ 17%
 | 07 Polish & Deployment | 3/3 | 18 min (hybrid) | 6 min |
 
 | 08 Navigation Consolidation | 1/1 | 4 min | 4 min |
+| 09 Auth & Admin Foundation | 3/3 | 27 min (segmented parallel) | 9 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 5 min, 8 min, 4 min (avg 4.6 min)
-- Trend: Excellent (subagent execution with checkpoint verification)
+- Last 5 plans: 8 min, 4 min, 3 min, 3 min, 4 min (avg 4.4 min)
+- Trend: Excellent (segmented execution with parallel Wave 2)
 
 ## Accumulated Context
 
@@ -87,6 +88,11 @@ Recent decisions affecting current work:
 | 08-01 | Split About dropdown → top-level About + Contact + Resources dropdown | Cleaner IA with logical groupings |
 | 08-01 | Remove Demo from public nav, keep pages accessible | Demo is admin feature, not public navigation |
 | 08-01 | Redirect /shows/results → /results | Backward compatibility for bookmarks/cached links |
+| 09-01 | Three Supabase client pattern (browser/server/middleware) | Official @supabase/ssr SSR pattern for Next.js |
+| 09-01 | RBAC via app_metadata.role === 'admin' | Only service role can modify — users cannot self-elevate |
+| 09-02 | POST-based logout for CSRF protection | Form submission not GET link prevents cross-site logout |
+| 09-03 | LayoutWrapper for conditional Header/Footer | Hides public nav on /admin and /login without making root layout a Client Component |
+| 09-03 | AdminLayoutShell client wrapper | Coordinates sidebar state between AdminSidebar and AdminHeader |
 
 ### Deferred Issues
 
@@ -104,7 +110,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 08-01-PLAN.md (Phase 8 complete)
+Stopped at: Completed Phase 9 (Authentication & Admin Foundation) — all 3 plans done
 Resume file: None
 
 ## v1.0 Completion
@@ -118,5 +124,5 @@ Resume file: None
 ## v1.1 In Progress
 
 **Status:** 🚧 v1.1 Admin & Management in development
-**Current Phase:** 8 of 13 (Navigation Consolidation)
+**Current Phase:** 9 of 13 complete (Authentication & Admin Foundation)
 **Started:** 2026-02-16

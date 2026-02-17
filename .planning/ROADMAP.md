@@ -124,7 +124,9 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 09-01: TBD
+- [x] 09-01: Supabase auth infrastructure — packages, client utilities, middleware, auth callback
+- [x] 09-02: Login page with email/password auth, unauthorized page, logout handler
+- [x] 09-03: Admin layout with sidebar/header and dashboard with content cards
 
 #### Phase 10: Show Schedule Management
 
@@ -182,7 +184,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 6. Gallery, Sponsors & Contact | v1.0 | 2/2 | Complete | 2026-02-13 |
 | 7. Polish & Deployment | v1.0 | 3/3 | Complete | 2026-02-14 |
 | 8. Navigation Consolidation | v1.1 | 1/1 | Complete | 2026-02-16 |
-| 9. Authentication & Admin Foundation | v1.1 | 0/? | Not started | - |
+| 9. Authentication & Admin Foundation | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 10. Show Schedule Management | v1.1 | 0/? | Not started | - |
 | 11. Sponsor Management | v1.1 | 0/? | Not started | - |
 | 12. Results & Standings Management | v1.1 | 0/? | Not started | - |
