@@ -10,7 +10,7 @@ import {
 import { createClient } from "@/lib/supabase/server";
 import { resultsLinks } from "@/data/shows";
 import { getShows } from "@/lib/actions/shows";
-import { sponsors } from "@/data/sponsors";
+import { getSponsors } from "@/lib/actions/sponsors";
 
 export default async function AdminDashboardPage() {
   const supabase = await createClient();
@@ -25,6 +25,9 @@ export default async function AdminDashboardPage() {
   const showsResult = await getShows();
   const shows = Array.isArray(showsResult) ? showsResult : [];
 
+  const sponsorsResult = await getSponsors();
+  const sponsorsList = Array.isArray(sponsorsResult) ? sponsorsResult : [];
+
   const contentCards = [
     {
       label: "Shows",
@@ -34,7 +37,7 @@ export default async function AdminDashboardPage() {
     },
     {
       label: "Sponsors",
-      count: sponsors.length,
+      count: sponsorsList.length,
       icon: BuildingStorefrontIcon,
       href: "/admin/sponsors",
     },
