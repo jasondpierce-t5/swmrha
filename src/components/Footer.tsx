@@ -105,27 +105,27 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/results"
+                  className="text-slate-400 hover:text-gold-500 transition-colors text-sm"
+                >
+                  Results
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/gallery"
                   className="text-slate-400 hover:text-gold-500 transition-colors text-sm"
                 >
                   Gallery
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/sponsors"
-                  className="text-slate-400 hover:text-gold-500 transition-colors text-sm"
-                >
-                  Sponsors
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Column 3: Membership */}
+          {/* Column 3: Membership & Resources */}
           <div>
             <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-wider mb-4">
-              Membership
+              Membership &amp; Resources
             </h3>
             <ul className="space-y-2.5">
               <li>
@@ -158,6 +158,14 @@ export default function Footer() {
                   className="text-slate-400 hover:text-gold-500 transition-colors text-sm"
                 >
                   Find a Trainer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/sponsors"
+                  className="text-slate-400 hover:text-gold-500 transition-colors text-sm"
+                >
+                  Sponsors
                 </Link>
               </li>
             </ul>
