@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-12)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** v1.1 Admin & Management — Enable content management for shows, sponsors, and results with secure admin access
+**Current focus:** v1.1 Admin & Management — COMPLETE
 
 ## Current Position
 
-Phase: 12 of 13 (Results & Standings Management)
+Phase: 13 of 13 (Admin Polish & Testing)
 Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-16 — Completed Phase 12 (parallel execution: Wave 1 sequential + Wave 2 parallel)
+Status: Milestone complete
+Last activity: 2026-02-16 — Completed Phase 13 (sequential: Wave 1 → Wave 2 → Wave 3 foreground)
 
-Progress: ███████████░░ 65%
+Progress: █████████████ 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 30
+- Total plans completed: 33
 - Average duration: 6 min
-- Total execution time: 3 hours
+- Total execution time: 3h 30m
 
 **By Phase:**
 
@@ -40,10 +40,11 @@ Progress: ███████████░░ 65%
 | 10 Show Schedule Management | 3/3 | 17 min (parallel Wave 2) | 6 min |
 | 11 Sponsor Management | 3/3 | 10 min (parallel Wave 2) | 5 min |
 | 12 Results & Standings | 3/3 | 12 min (parallel Wave 2) | 4 min |
+| 13 Admin Polish & Testing | 3/3 | 30 min (sequential + UAT) | 10 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 5 min, 4 min, 5 min, 4 min (avg 4.6 min)
-- Trend: Excellent (parallel execution maintaining quality)
+- Last 5 plans: 4 min, 5 min, 4 min, 8 min, 12 min (avg 6.6 min)
+- Trend: Phase 13 longer due to UAT bug fixes (4 bugs found and fixed)
 
 ## Accumulated Context
 
@@ -107,6 +108,10 @@ Recent decisions affecting current work:
 | 12-01 | Simple text columns for results (no JSONB) | Results are just label + URL + category, no complex nested data |
 | 12-01 | Category field with 3 values (current_year, past_results, standings) | Replaces label-parsing logic for grouping results on public page |
 | 12-02 | Category as constrained SELECT dropdown (3 options) | Same pattern as SponsorForm level field |
+| 13-01 | No shared utility file for sanitizeSupabaseError | ~10 lines each, keeps action files self-contained |
+| 13-01 | HTML5 attrs only, no Zod/Yup validation library | Sufficient for admin panel scope |
+| 13-03 | Plain &lt;img&gt; for ALL Supabase Storage URLs everywhere | Consistent with 11-02; applies to homepage + sponsors page |
+| 13-03 | Homepage shows + sponsors fetched from Supabase | Admin changes reflect on homepage via revalidatePath('/') |
 
 ### Deferred Issues
 
@@ -124,7 +129,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed Phase 12 (Results & Standings Management) — all 3 plans done (parallel execution)
+Stopped at: Completed Phase 13 (Admin Polish & Testing) — v1.1 milestone complete
 Resume file: None
 
 ## v1.0 Completion
@@ -135,8 +140,9 @@ Resume file: None
 **Deployment:** Vercel (continuous deployment enabled)
 **v1.0 Completed:** 2026-02-14
 
-## v1.1 In Progress
+## v1.1 Completion
 
-**Status:** 🚧 v1.1 Admin & Management in development
-**Current Phase:** 12 of 13 complete (Results & Standings Management)
+**Status:** ✅ v1.1 Admin & Management Complete
+**Phases:** 13 of 13 complete
 **Started:** 2026-02-16
+**Completed:** 2026-02-16
