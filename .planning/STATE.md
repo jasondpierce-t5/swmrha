@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 
 ## Current Position
 
-Phase: 10 of 13 (Show Schedule Management)
+Phase: 11 of 13 (Sponsor Management)
 Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-02-16 — Completed Phase 10 (parallel execution: Wave 1 foreground + Wave 2 parallel)
+Last activity: 2026-02-16 — Completed Phase 11 (parallel execution: Wave 1 sequential + Wave 2 parallel)
 
-Progress: █████████░░░░ 50%
+Progress: ██████████░░░ 58%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 24
+- Total plans completed: 27
 - Average duration: 6 min
-- Total execution time: 2.5 hours
+- Total execution time: 2.7 hours
 
 **By Phase:**
 
@@ -38,10 +38,11 @@ Progress: █████████░░░░ 50%
 | 08 Navigation Consolidation | 1/1 | 4 min | 4 min |
 | 09 Auth & Admin Foundation | 3/3 | 27 min (segmented parallel) | 9 min |
 | 10 Show Schedule Management | 3/3 | 17 min (parallel Wave 2) | 6 min |
+| 11 Sponsor Management | 3/3 | 10 min (parallel Wave 2) | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 3 min, 5 min, 6 min, 6 min (avg 4.8 min)
-- Trend: Excellent (parallel execution with checkpoint gating)
+- Last 5 plans: 6 min, 6 min, 5 min, 5 min, 4 min (avg 5.2 min)
+- Trend: Excellent (parallel execution maintaining quality)
 
 ## Accumulated Context
 
@@ -98,6 +99,10 @@ Recent decisions affecting current work:
 | 10-01 | RLS: public read + admin write | Server actions don't duplicate auth checks (defense in depth) |
 | 10-02 | DeleteShowButton as separate client component | window.confirm requires client-side JavaScript |
 | 10-02 | ShowForm controlled state for dynamic links | useState array with add/remove for link management |
+| 11-01 | Supabase Storage bucket 'sponsor-logos' with public read | Logos served without auth for public pages |
+| 11-01 | Sort order by tier bands (Platinum=0, Diamond=10, etc.) | Consistent ordering with room for reordering within tiers |
+| 11-02 | Plain &lt;img&gt; for Storage logos, not next/image | Supabase Storage URLs not in remotePatterns config |
+| 11-02 | Level as constrained SELECT dropdown (6 options) | Prevents invalid tier values |
 
 ### Deferred Issues
 
@@ -115,7 +120,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed Phase 10 (Show Schedule Management) — all 3 plans done (parallel execution)
+Stopped at: Completed Phase 11 (Sponsor Management) — all 3 plans done (parallel execution)
 Resume file: None
 
 ## v1.0 Completion
@@ -129,5 +134,5 @@ Resume file: None
 ## v1.1 In Progress
 
 **Status:** 🚧 v1.1 Admin & Management in development
-**Current Phase:** 10 of 13 complete (Show Schedule Management)
+**Current Phase:** 11 of 13 complete (Sponsor Management)
 **Started:** 2026-02-16

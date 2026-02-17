@@ -149,7 +149,9 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 11-01: TBD
+- [x] 11-01: Sponsors table SQL migration, RLS policies, Storage bucket, TypeScript types, CRUD server actions
+- [x] 11-02: Admin sponsors list page, create/edit pages with image upload form, delete with confirmation
+- [x] 11-03: Public sponsors page and admin dashboard migrated to Supabase
 
 #### Phase 12: Results & Standings Management
 
@@ -188,6 +190,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 8. Navigation Consolidation | v1.1 | 1/1 | Complete | 2026-02-16 |
 | 9. Authentication & Admin Foundation | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 10. Show Schedule Management | v1.1 | 3/3 | Complete | 2026-02-16 |
-| 11. Sponsor Management | v1.1 | 0/? | Not started | - |
+| 11. Sponsor Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 12. Results & Standings Management | v1.1 | 0/? | Not started | - |
 | 13. Admin Polish & Testing | v1.1 | 0/? | Not started | - |
