@@ -158,10 +158,12 @@ Plans:
 **Goal**: Develop admin tools for entering show results, managing point standings, and publishing results to the public site.
 **Depends on**: Phase 9
 **Research**: Unlikely (similar CRUD patterns from previous phases)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 12-01: TBD
+- [ ] 12-01: Results table SQL migration, RLS policies, TypeScript types, CRUD server actions
+- [ ] 12-02: Admin results list page, create/edit pages with form, delete with confirmation
+- [ ] 12-03: Public results page and admin dashboard migrated to Supabase
 
 #### Phase 13: Admin Polish & Testing
 
