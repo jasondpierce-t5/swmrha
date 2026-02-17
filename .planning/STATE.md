@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 
 ## Current Position
 
-Phase: 9 of 13 (Authentication & Admin Foundation)
+Phase: 10 of 13 (Show Schedule Management)
 Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-02-16 — Completed 09-03-PLAN.md (Phase 9 complete)
+Last activity: 2026-02-16 — Completed Phase 10 (parallel execution: Wave 1 foreground + Wave 2 parallel)
 
-Progress: ████░░░░░░░░░ 33%
+Progress: █████████░░░░ 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 21
+- Total plans completed: 24
 - Average duration: 6 min
-- Total execution time: 2.3 hours
+- Total execution time: 2.5 hours
 
 **By Phase:**
 
@@ -37,10 +37,11 @@ Progress: ████░░░░░░░░░ 33%
 
 | 08 Navigation Consolidation | 1/1 | 4 min | 4 min |
 | 09 Auth & Admin Foundation | 3/3 | 27 min (segmented parallel) | 9 min |
+| 10 Show Schedule Management | 3/3 | 17 min (parallel Wave 2) | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 8 min, 4 min, 3 min, 3 min, 4 min (avg 4.4 min)
-- Trend: Excellent (segmented execution with parallel Wave 2)
+- Last 5 plans: 4 min, 3 min, 5 min, 6 min, 6 min (avg 4.8 min)
+- Trend: Excellent (parallel execution with checkpoint gating)
 
 ## Accumulated Context
 
@@ -93,6 +94,10 @@ Recent decisions affecting current work:
 | 09-02 | POST-based logout for CSRF protection | Form submission not GET link prevents cross-site logout |
 | 09-03 | LayoutWrapper for conditional Header/Footer | Hides public nav on /admin and /login without making root layout a Client Component |
 | 09-03 | AdminLayoutShell client wrapper | Coordinates sidebar state between AdminSidebar and AdminHeader |
+| 10-01 | JSONB for links and notes arrays | Flexible schema without join tables for show data |
+| 10-01 | RLS: public read + admin write | Server actions don't duplicate auth checks (defense in depth) |
+| 10-02 | DeleteShowButton as separate client component | window.confirm requires client-side JavaScript |
+| 10-02 | ShowForm controlled state for dynamic links | useState array with add/remove for link management |
 
 ### Deferred Issues
 
@@ -110,7 +115,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed Phase 9 (Authentication & Admin Foundation) — all 3 plans done
+Stopped at: Completed Phase 10 (Show Schedule Management) — all 3 plans done (parallel execution)
 Resume file: None
 
 ## v1.0 Completion
@@ -124,5 +129,5 @@ Resume file: None
 ## v1.1 In Progress
 
 **Status:** 🚧 v1.1 Admin & Management in development
-**Current Phase:** 9 of 13 complete (Authentication & Admin Foundation)
+**Current Phase:** 10 of 13 complete (Show Schedule Management)
 **Started:** 2026-02-16

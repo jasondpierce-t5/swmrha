@@ -133,10 +133,12 @@ Plans:
 **Goal**: Build admin dashboard for creating, editing, and deleting show events with dates, locations, classes, and entry information.
 **Depends on**: Phase 9
 **Research**: Unlikely (CRUD patterns, established UI components)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 10-01: TBD
+- [x] 10-01: Shows table SQL migration, RLS policies, TypeScript types, CRUD server actions
+- [x] 10-02: Admin shows list page, create/edit pages with dynamic form, delete with confirmation
+- [x] 10-03: Public shows page and admin dashboard migrated to Supabase
 
 #### Phase 11: Sponsor Management
 
@@ -185,7 +187,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 7. Polish & Deployment | v1.0 | 3/3 | Complete | 2026-02-14 |
 | 8. Navigation Consolidation | v1.1 | 1/1 | Complete | 2026-02-16 |
 | 9. Authentication & Admin Foundation | v1.1 | 3/3 | Complete | 2026-02-16 |
-| 10. Show Schedule Management | v1.1 | 0/? | Not started | - |
+| 10. Show Schedule Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 11. Sponsor Management | v1.1 | 0/? | Not started | - |
 | 12. Results & Standings Management | v1.1 | 0/? | Not started | - |
 | 13. Admin Polish & Testing | v1.1 | 0/? | Not started | - |
