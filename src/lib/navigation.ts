@@ -10,7 +10,7 @@ export const navigation: NavItem[] = [
     label: "Shows",
     href: "/shows",
     children: [
-      { label: "Show Schedule", href: "/shows/schedule" },
+      { label: "Show Schedule", href: "/shows" },
       { label: "Results & Standings", href: "/results" },
       { label: "Gallery", href: "/gallery" },
     ],
