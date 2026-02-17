@@ -6,7 +6,8 @@ import {
   ChartBarIcon,
   ArrowTopRightOnSquareIcon
 } from "@heroicons/react/24/outline";
-import { resultsLinks, resultsProviders } from "@/data/shows";
+import { resultsProviders } from "@/data/shows";
+import { getResults } from "@/lib/actions/results";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -38,28 +39,13 @@ function getResultIcon(label: string) {
   return DocumentTextIcon;
 }
 
-// Helper to group results links
-function groupResultsLinks() {
-  const currentYear: typeof resultsLinks[number][] = [];
-  const pastResults: typeof resultsLinks[number][] = [];
-  const standings: typeof resultsLinks[number][] = [];
+export default async function Results() {
+  const result = await getResults();
+  const results = Array.isArray(result) ? result : [];
 
-  resultsLinks.forEach((link) => {
-    const label = link.label.toLowerCase();
-    if (label.includes("2025")) {
-      currentYear.push(link);
-    } else if (label.includes("standing") || label.includes("gag")) {
-      standings.push(link);
-    } else {
-      pastResults.push(link);
-    }
-  });
-
-  return { currentYear, pastResults, standings };
-}
-
-export default function Results() {
-  const { currentYear, pastResults, standings } = groupResultsLinks();
+  const currentYear = results.filter((r) => r.category === "current_year");
+  const pastResults = results.filter((r) => r.category === "past_results");
+  const standings = results.filter((r) => r.category === "standings");
 
   return (
     <>
@@ -102,11 +88,11 @@ export default function Results() {
                 2025 Show Results
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {currentYear.map((link, index) => {
+                {currentYear.map((link) => {
                   const Icon = getResultIcon(link.label);
                   return (
                     <a
-                      key={index}
+                      key={link.id}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -138,11 +124,11 @@ export default function Results() {
                 Past Results & Year-End Champions
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {pastResults.map((link, index) => {
+                {pastResults.map((link) => {
                   const Icon = getResultIcon(link.label);
                   return (
                     <a
-                      key={index}
+                      key={link.id}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -174,11 +160,11 @@ export default function Results() {
                 Current Standings
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {standings.map((link, index) => {
+                {standings.map((link) => {
                   const Icon = getResultIcon(link.label);
                   return (
                     <a
-                      key={index}
+                      key={link.id}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
