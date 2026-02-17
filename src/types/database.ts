@@ -31,3 +31,25 @@ export type ShowInsert = Omit<ShowRow, 'id' | 'created_at' | 'updated_at'>;
 
 /** Fields allowed when updating a show (all optional except id). */
 export type ShowUpdate = Partial<ShowInsert> & { id: string };
+
+// ---------------------------------------------------------------------------
+// Sponsors table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `sponsors` table. */
+export interface SponsorRow {
+  id: string;
+  name: string;
+  level: string;
+  image_url: string | null;
+  website_url: string | null;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Fields required to insert a new sponsor. */
+export type SponsorInsert = Omit<SponsorRow, 'id' | 'created_at' | 'updated_at'>;
+
+/** Fields allowed when updating a sponsor. */
+export type SponsorUpdate = Partial<SponsorInsert> & { id: string };
