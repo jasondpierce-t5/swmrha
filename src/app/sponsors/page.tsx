@@ -107,11 +107,10 @@ export default async function Sponsors() {
                               <div
                                 className={`relative ${logoHeight} w-full flex items-center justify-center`}
                               >
-                                <Image
+                                <img
                                   src={sponsor.image_url}
                                   alt={sponsor.name}
-                                  fill
-                                  className="object-contain"
+                                  className="object-contain w-full h-full"
                                 />
                               </div>
                             )}
