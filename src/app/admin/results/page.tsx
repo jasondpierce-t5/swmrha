@@ -22,8 +22,20 @@ function displayUrl(url: string): string {
   return url.replace(/^https?:\/\//, '');
 }
 
-export default async function AdminResultsPage() {
+export default async function AdminResultsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ success?: string }>;
+}) {
+  const { success } = await searchParams;
   const result = await getResults();
+
+  const successMessages: Record<string, string> = {
+    created: 'Result created successfully',
+    updated: 'Result updated successfully',
+    deleted: 'Result deleted successfully',
+  };
+  const successMessage = success ? successMessages[success] : null;
 
   const isError = !Array.isArray(result) && 'error' in result;
   const results = Array.isArray(result) ? result : [];
@@ -48,6 +60,13 @@ export default async function AdminResultsPage() {
           Add Result
         </Link>
       </div>
+
+      {/* Success banner */}
+      {successMessage && (
+        <div className="rounded-lg border border-green-700 bg-green-900/20 p-4">
+          <p className="text-sm text-green-400">{successMessage}</p>
+        </div>
+      )}
 
       {/* Error state */}
       {isError && (
