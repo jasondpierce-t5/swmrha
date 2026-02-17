@@ -112,7 +112,7 @@ export default function ShowForm({ show, action }: ShowFormProps) {
         return;
       }
 
-      router.push('/admin/shows');
+      router.push(`/admin/shows?success=${action === 'create' ? 'created' : 'updated'}`);
     });
   }
 
@@ -139,6 +139,7 @@ export default function ShowForm({ show, action }: ShowFormProps) {
               id="name"
               type="text"
               required
+              maxLength={200}
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Route 66 Slide"
@@ -185,6 +186,7 @@ export default function ShowForm({ show, action }: ShowFormProps) {
                 id="location"
                 type="text"
                 required
+                maxLength={200}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g., Carthage, MO"
@@ -203,6 +205,7 @@ export default function ShowForm({ show, action }: ShowFormProps) {
                 id="venue"
                 type="text"
                 required
+                maxLength={200}
                 value={venue}
                 onChange={(e) => setVenue(e.target.value)}
                 placeholder="e.g., Lucky J Arena and Steakhouse"
@@ -216,6 +219,7 @@ export default function ShowForm({ show, action }: ShowFormProps) {
               <input
                 id="sortOrder"
                 type="number"
+                min={0}
                 value={sortOrder}
                 onChange={(e) => setSortOrder(parseInt(e.target.value, 10) || 0)}
                 className={inputClasses}

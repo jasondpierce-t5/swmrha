@@ -57,7 +57,7 @@ export default function ResultForm({ result, action }: ResultFormProps) {
         return;
       }
 
-      router.push('/admin/results');
+      router.push(`/admin/results?success=${action === 'create' ? 'created' : 'updated'}`);
     });
   }
 
@@ -84,6 +84,7 @@ export default function ResultForm({ result, action }: ResultFormProps) {
               id="label"
               type="text"
               required
+              maxLength={200}
               value={label}
               onChange={(e) => setLabel(e.target.value)}
               placeholder="e.g., 2025 Rt 66 Slide Results"
@@ -98,11 +99,12 @@ export default function ResultForm({ result, action }: ResultFormProps) {
             </label>
             <input
               id="url"
-              type="text"
+              type="url"
               required
+              maxLength={500}
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="e.g., https://www.whitehorseshowmgt.com/..."
+              placeholder="https://example.com"
               className={inputClasses}
             />
           </div>
@@ -137,6 +139,7 @@ export default function ResultForm({ result, action }: ResultFormProps) {
               <input
                 id="sortOrder"
                 type="number"
+                min={0}
                 value={sortOrder}
                 onChange={(e) => setSortOrder(parseInt(e.target.value, 10) || 0)}
                 className={inputClasses}

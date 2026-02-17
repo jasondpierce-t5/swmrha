@@ -1,6 +1,7 @@
 'use client';
 
 import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { deleteSponsor } from '@/lib/actions/sponsors';
 
 interface DeleteSponsorButtonProps {
@@ -9,6 +10,7 @@ interface DeleteSponsorButtonProps {
 }
 
 export default function DeleteSponsorButton({ sponsorId, sponsorName }: DeleteSponsorButtonProps) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   function handleClick() {
@@ -17,7 +19,10 @@ export default function DeleteSponsorButton({ sponsorId, sponsorName }: DeleteSp
     }
 
     startTransition(async () => {
-      await deleteSponsor(sponsorId);
+      const result = await deleteSponsor(sponsorId);
+      if ('success' in result) {
+        router.push('/admin/sponsors?success=deleted');
+      }
     });
   }
 

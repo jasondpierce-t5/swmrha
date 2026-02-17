@@ -1,6 +1,7 @@
 'use client';
 
 import { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { deleteShow } from '@/lib/actions/shows';
 
 interface DeleteShowButtonProps {
@@ -9,6 +10,7 @@ interface DeleteShowButtonProps {
 }
 
 export default function DeleteShowButton({ showId, showName }: DeleteShowButtonProps) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   function handleClick() {
@@ -17,7 +19,10 @@ export default function DeleteShowButton({ showId, showName }: DeleteShowButtonP
     }
 
     startTransition(async () => {
-      await deleteShow(showId);
+      const result = await deleteShow(showId);
+      if ('success' in result) {
+        router.push('/admin/shows?success=deleted');
+      }
     });
   }
 

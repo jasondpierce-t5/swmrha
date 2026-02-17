@@ -100,7 +100,7 @@ export default function SponsorForm({ sponsor, action }: SponsorFormProps) {
         return;
       }
 
-      router.push('/admin/sponsors');
+      router.push(`/admin/sponsors?success=${action === 'create' ? 'created' : 'updated'}`);
     });
   }
 
@@ -127,6 +127,7 @@ export default function SponsorForm({ sponsor, action }: SponsorFormProps) {
               id="name"
               type="text"
               required
+              maxLength={200}
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Acme Feeds"
@@ -164,6 +165,7 @@ export default function SponsorForm({ sponsor, action }: SponsorFormProps) {
               <input
                 id="sortOrder"
                 type="number"
+                min={0}
                 value={sortOrder}
                 onChange={(e) => setSortOrder(parseInt(e.target.value, 10) || 0)}
                 className={inputClasses}
@@ -178,10 +180,10 @@ export default function SponsorForm({ sponsor, action }: SponsorFormProps) {
             </label>
             <input
               id="websiteUrl"
-              type="text"
+              type="url"
               value={websiteUrl}
               onChange={(e) => setWebsiteUrl(e.target.value)}
-              placeholder="e.g., https://example.com"
+              placeholder="https://example.com"
               className={inputClasses}
             />
           </div>
