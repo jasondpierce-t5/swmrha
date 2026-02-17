@@ -119,6 +119,7 @@ export async function createShow(
 
   revalidatePath('/admin/shows');
   revalidatePath('/shows');
+  revalidatePath('/');
 
   return row as ShowRow;
 }
@@ -173,6 +174,7 @@ export async function updateShow(
 
   revalidatePath('/admin/shows');
   revalidatePath('/shows');
+  revalidatePath('/');
 
   return row as ShowRow;
 }
@@ -195,6 +197,7 @@ export async function deleteShow(
 
   revalidatePath('/admin/shows');
   revalidatePath('/shows');
+  revalidatePath('/');
 
   return { success: true };
 }

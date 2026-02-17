@@ -10,10 +10,10 @@ import {
   welcomeMessage,
   openInvitation,
   contactCallout,
-  upcomingEvents,
   quickLinks,
 } from "@/data/home";
 import { sponsors } from "@/data/sponsors";
+import { getShows } from "@/lib/actions/shows";
 
 export const metadata: Metadata = {
   title: "Home | SWMRHA",
@@ -35,7 +35,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const showsResult = await getShows();
+  const shows = Array.isArray(showsResult) ? showsResult : [];
+
   return (
     <>
       {/* Hero Section */}
@@ -113,32 +116,40 @@ export default function Home() {
             Upcoming Shows & Events
           </h2>
 
+          {shows.length === 0 ? (
+            <p className="text-center text-slate-400 text-lg">
+              No upcoming shows scheduled. Check back soon!
+            </p>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {upcomingEvents.map((event, index) => (
+            {shows.map((show) => (
               <div
-                key={index}
+                key={show.id}
                 className="bg-navy-700 rounded-card border border-navy-600 p-6 lg:p-8"
               >
                 <h3 className="text-heading-3 text-gold-500 mb-2">
-                  {event.name}
+                  {show.name}
                 </h3>
-                <p className="text-slate-400 italic mb-4">{event.subtitle}</p>
+                {show.subtitle && (
+                  <p className="text-slate-400 italic mb-4">{show.subtitle}</p>
+                )}
 
                 <div className="flex items-start gap-2 mb-3">
                   <CalendarDaysIcon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
-                  <p className="text-white font-medium">{event.dates}</p>
+                  <p className="text-white font-medium">{show.dates}</p>
                 </div>
 
                 <div className="flex items-start gap-2 mb-4">
                   <MapPinIcon className="w-5 h-5 text-white mt-1 flex-shrink-0" />
                   <div className="text-slate-300">
-                    <p>{event.location}</p>
-                    <p>{event.venue}</p>
+                    <p>{show.location}</p>
+                    <p>{show.venue}</p>
                   </div>
                 </div>
 
+                {show.links && show.links.length > 0 && (
                 <div className="flex flex-wrap gap-3 mt-4">
-                  {event.links.map((link, linkIndex) => (
+                  {show.links.map((link, linkIndex) => (
                     link.external ? (
                       <a
                         key={linkIndex}
@@ -160,10 +171,11 @@ export default function Home() {
                     )
                   ))}
                 </div>
+                )}
 
-                {event.notes && event.notes.length > 0 && (
+                {show.notes && show.notes.length > 0 && (
                   <div className="mt-4">
-                    {event.notes.map((note, noteIndex) => (
+                    {show.notes.map((note, noteIndex) => (
                       <p
                         key={noteIndex}
                         className="text-sm text-gold-400 italic"
@@ -176,6 +188,7 @@ export default function Home() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
