@@ -161,9 +161,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 12-01: Results table SQL migration, RLS policies, TypeScript types, CRUD server actions
-- [ ] 12-02: Admin results list page, create/edit pages with form, delete with confirmation
-- [ ] 12-03: Public results page and admin dashboard migrated to Supabase
+- [x] 12-01: Results table SQL migration, RLS policies, TypeScript types, CRUD server actions
+- [x] 12-02: Admin results list page, create/edit pages with form, delete with confirmation
+- [x] 12-03: Public results page and admin dashboard migrated to Supabase
 
 #### Phase 13: Admin Polish & Testing
 
@@ -193,5 +193,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 9. Authentication & Admin Foundation | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 10. Show Schedule Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 11. Sponsor Management | v1.1 | 3/3 | Complete | 2026-02-16 |
-| 12. Results & Standings Management | v1.1 | 0/? | Not started | - |
+| 12. Results & Standings Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 13. Admin Polish & Testing | v1.1 | 0/? | Not started | - |

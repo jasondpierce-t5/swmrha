@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-12)
 
 ## Current Position
 
-Phase: 11 of 13 (Sponsor Management)
+Phase: 12 of 13 (Results & Standings Management)
 Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-02-16 — Completed Phase 11 (parallel execution: Wave 1 sequential + Wave 2 parallel)
+Last activity: 2026-02-16 — Completed Phase 12 (parallel execution: Wave 1 sequential + Wave 2 parallel)
 
-Progress: ██████████░░░ 58%
+Progress: ███████████░░ 65%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 27
+- Total plans completed: 30
 - Average duration: 6 min
-- Total execution time: 2.7 hours
+- Total execution time: 3 hours
 
 **By Phase:**
 
@@ -39,9 +39,10 @@ Progress: ██████████░░░ 58%
 | 09 Auth & Admin Foundation | 3/3 | 27 min (segmented parallel) | 9 min |
 | 10 Show Schedule Management | 3/3 | 17 min (parallel Wave 2) | 6 min |
 | 11 Sponsor Management | 3/3 | 10 min (parallel Wave 2) | 5 min |
+| 12 Results & Standings | 3/3 | 12 min (parallel Wave 2) | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 6 min, 5 min, 5 min, 4 min (avg 5.2 min)
+- Last 5 plans: 5 min, 5 min, 4 min, 5 min, 4 min (avg 4.6 min)
 - Trend: Excellent (parallel execution maintaining quality)
 
 ## Accumulated Context
@@ -103,6 +104,9 @@ Recent decisions affecting current work:
 | 11-01 | Sort order by tier bands (Platinum=0, Diamond=10, etc.) | Consistent ordering with room for reordering within tiers |
 | 11-02 | Plain &lt;img&gt; for Storage logos, not next/image | Supabase Storage URLs not in remotePatterns config |
 | 11-02 | Level as constrained SELECT dropdown (6 options) | Prevents invalid tier values |
+| 12-01 | Simple text columns for results (no JSONB) | Results are just label + URL + category, no complex nested data |
+| 12-01 | Category field with 3 values (current_year, past_results, standings) | Replaces label-parsing logic for grouping results on public page |
+| 12-02 | Category as constrained SELECT dropdown (3 options) | Same pattern as SponsorForm level field |
 
 ### Deferred Issues
 
@@ -120,7 +124,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed Phase 11 (Sponsor Management) — all 3 plans done (parallel execution)
+Stopped at: Completed Phase 12 (Results & Standings Management) — all 3 plans done (parallel execution)
 Resume file: None
 
 ## v1.0 Completion
@@ -134,5 +138,5 @@ Resume file: None
 ## v1.1 In Progress
 
 **Status:** 🚧 v1.1 Admin & Management in development
-**Current Phase:** 11 of 13 complete (Sponsor Management)
+**Current Phase:** 12 of 13 complete (Results & Standings Management)
 **Started:** 2026-02-16
