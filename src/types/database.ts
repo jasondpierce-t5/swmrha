@@ -172,3 +172,47 @@ export type ShowClassInsert = Omit<ShowClassRow, 'id' | 'created_at' | 'updated_
   sort_order?: number;
   is_active?: boolean;
 };
+
+// ---------------------------------------------------------------------------
+// Show Entries table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `show_entries` table. */
+export interface ShowEntryRow {
+  id: string;
+  show_id: string;
+  member_id: string;
+  horse_name: string;
+  rider_name: string;
+  status: string;
+  total_cents: number;
+  payment_id: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// ---------------------------------------------------------------------------
+// Show Entry Classes junction table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `show_entry_classes` junction table. */
+export interface ShowEntryClassRow {
+  id: string;
+  entry_id: string;
+  class_id: string;
+  fee_cents: number;
+  created_at: string;
+}
+
+/** Composite type for an entry with its selected classes. */
+export interface ShowEntryWithClasses extends ShowEntryRow {
+  classes: ShowEntryClassRow[];
+}
+
+/** Input type for creating entries (one horse/rider combo with class selections). */
+export interface CreateShowEntryInput {
+  show_id: string;
+  horse_name: string;
+  rider_name: string;
+  class_ids: string[];
+}
