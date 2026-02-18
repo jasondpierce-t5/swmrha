@@ -100,3 +100,33 @@ export interface MemberRow {
   created_at: string;
   updated_at: string;
 }
+
+// ---------------------------------------------------------------------------
+// Membership Types table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `membership_types` table. */
+export interface MembershipTypeRow {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  price_cents: number;
+  duration_months: number | null;
+  benefits: string[];
+  sort_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Fields required to insert a new membership type. */
+export type MembershipTypeInsert = Omit<
+  MembershipTypeRow,
+  'id' | 'created_at' | 'updated_at'
+> & {
+  sort_order?: number;
+  is_active?: boolean;
+  benefits?: string[];
+  price_cents?: number;
+};
