@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 16 of 21 (Membership Management)
+Phase: 17 of 21 (Membership Payments)
 Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-02-17 - Completed Phase 16 (parallel Wave 2)
+Last activity: 2026-02-17 - Completed Phase 17 (parallel Wave 2 + checkpoint)
 
-Progress: ███░░░░░░░ 30%
+Progress: ████░░░░░░ 38%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 41
+- Total plans completed: 44
 - Average duration: 6 min
-- Total execution time: 4h 20m
+- Total execution time: 4h 38m
 
 **By Phase:**
 
@@ -43,6 +43,7 @@ Progress: ███░░░░░░░ 30%
 | 14 Stripe Foundation & Member Auth | 3/3 | 15 min (parallel + checkpoints) | 5 min |
 | 15 Member Portal & Profiles | 2/2 | 23 min (sequential + checkpoint) | 12 min |
 | 16 Membership Management | 3/3 | 12 min (parallel Wave 2) | 4 min |
+| 17 Membership Payments | 3/3 | 18 min (parallel Wave 2 + checkpoint) | 6 min |
 
 ## Accumulated Context
 
@@ -61,6 +62,10 @@ v2.0 decisions:
 | 15 | updateMemberProfile restricts fields to name/phone/address | Membership fields are system-managed, not member-editable |
 | 16 | membership_types loosely coupled via slug (no FK to members) | Flexibility for future migration; convention-based matching |
 | 16 | price_cents integer storage with dollar display conversion | Standard Stripe pattern; avoids floating-point issues |
+| 17 | Payments SELECT-only RLS; all writes via service role admin client | System-managed writes ensure payment integrity |
+| 17 | Dynamic payment type resolution from member status | pending→dues, active/expired→renewal |
+| 17 | Idempotent webhook fulfillment with fallback payment creation | Handles duplicate webhooks and race conditions |
+| 17 | Calendar-aware month calculation for membership expiry | Date.setMonth() instead of raw millisecond math |
 
 ### Deferred Issues
 
@@ -79,7 +84,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-17
-Stopped at: Completed Phase 16 (Membership Management)
+Stopped at: Completed Phase 17 (Membership Payments)
 Resume file: None
 
 ## Deployment

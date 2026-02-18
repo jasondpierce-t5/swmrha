@@ -83,16 +83,16 @@ Plans:
 - [x] 16-02: Admin Membership Types UI & Public Page (admin CRUD pages, dynamic public tiers)
 - [x] 16-03: Admin Members UI (member list, edit form, delete, status badges)
 
-#### Phase 17: Membership Payments
+#### Phase 17: Membership Payments — Complete
 
 **Goal**: Stripe checkout for dues, renewal tracking, receipts, membership status updates
 **Depends on**: Phase 16
-**Research**: Likely (Stripe Checkout API, webhook handling, subscription patterns)
-**Research topics**: Stripe Checkout Sessions, payment intents, webhook verification, receipt generation
-**Plans**: TBD
+**Completed**: 2026-02-17
 
 Plans:
-- [ ] 17-01: TBD
+- [x] 17-01: Payments Data Layer & Checkout Session (migration, types, admin client, checkout action)
+- [x] 17-02: Webhook Fulfillment & Checkout Pages (fulfillment handler, success/cancel pages)
+- [x] 17-03: Checkout UI & Payment History (pay-dues page, payment history, dashboard CTAs)
 
 #### Phase 18: Show Entry System
 
@@ -159,7 +159,7 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 14. Stripe Foundation & Member Auth | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 15. Member Portal & Profiles | v2.0 | 2/2 | Complete | 2026-02-17 |
 | 16. Membership Management | v2.0 | 3/3 | Complete | 2026-02-17 |
-| 17. Membership Payments | v2.0 | 0/? | Not started | - |
+| 17. Membership Payments | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 18. Show Entry System | v2.0 | 0/? | Not started | - |
 | 19. Show Entry Payments | v2.0 | 0/? | Not started | - |
 | 20. Guest Checkout & Additional Fees | v2.0 | 0/? | Not started | - |
