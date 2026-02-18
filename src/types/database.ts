@@ -130,3 +130,22 @@ export type MembershipTypeInsert = Omit<
   benefits?: string[];
   price_cents?: number;
 };
+
+// ---------------------------------------------------------------------------
+// Payments table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `payments` table. */
+export interface PaymentRow {
+  id: string;
+  member_id: string;
+  amount_cents: number;
+  payment_type: string;
+  membership_type_slug: string | null;
+  description: string | null;
+  stripe_checkout_session_id: string | null;
+  stripe_payment_intent_id: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
