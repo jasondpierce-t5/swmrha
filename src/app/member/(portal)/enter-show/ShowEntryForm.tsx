@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { getActiveShowClasses } from '@/lib/actions/show-classes';
 import { createShowEntries } from '@/lib/actions/show-entries';
+import { createEntryCheckoutSession } from '@/lib/actions/entry-checkout';
 import type { ShowRow, ShowClassRow, CreateShowEntryInput } from '@/types/database';
 
 // ---------------------------------------------------------------------------
@@ -58,6 +59,8 @@ export default function ShowEntryForm({ shows }: ShowEntryFormProps) {
   // Step 3 state
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [payAfterSave, setPayAfterSave] = useState(false);
+  const [payError, setPayError] = useState<string | null>(null);
 
   // ---------------------------------------------------------------------------
   // Show selection with class fetching
@@ -163,9 +166,11 @@ export default function ShowEntryForm({ shows }: ShowEntryFormProps) {
   // Submit
   // ---------------------------------------------------------------------------
 
-  const handleSave = async () => {
+  const handleSave = async (payImmediately: boolean) => {
     setSubmitError(null);
+    setPayError(null);
     setSubmitting(true);
+    setPayAfterSave(payImmediately);
 
     const payload: CreateShowEntryInput[] = entries.map((e) => ({
       show_id: selectedShowId,
@@ -182,10 +187,27 @@ export default function ShowEntryForm({ shows }: ShowEntryFormProps) {
         return;
       }
 
-      // Success — redirect via transition for smooth UX
-      startTransition(() => {
-        router.push('/member/entries?success=Entries+saved');
-      });
+      if (payImmediately) {
+        // Extract entry IDs from the returned entries and redirect to Stripe
+        const entryIds = result.map((e) => e.id);
+        const checkoutResult = await createEntryCheckoutSession(entryIds);
+
+        if ('url' in checkoutResult) {
+          window.location.href = checkoutResult.url;
+          return;
+        }
+
+        // Payment session failed — entries still saved as draft, redirect to entries list
+        setPayError(checkoutResult.error);
+        startTransition(() => {
+          router.push('/member/entries?success=Entries+saved');
+        });
+      } else {
+        // Save as draft — redirect to entries list
+        startTransition(() => {
+          router.push('/member/entries?success=Entries+saved');
+        });
+      }
     } catch {
       setSubmitError('Something went wrong. Please try again.');
       setSubmitting(false);
@@ -524,11 +546,20 @@ export default function ShowEntryForm({ shows }: ShowEntryFormProps) {
               </div>
             </div>
 
-            {/* Draft notice */}
+            {/* Pay error (if Save & Pay failed at checkout step) */}
+            {payError && (
+              <div className="mt-4 rounded-lg border border-red-700 bg-red-900/30 p-3">
+                <p className="text-sm text-red-200">{payError}</p>
+              </div>
+            )}
+
+            {/* Notice */}
             <div className="mt-4 rounded-lg border border-navy-600 bg-navy-900/50 p-4">
               <p className="text-sm text-slate-400">
-                Your entries will be saved as a <strong className="text-white">draft</strong>.
-                You can complete payment from the{' '}
+                Choose <strong className="text-gold-500">&ldquo;Save &amp; Pay Now&rdquo;</strong> to
+                save your entries and be redirected to Stripe to complete payment.
+                Or choose <strong className="text-white">&ldquo;Save as Draft&rdquo;</strong> to
+                save your entries and complete payment later from the{' '}
                 <span className="text-gold-500">My Entries</span> page.
               </p>
             </div>
@@ -563,13 +594,26 @@ export default function ShowEntryForm({ shows }: ShowEntryFormProps) {
           )}
 
           {step === 3 && (
-            <button
-              onClick={handleSave}
-              disabled={submitting || isPending}
-              className="ml-auto rounded-lg bg-gold-500 px-6 py-2 font-bold text-navy-900 transition-colors hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {submitting || isPending ? 'Saving...' : 'Save Entries'}
-            </button>
+            <div className="ml-auto flex items-center gap-3">
+              <button
+                onClick={() => handleSave(false)}
+                disabled={submitting || isPending}
+                className="rounded-lg bg-navy-700 px-6 py-2 font-bold text-white transition-colors hover:bg-navy-600 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {submitting && !payAfterSave
+                  ? 'Saving...'
+                  : 'Save as Draft'}
+              </button>
+              <button
+                onClick={() => handleSave(true)}
+                disabled={submitting || isPending}
+                className="rounded-lg bg-gold-500 px-6 py-2 font-bold text-navy-900 transition-colors hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {submitting && payAfterSave
+                  ? 'Redirecting to Payment...'
+                  : 'Save & Pay Now'}
+              </button>
+            </div>
           )}
         </div>
       </div>

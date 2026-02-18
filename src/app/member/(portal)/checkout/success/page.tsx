@@ -86,6 +86,8 @@ export default async function CheckoutSuccessPage({
 
   // --- State: Payment succeeded ---
   if (payment && payment.status === "succeeded") {
+    const isEntryPayment = payment.payment_type === "entry_fees";
+
     return (
       <div className="space-y-6">
         <div className="rounded-lg border border-navy-700 bg-navy-800 p-6">
@@ -95,7 +97,9 @@ export default async function CheckoutSuccessPage({
               Payment Successful!
             </h1>
             <p className="mt-2 text-sm text-gray-400">
-              Your membership has been activated. Thank you for your support!
+              {isEntryPayment
+                ? "Your show entries have been confirmed. Thank you!"
+                : "Your membership has been activated. Thank you for your support!"}
             </p>
 
             {/* Payment details */}
@@ -115,6 +119,14 @@ export default async function CheckoutSuccessPage({
                     <span className="text-gray-400">Membership</span>
                     <span className="capitalize text-white">
                       {payment.membership_type_slug.replace(/-/g, " ")}
+                    </span>
+                  </div>
+                )}
+                {isEntryPayment && payment.description && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Description</span>
+                    <span className="text-white">
+                      {payment.description}
                     </span>
                   </div>
                 )}
@@ -142,10 +154,10 @@ export default async function CheckoutSuccessPage({
                 Back to Dashboard
               </Link>
               <Link
-                href="/member/payments"
+                href={isEntryPayment ? "/member/entries" : "/member/payments"}
                 className="rounded-lg border border-navy-700 px-5 py-2.5 text-sm font-medium text-gold-500 transition-colors hover:border-gold-500/30 hover:bg-gold-500/10"
               >
-                View Payment History
+                {isEntryPayment ? "View My Entries" : "View Payment History"}
               </Link>
             </div>
           </div>
@@ -156,6 +168,8 @@ export default async function CheckoutSuccessPage({
 
   // --- State: Payment still processing ---
   if (payment && payment.status === "pending") {
+    const isEntryPayment = payment.payment_type === "entry_fees";
+
     return (
       <div className="space-y-6">
         <div className="rounded-lg border border-navy-700 bg-navy-800 p-6">
@@ -166,7 +180,9 @@ export default async function CheckoutSuccessPage({
             </h1>
             <p className="mt-2 max-w-md text-sm text-gray-400">
               Your payment is being processed. This usually takes a moment.
-              Your membership will be activated once the payment is confirmed.
+              {isEntryPayment
+                ? " Your entries will be confirmed once the payment is processed."
+                : " Your membership will be activated once the payment is confirmed."}
             </p>
 
             <div className="mt-8">
