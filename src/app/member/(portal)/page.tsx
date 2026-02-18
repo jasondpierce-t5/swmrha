@@ -5,10 +5,13 @@ import {
   CreditCardIcon,
   EnvelopeIcon,
   BanknotesIcon,
+  TicketIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 import { getMemberProfile } from "@/lib/actions/members";
 import { getMemberPayments } from "@/lib/actions/payments";
-import type { PaymentRow } from "@/types/database";
+import { getMemberEntries } from "@/lib/actions/show-entries";
+import type { PaymentRow, ShowEntryWithClasses } from "@/types/database";
 
 /** Color-coded badge for membership status. */
 function StatusBadge({ status }: { status: string }) {
@@ -180,6 +183,57 @@ function MembershipCTA({
   return null;
 }
 
+/** Color-coded badge for entry status. */
+function EntryStatusBadge({ status }: { status: string }) {
+  const colorMap: Record<string, string> = {
+    draft: "border-gray-600 bg-gray-900/50 text-gray-300",
+    pending_payment: "border-yellow-700 bg-yellow-900/50 text-yellow-300",
+    confirmed: "border-green-700 bg-green-900/50 text-green-300",
+    cancelled: "border-red-700 bg-red-900/50 text-red-300",
+  };
+
+  const labelMap: Record<string, string> = {
+    draft: "Draft",
+    pending_payment: "Pending Payment",
+    confirmed: "Confirmed",
+    cancelled: "Cancelled",
+  };
+
+  const colors = colorMap[status] ?? "border-navy-600 bg-navy-700 text-gray-300";
+
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${colors}`}
+    >
+      {labelMap[status] ?? status}
+    </span>
+  );
+}
+
+/** Compact entry row for the dashboard preview. */
+function EntryPreviewRow({
+  entry,
+}: {
+  entry: ShowEntryWithClasses & { show_name: string };
+}) {
+  return (
+    <div className="flex items-center justify-between border-b border-navy-700 py-3 last:border-b-0">
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm text-white">
+          {entry.horse_name} / {entry.rider_name}
+        </p>
+        <p className="text-xs text-gray-400">{entry.show_name}</p>
+      </div>
+      <div className="ml-4 flex items-center gap-3">
+        <span className="text-sm font-medium text-white">
+          {formatAmount(entry.total_cents)}
+        </span>
+        <EntryStatusBadge status={entry.status} />
+      </div>
+    </div>
+  );
+}
+
 /** Compact payment row for the dashboard preview. */
 function PaymentPreviewRow({ payment }: { payment: PaymentRow }) {
   return (
@@ -201,9 +255,10 @@ function PaymentPreviewRow({ payment }: { payment: PaymentRow }) {
 }
 
 export default async function MemberDashboardPage() {
-  const [profileResult, paymentsResult] = await Promise.all([
+  const [profileResult, paymentsResult, entriesResult] = await Promise.all([
     getMemberProfile(),
     getMemberPayments(),
+    getMemberEntries(),
   ]);
 
   // Error state
@@ -228,6 +283,11 @@ export default async function MemberDashboardPage() {
   const payments = Array.isArray(paymentsResult) ? paymentsResult : [];
   const recentPayments = payments.slice(0, 3);
 
+  // Get recent show entries (last 3, only non-cancelled)
+  const allEntries = Array.isArray(entriesResult) ? entriesResult : [];
+  const activeEntries = allEntries.filter((e) => e.status !== "cancelled");
+  const recentEntries = activeEntries.slice(0, 3);
+
   const quickLinks = [
     {
       label: "Edit Profile",
@@ -242,6 +302,12 @@ export default async function MemberDashboardPage() {
       description: "Pay or renew membership",
     },
     {
+      label: "Enter Show",
+      href: "/member/enter-show",
+      icon: TicketIcon,
+      description: "Register for an upcoming show",
+    },
+    {
       label: "View Shows",
       href: "/shows",
       icon: CalendarDaysIcon,
@@ -252,6 +318,12 @@ export default async function MemberDashboardPage() {
       href: "/member/payments",
       icon: CreditCardIcon,
       description: "View your transactions",
+    },
+    {
+      label: "My Entries",
+      href: "/member/entries",
+      icon: ClipboardDocumentListIcon,
+      description: "View your show entries",
     },
     {
       label: "Contact Us",
@@ -412,6 +484,43 @@ export default async function MemberDashboardPage() {
               No payment history yet. Your transactions will appear here once
               you make a payment.
             </p>
+          </div>
+        )}
+      </div>
+
+      {/* Show Entries Preview */}
+      <div className="rounded-lg border border-navy-700 bg-navy-800 p-6">
+        <div className="flex items-center justify-between">
+          <h3 className="font-heading text-lg font-semibold text-white">
+            Show Entries
+          </h3>
+          {activeEntries.length > 0 && (
+            <Link
+              href="/member/entries"
+              className="text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+            >
+              View All &rarr;
+            </Link>
+          )}
+        </div>
+        {recentEntries.length > 0 ? (
+          <div className="mt-4">
+            {recentEntries.map((entry) => (
+              <EntryPreviewRow key={entry.id} entry={entry} />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-4 flex flex-col items-center justify-center py-8 text-center">
+            <TicketIcon className="h-12 w-12 text-navy-600" />
+            <p className="mt-3 text-sm text-gray-400">
+              No show entries yet. Enter an upcoming show to get started!
+            </p>
+            <Link
+              href="/member/enter-show"
+              className="mt-4 text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+            >
+              Enter a Show &rarr;
+            </Link>
           </div>
         )}
       </div>

@@ -3,6 +3,8 @@ import {
   UserCircleIcon,
   BanknotesIcon,
   CreditCardIcon,
+  TicketIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 
@@ -37,5 +39,17 @@ export const memberNavigation: MemberNavItem[] = [
     href: "/member/payments",
     icon: CreditCardIcon,
     description: "View your payment history",
+  },
+  {
+    label: "Enter Show",
+    href: "/member/enter-show",
+    icon: TicketIcon,
+    description: "Register for an upcoming show",
+  },
+  {
+    label: "My Entries",
+    href: "/member/entries",
+    icon: ClipboardDocumentListIcon,
+    description: "View your show entries",
   },
 ];
