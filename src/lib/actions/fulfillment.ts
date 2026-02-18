@@ -1,4 +1,6 @@
 import type Stripe from 'stripe';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { revalidatePath } from 'next/cache';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type { MembershipTypeRow, PaymentRow } from '@/types/database';
 
@@ -12,7 +14,7 @@ import type { MembershipTypeRow, PaymentRow } from '@/types/database';
  * Steps:
  * 1. Idempotency check — skip if already fulfilled
  * 2. Update payment record status to 'succeeded'
- * 3. Activate member membership fields
+ * 3. Dispatch to payment-type-specific fulfillment (membership or entry fees)
  */
 export async function fulfillCheckoutSession(
   session: Stripe.Checkout.Session,
@@ -44,6 +46,8 @@ export async function fulfillCheckoutSession(
       ? session.payment_intent
       : session.payment_intent?.id ?? null;
 
+  let paymentRecordId: string | null = null;
+
   const { data: updatedPayment, error: updateError } = await admin
     .from('payments')
     .update({
@@ -61,29 +65,46 @@ export async function fulfillCheckoutSession(
     );
   }
 
+  if (updatedPayment) {
+    paymentRecordId = updatedPayment.id as string;
+  }
+
   // If no pending payment was found, create one as a fallback
   if (!updatedPayment) {
     console.warn(
       `No pending payment found for session ${session.id} — creating fallback record`,
     );
 
-    if (memberId && membershipTypeSlug) {
-      const { error: insertError } = await admin.from('payments').insert({
-        member_id: memberId,
-        amount_cents: session.amount_total ?? 0,
-        payment_type: paymentType ?? 'membership_dues',
-        membership_type_slug: membershipTypeSlug,
-        stripe_checkout_session_id: session.id,
-        stripe_payment_intent_id: paymentIntentId,
-        status: 'succeeded',
-        description: `SWMRHA Membership (webhook fallback)`,
-      } satisfies Omit<PaymentRow, 'id' | 'created_at' | 'updated_at'>);
+    if (memberId) {
+      // For entry_fees, membership_type_slug will be undefined/null — that's fine
+      const fallbackSlug = membershipTypeSlug ?? null;
+      const fallbackDescription =
+        paymentType === 'entry_fees'
+          ? `SWMRHA Show Entry Fees (webhook fallback)`
+          : `SWMRHA Membership (webhook fallback)`;
+
+      const { data: fallbackPayment, error: insertError } = await admin
+        .from('payments')
+        .insert({
+          member_id: memberId,
+          amount_cents: session.amount_total ?? 0,
+          payment_type: paymentType ?? 'membership_dues',
+          membership_type_slug: fallbackSlug,
+          stripe_checkout_session_id: session.id,
+          stripe_payment_intent_id: paymentIntentId,
+          status: 'succeeded',
+          description: fallbackDescription,
+        } satisfies Omit<PaymentRow, 'id' | 'created_at' | 'updated_at'>)
+        .select('id')
+        .single();
 
       if (insertError) {
         console.error(
           `Failed to create fallback payment for session ${session.id}:`,
           insertError.message,
         );
+      } else if (fallbackPayment) {
+        paymentRecordId = fallbackPayment.id as string;
       }
     } else {
       console.error(
@@ -92,7 +113,31 @@ export async function fulfillCheckoutSession(
     }
   }
 
-  // --- 3. Update member membership fields ---
+  // --- 3. Dispatch based on payment type ---
+  if (paymentType === 'entry_fees') {
+    await fulfillEntryPayment(session, admin, paymentRecordId);
+  } else {
+    await fulfillMembershipPayment(session, admin, memberId, membershipTypeSlug);
+  }
+
+  console.log(
+    `Fulfilled checkout session ${session.id} for member ${memberId}`,
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Membership payment fulfillment
+// ---------------------------------------------------------------------------
+
+/**
+ * Fulfill a membership payment: activate membership, update member fields.
+ */
+async function fulfillMembershipPayment(
+  session: Stripe.Checkout.Session,
+  admin: SupabaseClient,
+  memberId: string | undefined,
+  membershipTypeSlug: string | undefined,
+): Promise<void> {
   if (!memberId || !membershipTypeSlug) {
     console.error(
       `Missing metadata on session ${session.id} — cannot update member`,
@@ -157,8 +202,71 @@ export async function fulfillCheckoutSession(
       `Failed to update member membership: ${memberError.message}`,
     );
   }
+}
+
+// ---------------------------------------------------------------------------
+// Entry payment fulfillment
+// ---------------------------------------------------------------------------
+
+/**
+ * Fulfill an entry fee payment: confirm entries with payment_id.
+ */
+async function fulfillEntryPayment(
+  session: Stripe.Checkout.Session,
+  admin: SupabaseClient,
+  paymentRecordId: string | null,
+): Promise<void> {
+  const entryIdsRaw = session.metadata?.entry_ids;
+
+  if (!entryIdsRaw) {
+    console.error(
+      `No entry_ids in metadata for session ${session.id} — cannot fulfill entries`,
+    );
+    return;
+  }
+
+  const entryIds = entryIdsRaw
+    .split(',')
+    .map((id) => id.trim())
+    .filter((id) => id.length > 0);
+
+  if (entryIds.length === 0) {
+    console.error(
+      `Empty entry_ids in metadata for session ${session.id}`,
+    );
+    return;
+  }
+
+  // Update each entry to confirmed with payment_id
+  for (const entryId of entryIds) {
+    const updateData: Record<string, unknown> = {
+      status: 'confirmed',
+    };
+
+    if (paymentRecordId) {
+      updateData.payment_id = paymentRecordId;
+    }
+
+    const { error: entryError } = await admin
+      .from('show_entries')
+      .update(updateData)
+      .eq('id', entryId);
+
+    if (entryError) {
+      console.error(
+        `Failed to confirm entry ${entryId} for session ${session.id}:`,
+        entryError.message,
+      );
+      // Continue processing remaining entries
+    }
+  }
+
+  // Revalidate entry-related paths
+  revalidatePath('/member/entries');
+  revalidatePath('/member/enter-show');
+  revalidatePath('/admin/shows');
 
   console.log(
-    `Fulfilled checkout session ${session.id} for member ${memberId}`,
+    `Confirmed ${entryIds.length} entries for session ${session.id}`,
   );
 }
