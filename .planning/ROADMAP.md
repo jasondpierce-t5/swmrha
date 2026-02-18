@@ -62,16 +62,15 @@ Plans:
 - [x] 14-02: Members Database & Auth Infrastructure (members table, middleware, email confirm)
 - [x] 14-03: Member Registration & Login Pages (registration, login, LayoutWrapper update)
 
-#### Phase 15: Member Portal & Profiles
+#### Phase 15: Member Portal & Profiles — Complete
 
 **Goal**: Build member dashboard shell, profile management, payment history UI
 **Depends on**: Phase 14
-**Research**: Unlikely (internal UI patterns from v1.1 admin panel)
-**Plans**: 2
+**Completed**: 2026-02-17
 
 Plans:
-- [ ] 15-01: Member Portal Shell & Dashboard (layout, sidebar, header, dashboard, member actions)
-- [ ] 15-02: Profile Management & Payment History (profile view/edit, payment history placeholder)
+- [x] 15-01: Member Portal Shell & Dashboard (layout, sidebar, header, dashboard, member actions)
+- [x] 15-02: Profile Management & Payment History (profile view/edit, payment history placeholder)
 
 #### Phase 16: Membership Management
 
@@ -157,7 +156,7 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 12. Results & Standings Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 13. Admin Polish & Testing | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 14. Stripe Foundation & Member Auth | v2.0 | 3/3 | Complete | 2026-02-17 |
-| 15. Member Portal & Profiles | v2.0 | 0/? | Not started | - |
+| 15. Member Portal & Profiles | v2.0 | 2/2 | Complete | 2026-02-17 |
 | 16. Membership Management | v2.0 | 0/? | Not started | - |
 | 17. Membership Payments | v2.0 | 0/? | Not started | - |
 | 18. Show Entry System | v2.0 | 0/? | Not started | - |

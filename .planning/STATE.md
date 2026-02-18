@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 14 of 21 (Stripe Foundation & Member Auth)
-Plan: 3 of 3 in current phase
+Phase: 15 of 21 (Member Portal & Profiles)
+Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-02-17 - Completed Phase 14 (parallel execution)
+Last activity: 2026-02-17 - Completed Phase 15 (sequential + checkpoint)
 
-Progress: █░░░░░░░░░ 13%
+Progress: ██░░░░░░░░ 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 36
+- Total plans completed: 38
 - Average duration: 6 min
-- Total execution time: 3h 45m
+- Total execution time: 4h 8m
 
 **By Phase:**
 
@@ -41,6 +41,7 @@ Progress: █░░░░░░░░░ 13%
 | 12 Results & Standings | 3/3 | 12 min (parallel Wave 2) | 4 min |
 | 13 Admin Polish & Testing | 3/3 | 30 min (sequential + UAT) | 10 min |
 | 14 Stripe Foundation & Member Auth | 3/3 | 15 min (parallel + checkpoints) | 5 min |
+| 15 Member Portal & Profiles | 2/2 | 23 min (sequential + checkpoint) | 12 min |
 
 ## Accumulated Context
 
@@ -55,6 +56,8 @@ v2.0 decisions:
 | 14 | Split signup trigger into BEFORE/AFTER INSERT | FK constraint requires auth.users row to exist before members insert |
 | 14 | Stripe SDK default API version | Keeps version aligned with installed package |
 | 14 | Email confirmation via /auth/confirm (token_hash) | Separate from PKCE callback flow |
+| 15 | (portal) route group for authenticated member routes | Prevents auth-checking layout from wrapping login/register pages |
+| 15 | updateMemberProfile restricts fields to name/phone/address | Membership fields are system-managed, not member-editable |
 
 ### Deferred Issues
 
@@ -73,7 +76,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-17
-Stopped at: Completed Phase 14 (Stripe Foundation & Member Auth)
+Stopped at: Completed Phase 15 (Member Portal & Profiles)
 Resume file: None
 
 ## Deployment
