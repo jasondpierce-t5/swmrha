@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 17 of 21 (Membership Payments)
-Plan: 3 of 3 in current phase
+Phase: 18 of 21 (Show Entry System)
+Plan: 4 of 4 in current phase
 Status: Phase complete
-Last activity: 2026-02-17 - Completed Phase 17 (parallel Wave 2 + checkpoint)
+Last activity: 2026-02-17 - Completed Phase 18 (parallel Wave 2 + checkpoint)
 
-Progress: ████░░░░░░ 38%
+Progress: █████░░░░░ 46%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 44
+- Total plans completed: 48
 - Average duration: 6 min
-- Total execution time: 4h 38m
+- Total execution time: 5h 0m
 
 **By Phase:**
 
@@ -44,6 +44,7 @@ Progress: ████░░░░░░ 38%
 | 15 Member Portal & Profiles | 2/2 | 23 min (sequential + checkpoint) | 12 min |
 | 16 Membership Management | 3/3 | 12 min (parallel Wave 2) | 4 min |
 | 17 Membership Payments | 3/3 | 18 min (parallel Wave 2 + checkpoint) | 6 min |
+| 18 Show Entry System | 4/4 | 22 min (parallel Wave 2 + checkpoint) | 6 min |
 
 ## Accumulated Context
 
@@ -66,6 +67,9 @@ v2.0 decisions:
 | 17 | Dynamic payment type resolution from member status | pending→dues, active/expired→renewal |
 | 17 | Idempotent webhook fulfillment with fallback payment creation | Handles duplicate webhooks and race conditions |
 | 17 | Calendar-aware month calculation for membership expiry | Date.setMonth() instead of raw millisecond math |
+| 18 | show_entry_classes.fee_cents snapshots class fee at entry time | Protects against later admin price changes |
+| 18 | Entry writes via service role admin client (SELECT-only RLS) | Consistent with payments pattern |
+| 18 | Entries saved as draft; payment integration deferred to Phase 19 | Clean separation of entry vs payment concerns |
 
 ### Deferred Issues
 
@@ -84,7 +88,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-17
-Stopped at: Completed Phase 17 (Membership Payments)
+Stopped at: Completed Phase 18 (Show Entry System)
 Resume file: None
 
 ## Deployment

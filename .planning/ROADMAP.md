@@ -94,15 +94,17 @@ Plans:
 - [x] 17-02: Webhook Fulfillment & Checkout Pages (fulfillment handler, success/cancel pages)
 - [x] 17-03: Checkout UI & Payment History (pay-dues page, payment history, dashboard CTAs)
 
-#### Phase 18: Show Entry System
+#### Phase 18: Show Entry System — Complete
 
 **Goal**: Show class/event management, entry selection UI, pricing configuration
 **Depends on**: Phase 17
-**Research**: Unlikely (extending existing show data from v1.1)
-**Plans**: TBD
+**Completed**: 2026-02-17
 
 Plans:
-- [ ] 18-01: TBD
+- [x] 18-01: Show Classes Database & Server Actions (migration, types, CRUD actions)
+- [x] 18-02: Admin Show Class Management UI (list, create, edit, delete pages)
+- [x] 18-03: Show Entries Database & Server Actions (entries + junction tables, types, entry actions)
+- [x] 18-04: Member Show Entry UI & Dashboard Integration (multi-step form, entries list, navigation)
 
 #### Phase 19: Show Entry Payments
 
@@ -160,7 +162,7 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 15. Member Portal & Profiles | v2.0 | 2/2 | Complete | 2026-02-17 |
 | 16. Membership Management | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 17. Membership Payments | v2.0 | 3/3 | Complete | 2026-02-17 |
-| 18. Show Entry System | v2.0 | 0/? | Not started | - |
+| 18. Show Entry System | v2.0 | 4/4 | Complete | 2026-02-17 |
 | 19. Show Entry Payments | v2.0 | 0/? | Not started | - |
 | 20. Guest Checkout & Additional Fees | v2.0 | 0/? | Not started | - |
 | 21. Payment Admin & Polish | v2.0 | 0/? | Not started | - |
