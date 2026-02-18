@@ -149,3 +149,26 @@ export interface PaymentRow {
   created_at: string;
   updated_at: string;
 }
+
+// ---------------------------------------------------------------------------
+// Show Classes table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `show_classes` table. */
+export interface ShowClassRow {
+  id: string;
+  show_id: string;
+  name: string;
+  fee_cents: number;
+  level: string | null;
+  sort_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Fields required to insert a new show class (id and timestamps are generated). */
+export type ShowClassInsert = Omit<ShowClassRow, 'id' | 'created_at' | 'updated_at'> & {
+  sort_order?: number;
+  is_active?: boolean;
+};
