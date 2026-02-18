@@ -3,6 +3,8 @@ import {
   CalendarDaysIcon,
   BuildingStorefrontIcon,
   TrophyIcon,
+  UserGroupIcon,
+  TagIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 
@@ -37,5 +39,17 @@ export const adminNavigation: AdminNavItem[] = [
     href: "/admin/results",
     icon: TrophyIcon,
     description: "Manage show results and standings",
+  },
+  {
+    label: "Members",
+    href: "/admin/members",
+    icon: UserGroupIcon,
+    description: "View and manage members",
+  },
+  {
+    label: "Membership Types",
+    href: "/admin/membership-types",
+    icon: TagIcon,
+    description: "Configure membership tiers and pricing",
   },
 ];
