@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripeServer } from "@/lib/stripe/server";
+import { fulfillCheckoutSession } from "@/lib/actions/fulfillment";
 
 export async function POST(request: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -45,8 +46,7 @@ export async function POST(request: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-        console.log(`Checkout session completed: ${session.id}`);
-        // Placeholder for Phase 17+ fulfillment logic
+        await fulfillCheckoutSession(session);
         break;
       }
 
