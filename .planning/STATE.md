@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 15 of 21 (Member Portal & Profiles)
-Plan: 2 of 2 in current phase
+Phase: 16 of 21 (Membership Management)
+Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-02-17 - Completed Phase 15 (sequential + checkpoint)
+Last activity: 2026-02-17 - Completed Phase 16 (parallel Wave 2)
 
-Progress: ██░░░░░░░░ 25%
+Progress: ███░░░░░░░ 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 38
+- Total plans completed: 41
 - Average duration: 6 min
-- Total execution time: 4h 8m
+- Total execution time: 4h 20m
 
 **By Phase:**
 
@@ -42,6 +42,7 @@ Progress: ██░░░░░░░░ 25%
 | 13 Admin Polish & Testing | 3/3 | 30 min (sequential + UAT) | 10 min |
 | 14 Stripe Foundation & Member Auth | 3/3 | 15 min (parallel + checkpoints) | 5 min |
 | 15 Member Portal & Profiles | 2/2 | 23 min (sequential + checkpoint) | 12 min |
+| 16 Membership Management | 3/3 | 12 min (parallel Wave 2) | 4 min |
 
 ## Accumulated Context
 
@@ -58,6 +59,8 @@ v2.0 decisions:
 | 14 | Email confirmation via /auth/confirm (token_hash) | Separate from PKCE callback flow |
 | 15 | (portal) route group for authenticated member routes | Prevents auth-checking layout from wrapping login/register pages |
 | 15 | updateMemberProfile restricts fields to name/phone/address | Membership fields are system-managed, not member-editable |
+| 16 | membership_types loosely coupled via slug (no FK to members) | Flexibility for future migration; convention-based matching |
+| 16 | price_cents integer storage with dollar display conversion | Standard Stripe pattern; avoids floating-point issues |
 
 ### Deferred Issues
 
@@ -76,7 +79,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-17
-Stopped at: Completed Phase 15 (Member Portal & Profiles)
+Stopped at: Completed Phase 16 (Membership Management)
 Resume file: None
 
 ## Deployment

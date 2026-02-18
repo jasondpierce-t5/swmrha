@@ -72,15 +72,16 @@ Plans:
 - [x] 15-01: Member Portal Shell & Dashboard (layout, sidebar, header, dashboard, member actions)
 - [x] 15-02: Profile Management & Payment History (profile view/edit, payment history placeholder)
 
-#### Phase 16: Membership Management
+#### Phase 16: Membership Management — Complete
 
 **Goal**: Membership types/tiers in Supabase, admin CRUD for membership configuration, pricing
 **Depends on**: Phase 15
-**Research**: Unlikely (established CRUD patterns from v1.1)
-**Plans**: TBD
+**Completed**: 2026-02-17
 
 Plans:
-- [ ] 16-01: TBD
+- [x] 16-01: Database & Server Actions (membership_types table, types, CRUD actions, admin nav)
+- [x] 16-02: Admin Membership Types UI & Public Page (admin CRUD pages, dynamic public tiers)
+- [x] 16-03: Admin Members UI (member list, edit form, delete, status badges)
 
 #### Phase 17: Membership Payments
 
@@ -157,7 +158,7 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 13. Admin Polish & Testing | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 14. Stripe Foundation & Member Auth | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 15. Member Portal & Profiles | v2.0 | 2/2 | Complete | 2026-02-17 |
-| 16. Membership Management | v2.0 | 0/? | Not started | - |
+| 16. Membership Management | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 17. Membership Payments | v2.0 | 0/? | Not started | - |
 | 18. Show Entry System | v2.0 | 0/? | Not started | - |
 | 19. Show Entry Payments | v2.0 | 0/? | Not started | - |
