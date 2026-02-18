@@ -67,10 +67,11 @@ Plans:
 **Goal**: Build member dashboard shell, profile management, payment history UI
 **Depends on**: Phase 14
 **Research**: Unlikely (internal UI patterns from v1.1 admin panel)
-**Plans**: TBD
+**Plans**: 2
 
 Plans:
-- [ ] 15-01: TBD
+- [ ] 15-01: Member Portal Shell & Dashboard (layout, sidebar, header, dashboard, member actions)
+- [ ] 15-02: Profile Management & Payment History (profile view/edit, payment history placeholder)
 
 #### Phase 16: Membership Management
 
