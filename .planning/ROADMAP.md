@@ -12,6 +12,7 @@ None
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-7) — SHIPPED 2026-02-14
 - ✅ [v1.1 Admin & Management](milestones/v1.1-ROADMAP.md) (Phases 8-13) — SHIPPED 2026-02-16
+- 🚧 **v2.0 Member Portal & Payments** — Phases 14-21 (in progress)
 
 ## Phases
 
@@ -46,10 +47,98 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 </details>
 
+### 🚧 v2.0 Member Portal & Payments (In Progress)
+
+**Milestone Goal:** Full member portal with Stripe-powered payments for membership dues, show entries, and additional fees — with both member accounts and guest checkout.
+
+#### Phase 14: Stripe Foundation & Member Auth
+
+**Goal**: Set up Stripe SDK, create member registration/login separate from admin, email verification
+**Depends on**: Previous milestone complete
+**Research**: Likely (Stripe API integration, member auth coexisting with admin auth)
+**Research topics**: Stripe SDK setup for Next.js, Stripe webhooks, member vs admin auth patterns in Supabase
+**Plans**: TBD
+
+Plans:
+- [ ] 14-01: TBD (run /gsd:plan-phase 14 to break down)
+
+#### Phase 15: Member Portal & Profiles
+
+**Goal**: Build member dashboard shell, profile management, payment history UI
+**Depends on**: Phase 14
+**Research**: Unlikely (internal UI patterns from v1.1 admin panel)
+**Plans**: TBD
+
+Plans:
+- [ ] 15-01: TBD
+
+#### Phase 16: Membership Management
+
+**Goal**: Membership types/tiers in Supabase, admin CRUD for membership configuration, pricing
+**Depends on**: Phase 15
+**Research**: Unlikely (established CRUD patterns from v1.1)
+**Plans**: TBD
+
+Plans:
+- [ ] 16-01: TBD
+
+#### Phase 17: Membership Payments
+
+**Goal**: Stripe checkout for dues, renewal tracking, receipts, membership status updates
+**Depends on**: Phase 16
+**Research**: Likely (Stripe Checkout API, webhook handling, subscription patterns)
+**Research topics**: Stripe Checkout Sessions, payment intents, webhook verification, receipt generation
+**Plans**: TBD
+
+Plans:
+- [ ] 17-01: TBD
+
+#### Phase 18: Show Entry System
+
+**Goal**: Show class/event management, entry selection UI, pricing configuration
+**Depends on**: Phase 17
+**Research**: Unlikely (extending existing show data from v1.1)
+**Plans**: TBD
+
+Plans:
+- [ ] 18-01: TBD
+
+#### Phase 19: Show Entry Payments
+
+**Goal**: Stripe checkout for show entries, confirmation flow, entry tracking in member portal
+**Depends on**: Phase 18
+**Research**: Likely (Stripe payment integration for entry fees)
+**Research topics**: Multi-item Stripe Checkout, line items for entries, payment confirmation flows
+**Plans**: TBD
+
+Plans:
+- [ ] 19-01: TBD
+
+#### Phase 20: Guest Checkout & Additional Fees
+
+**Goal**: Guest checkout flow for non-members, stall fees, banquet tickets, other event charges
+**Depends on**: Phase 19
+**Research**: Likely (guest checkout without auth, Stripe payment links or sessions)
+**Research topics**: Stripe guest checkout patterns, anonymous payment sessions, fee configuration
+**Plans**: TBD
+
+Plans:
+- [ ] 20-01: TBD
+
+#### Phase 21: Payment Admin & Polish
+
+**Goal**: Admin payment dashboard, refund processing, reports, UAT across all payment flows
+**Depends on**: Phase 20
+**Research**: Unlikely (extending established admin patterns from v1.1)
+**Plans**: TBD
+
+Plans:
+- [ ] 21-01: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13
+Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20 → 21
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -66,3 +155,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 11. Sponsor Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 12. Results & Standings Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 13. Admin Polish & Testing | v1.1 | 3/3 | Complete | 2026-02-16 |
+| 14. Stripe Foundation & Member Auth | v2.0 | 0/? | Not started | - |
+| 15. Member Portal & Profiles | v2.0 | 0/? | Not started | - |
+| 16. Membership Management | v2.0 | 0/? | Not started | - |
+| 17. Membership Payments | v2.0 | 0/? | Not started | - |
+| 18. Show Entry System | v2.0 | 0/? | Not started | - |
+| 19. Show Entry Payments | v2.0 | 0/? | Not started | - |
+| 20. Guest Checkout & Additional Fees | v2.0 | 0/? | Not started | - |
+| 21. Payment Admin & Polish | v2.0 | 0/? | Not started | - |

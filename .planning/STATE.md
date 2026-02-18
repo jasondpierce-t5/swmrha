@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** Planning next milestone
+**Current focus:** v2.0 Member Portal & Payments
 
 ## Current Position
 
-Phase: 13 of 13 (all milestones complete)
+Phase: 14 of 21 (Stripe Foundation & Member Auth)
 Plan: Not started
-Status: Ready to plan next milestone
-Last activity: 2026-02-16 — v1.1 milestone complete
+Status: Ready to plan
+Last activity: 2026-02-17 - Milestone v2.0 created
 
-Progress: █████████████ 100% (v1.0 + v1.1)
+Progress: ░░░░░░░░░░ 0%
 
 ## Performance Metrics
 
@@ -60,11 +60,12 @@ None.
 
 - v1.0 MVP created: Initial website rebuild, 7 phases (Phase 1-7), shipped 2026-02-14
 - Milestone v1.1 created: Admin & Management features, 6 phases (Phase 8-13), shipped 2026-02-16
+- Milestone v2.0 created: Member Portal & Payments, 8 phases (Phase 14-21)
 
 ## Session Continuity
 
-Last session: 2026-02-16
-Stopped at: v1.1 milestone archived — ready for next milestone planning
+Last session: 2026-02-17
+Stopped at: Milestone v2.0 initialization
 Resume file: None
 
 ## Deployment
