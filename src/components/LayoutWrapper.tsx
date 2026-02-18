@@ -11,11 +11,14 @@ interface LayoutWrapperProps {
 export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   const pathname = usePathname();
 
-  // Admin and login routes use their own layouts — no public Header/Footer
-  const isAdminOrAuth =
-    pathname.startsWith("/admin") || pathname.startsWith("/login");
+  // Fullscreen routes use their own layouts — no public Header/Footer
+  const isFullscreenRoute =
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/member/login") ||
+    pathname.startsWith("/member/register");
 
-  if (isAdminOrAuth) {
+  if (isFullscreenRoute) {
     return <>{children}</>;
   }
 
