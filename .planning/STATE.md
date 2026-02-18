@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 ## Current Position
 
 Phase: 14 of 21 (Stripe Foundation & Member Auth)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-02-17 - Milestone v2.0 created
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-17 - Completed Phase 14 (parallel execution)
 
-Progress: ░░░░░░░░░░ 0%
+Progress: █░░░░░░░░░ 13%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 33
+- Total plans completed: 36
 - Average duration: 6 min
-- Total execution time: 3h 30m
+- Total execution time: 3h 45m
 
 **By Phase:**
 
@@ -40,6 +40,7 @@ Progress: ░░░░░░░░░░ 0%
 | 11 Sponsor Management | 3/3 | 10 min (parallel Wave 2) | 5 min |
 | 12 Results & Standings | 3/3 | 12 min (parallel Wave 2) | 4 min |
 | 13 Admin Polish & Testing | 3/3 | 30 min (sequential + UAT) | 10 min |
+| 14 Stripe Foundation & Member Auth | 3/3 | 15 min (parallel + checkpoints) | 5 min |
 
 ## Accumulated Context
 
@@ -47,6 +48,13 @@ Progress: ░░░░░░░░░░ 0%
 
 Decisions are logged in PROJECT.md Key Decisions table.
 All decisions from v1.0 and v1.1 documented with outcomes.
+
+v2.0 decisions:
+| Phase | Decision | Rationale |
+|-------|----------|-----------|
+| 14 | Split signup trigger into BEFORE/AFTER INSERT | FK constraint requires auth.users row to exist before members insert |
+| 14 | Stripe SDK default API version | Keeps version aligned with installed package |
+| 14 | Email confirmation via /auth/confirm (token_hash) | Separate from PKCE callback flow |
 
 ### Deferred Issues
 
@@ -65,7 +73,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-17
-Stopped at: Milestone v2.0 initialization
+Stopped at: Completed Phase 14 (Stripe Foundation & Member Auth)
 Resume file: None
 
 ## Deployment

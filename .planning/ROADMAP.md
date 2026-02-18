@@ -51,16 +51,16 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Milestone Goal:** Full member portal with Stripe-powered payments for membership dues, show entries, and additional fees — with both member accounts and guest checkout.
 
-#### Phase 14: Stripe Foundation & Member Auth
+#### Phase 14: Stripe Foundation & Member Auth — Complete
 
 **Goal**: Set up Stripe SDK, create member registration/login separate from admin, email verification
 **Depends on**: Previous milestone complete
-**Research**: Likely (Stripe API integration, member auth coexisting with admin auth)
-**Research topics**: Stripe SDK setup for Next.js, Stripe webhooks, member vs admin auth patterns in Supabase
-**Plans**: TBD
+**Completed**: 2026-02-17
 
 Plans:
-- [ ] 14-01: TBD (run /gsd:plan-phase 14 to break down)
+- [x] 14-01: Stripe SDK Foundation (server/client utilities, webhook handler)
+- [x] 14-02: Members Database & Auth Infrastructure (members table, middleware, email confirm)
+- [x] 14-03: Member Registration & Login Pages (registration, login, LayoutWrapper update)
 
 #### Phase 15: Member Portal & Profiles
 
@@ -155,7 +155,7 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 11. Sponsor Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 12. Results & Standings Management | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 13. Admin Polish & Testing | v1.1 | 3/3 | Complete | 2026-02-16 |
-| 14. Stripe Foundation & Member Auth | v2.0 | 0/? | Not started | - |
+| 14. Stripe Foundation & Member Auth | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 15. Member Portal & Profiles | v2.0 | 0/? | Not started | - |
 | 16. Membership Management | v2.0 | 0/? | Not started | - |
 | 17. Membership Payments | v2.0 | 0/? | Not started | - |
