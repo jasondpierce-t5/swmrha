@@ -36,12 +36,27 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Route protection: protect /admin/* routes
+  // Route protection: protect /admin/* routes (admin role required)
   if (request.nextUrl.pathname.startsWith("/admin")) {
     if (!user || user.app_metadata?.role !== "admin") {
       const url = request.nextUrl.clone();
       url.pathname = "/login";
       return NextResponse.redirect(url);
+    }
+  }
+
+  // Route protection: protect /member/* routes (any authenticated user)
+  if (request.nextUrl.pathname.startsWith("/member")) {
+    // Allow /member/login and /member/register without auth
+    if (
+      !request.nextUrl.pathname.startsWith("/member/login") &&
+      !request.nextUrl.pathname.startsWith("/member/register")
+    ) {
+      if (!user) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/member/login";
+        return NextResponse.redirect(url);
+      }
     }
   }
 

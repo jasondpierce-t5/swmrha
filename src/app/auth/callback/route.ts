@@ -10,7 +10,17 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      return NextResponse.redirect(new URL("/admin", origin));
+      // Role-aware redirect: admin → /admin, member → /member
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user?.app_metadata?.role === "admin") {
+        return NextResponse.redirect(new URL("/admin", origin));
+      }
+
+      // Default redirect for members and any other authenticated users
+      return NextResponse.redirect(new URL("/member", origin));
     }
   }
 
