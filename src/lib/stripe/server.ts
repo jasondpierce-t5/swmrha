@@ -1,5 +1,18 @@
 import Stripe from "stripe";
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  typescript: true,
-});
+let stripeInstance: Stripe | null = null;
+
+export function getStripeServer(): Stripe {
+  if (!stripeInstance) {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) {
+      throw new Error(
+        "STRIPE_SECRET_KEY is not set. Add it to your .env.local file."
+      );
+    }
+    stripeInstance = new Stripe(secretKey, {
+      typescript: true,
+    });
+  }
+  return stripeInstance;
+}
