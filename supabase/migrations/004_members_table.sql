@@ -82,28 +82,44 @@ CREATE POLICY members_delete_admin ON public.members
 -- SECURITY DEFINER which bypasses RLS to create member rows on signup.
 
 -- --------------------------------------------------------------------------
--- 4. Trigger function: auto-create member profile on signup
+-- 4a. BEFORE INSERT trigger: set role='member' in app_metadata
 -- --------------------------------------------------------------------------
--- This BEFORE INSERT trigger on auth.users:
--- - Sets role='member' in app_metadata for non-admin signups
--- - Creates a corresponding row in public.members
--- - Extracts first_name/last_name from user_metadata (set during signUp)
--- - Skips member creation for admin accounts (they already have role='admin')
+-- Must be BEFORE INSERT so we can modify NEW.raw_app_meta_data.
+-- Only sets role for non-admin signups.
 -- --------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION public.handle_new_member()
+CREATE OR REPLACE FUNCTION public.set_member_role()
 RETURNS TRIGGER
 LANGUAGE plpgsql
 SECURITY DEFINER SET search_path = ''
 AS $$
 BEGIN
-  -- Only create member row for non-admin signups
   IF (NEW.raw_app_meta_data->>'role') IS NULL OR (NEW.raw_app_meta_data->>'role') != 'admin' THEN
-    -- Set role to 'member' in app_metadata
     NEW.raw_app_meta_data := coalesce(NEW.raw_app_meta_data, '{}'::jsonb)
       || '{"role": "member"}'::jsonb;
+  END IF;
+  RETURN NEW;
+END;
+$$;
 
-    -- Create member profile from user_metadata
+CREATE TRIGGER on_auth_user_created_set_role
+  BEFORE INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.set_member_role();
+
+-- --------------------------------------------------------------------------
+-- 4b. AFTER INSERT trigger: create member profile row
+-- --------------------------------------------------------------------------
+-- Must be AFTER INSERT because members.id references auth.users(id) — the
+-- auth.users row must exist before we can insert the member profile.
+-- --------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION public.create_member_profile()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = ''
+AS $$
+BEGIN
+  IF (NEW.raw_app_meta_data->>'role') IS NULL OR (NEW.raw_app_meta_data->>'role') != 'admin' THEN
     INSERT INTO public.members (id, email, first_name, last_name)
     VALUES (
       NEW.id,
@@ -116,9 +132,9 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER on_auth_user_created
-  BEFORE INSERT ON auth.users
-  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_member();
+CREATE TRIGGER on_auth_user_created_profile
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.create_member_profile();
 
 -- --------------------------------------------------------------------------
 -- 5. Updated_at trigger
