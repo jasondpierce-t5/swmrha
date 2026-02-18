@@ -15,8 +15,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   const isFullscreenRoute =
     pathname.startsWith("/admin") ||
     pathname.startsWith("/login") ||
-    pathname.startsWith("/member/login") ||
-    pathname.startsWith("/member/register");
+    pathname.startsWith("/member");
 
   if (isFullscreenRoute) {
     return <>{children}</>;
