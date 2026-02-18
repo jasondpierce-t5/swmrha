@@ -27,7 +27,19 @@ function XCircleIcon({ className }: { className?: string }) {
 // Page
 // ---------------------------------------------------------------------------
 
-export default function CheckoutCancelPage() {
+export default async function CheckoutCancelPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ return?: string }>;
+}) {
+  const params = await searchParams;
+  const returnTo = params.return;
+
+  const tryAgainHref =
+    returnTo === 'entries' ? '/member/entries' : '/member/pay-dues';
+  const tryAgainLabel =
+    returnTo === 'entries' ? 'Return to My Entries' : 'Try Again';
+
   return (
     <div className="space-y-6">
       <div className="rounded-lg border border-navy-700 bg-navy-800 p-6">
@@ -44,10 +56,10 @@ export default function CheckoutCancelPage() {
           {/* Action links */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/member/pay-dues"
+              href={tryAgainHref}
               className="rounded-lg bg-gold-500 px-5 py-2.5 text-sm font-semibold text-navy-900 transition-colors hover:bg-gold-400"
             >
-              Try Again
+              {tryAgainLabel}
             </Link>
             <Link
               href="/member"

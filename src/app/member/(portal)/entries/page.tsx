@@ -4,6 +4,7 @@ import { getMemberEntries } from '@/lib/actions/show-entries';
 import { getActiveShowClasses } from '@/lib/actions/show-classes';
 import type { ShowEntryWithClasses, ShowClassRow } from '@/types/database';
 import CancelEntryButton from './CancelEntryButton';
+import PayEntryButton from './PayEntryButton';
 
 // ---------------------------------------------------------------------------
 // Helper components
@@ -82,16 +83,11 @@ function EntryTableRow({
       </td>
       <td className="whitespace-nowrap px-4 py-3 text-sm">
         <div className="flex items-center gap-2">
+          {(entry.status === 'draft' || entry.status === 'pending_payment') && (
+            <PayEntryButton entryIds={[entry.id]} />
+          )}
           {entry.status === 'draft' && (
-            <>
-              <span
-                className="cursor-not-allowed text-xs text-slate-500"
-                title="Payment coming soon"
-              >
-                Pay Now
-              </span>
-              <CancelEntryButton entryId={entry.id} />
-            </>
+            <CancelEntryButton entryId={entry.id} />
           )}
         </div>
       </td>
@@ -131,15 +127,12 @@ function EntryCard({
         <span className="text-xs text-gray-400">
           {formatDate(entry.created_at)}
         </span>
-        {entry.status === 'draft' && (
+        {(entry.status === 'draft' || entry.status === 'pending_payment') && (
           <div className="flex items-center gap-3">
-            <span
-              className="cursor-not-allowed text-xs text-slate-500"
-              title="Payment coming soon"
-            >
-              Pay Now
-            </span>
-            <CancelEntryButton entryId={entry.id} />
+            <PayEntryButton entryIds={[entry.id]} />
+            {entry.status === 'draft' && (
+              <CancelEntryButton entryId={entry.id} />
+            )}
           </div>
         )}
       </div>
