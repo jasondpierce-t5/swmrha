@@ -100,7 +100,6 @@ export async function createCheckoutSession(
 
     // --- 4. Create or retrieve Stripe customer ---
     const stripe = getStripeServer();
-    const adminClient = createAdminClient();
     let customerId = memberRow.stripe_customer_id;
 
     if (!customerId) {
@@ -113,15 +112,19 @@ export async function createCheckoutSession(
       });
       customerId = customer.id;
 
-      // Store the new customer ID in the members table
-      const { error: updateError } = await adminClient
-        .from('members')
-        .update({ stripe_customer_id: customerId })
-        .eq('id', memberRow.id);
+      // Store the new customer ID in the members table (best-effort)
+      try {
+        const adminClient = createAdminClient();
+        const { error: updateError } = await adminClient
+          .from('members')
+          .update({ stripe_customer_id: customerId })
+          .eq('id', memberRow.id);
 
-      if (updateError) {
-        console.error('Failed to store Stripe customer ID:', updateError.message);
-        // Continue anyway — the checkout can still proceed
+        if (updateError) {
+          console.error('Failed to store Stripe customer ID:', updateError.message);
+        }
+      } catch (adminErr) {
+        console.error('Admin client unavailable for customer ID storage:', adminErr);
       }
     }
 
@@ -159,20 +162,27 @@ export async function createCheckoutSession(
       return { error: 'Unable to create checkout session. Please try again.' };
     }
 
-    // --- 6. Insert pending payment record ---
-    const { error: insertError } = await adminClient.from('payments').insert({
-      member_id: memberRow.id,
-      amount_cents: typeRow.price_cents,
-      payment_type: paymentType,
-      membership_type_slug: typeRow.slug,
-      stripe_checkout_session_id: session.id,
-      status: 'pending',
-      description,
-    });
+    // --- 6. Insert pending payment record (best-effort) ---
+    // The webhook handler will also create/update the record, so this is not
+    // strictly required for the payment to succeed.
+    try {
+      const adminClient = createAdminClient();
+      const { error: insertError } = await adminClient.from('payments').insert({
+        member_id: memberRow.id,
+        amount_cents: typeRow.price_cents,
+        payment_type: paymentType,
+        membership_type_slug: typeRow.slug,
+        stripe_checkout_session_id: session.id,
+        status: 'pending',
+        description,
+      });
 
-    if (insertError) {
-      console.error('Failed to insert payment record:', insertError.message);
-      // Continue — the Stripe session exists and the webhook will handle fulfillment
+      if (insertError) {
+        console.error('Failed to insert payment record:', insertError.message);
+      }
+    } catch (adminErr) {
+      console.error('Admin client unavailable for payment record:', adminErr);
+      // Continue — the webhook will handle fulfillment
     }
 
     return { url: session.url };
