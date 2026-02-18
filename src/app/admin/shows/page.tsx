@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, PencilSquareIcon, ListBulletIcon } from '@heroicons/react/24/outline';
 import { getShows } from '@/lib/actions/shows';
 import DeleteShowButton from '@/components/DeleteShowButton';
 
@@ -106,6 +106,13 @@ export default async function AdminShowsPage({
                   <td className="px-4 py-3 text-gray-300">{show.location}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-3">
+                      <Link
+                        href={`/admin/shows/${show.id}/classes`}
+                        className="inline-flex items-center gap-1 text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+                      >
+                        <ListBulletIcon className="h-4 w-4" />
+                        Classes
+                      </Link>
                       <Link
                         href={`/admin/shows/${show.id}/edit`}
                         className="inline-flex items-center gap-1 text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
