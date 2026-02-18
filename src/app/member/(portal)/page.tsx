@@ -4,8 +4,11 @@ import {
   CalendarDaysIcon,
   CreditCardIcon,
   EnvelopeIcon,
+  BanknotesIcon,
 } from "@heroicons/react/24/outline";
 import { getMemberProfile } from "@/lib/actions/members";
+import { getMemberPayments } from "@/lib/actions/payments";
+import type { PaymentRow } from "@/types/database";
 
 /** Color-coded badge for membership status. */
 function StatusBadge({ status }: { status: string }) {
@@ -36,26 +39,194 @@ function TypeBadge({ type }: { type: string }) {
   );
 }
 
+/** Color-coded badge for payment status. */
+function PaymentStatusBadge({ status }: { status: string }) {
+  const colorMap: Record<string, string> = {
+    succeeded: "border-green-700 bg-green-900/50 text-green-300",
+    pending: "border-yellow-700 bg-yellow-900/50 text-yellow-300",
+    failed: "border-red-700 bg-red-900/50 text-red-300",
+    refunded: "border-blue-700 bg-blue-900/50 text-blue-300",
+  };
+
+  const colors = colorMap[status] ?? "border-navy-600 bg-navy-700 text-gray-300";
+
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize ${colors}`}
+    >
+      {status}
+    </span>
+  );
+}
+
+/** Format cents to dollar string. */
+function formatAmount(cents: number): string {
+  return `$${(cents / 100).toFixed(2)}`;
+}
+
+/** Format date string to readable date. */
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+/** Determine the renewal/payment CTA for the membership status card. */
+function MembershipCTA({
+  status,
+  expiryDate,
+}: {
+  status: string;
+  expiryDate: string | null;
+}) {
+  if (status === "expired") {
+    return (
+      <div className="mt-4 border-t border-navy-700 pt-4">
+        <div className="rounded-lg border border-red-700/50 bg-red-900/20 p-3">
+          <p className="text-sm font-medium text-red-300">
+            Your membership has expired.
+          </p>
+          <Link
+            href="/member/pay-dues"
+            className="mt-2 inline-block text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+          >
+            Renew Now &rarr;
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === "pending") {
+    return (
+      <div className="mt-4 border-t border-navy-700 pt-4">
+        <div className="rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-3">
+          <p className="text-sm font-medium text-yellow-300">
+            Complete your membership payment to activate your account.
+          </p>
+          <Link
+            href="/member/pay-dues"
+            className="mt-2 inline-block text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+          >
+            Pay Dues &rarr;
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === "active" && expiryDate) {
+    const expiry = new Date(expiryDate);
+    const now = new Date();
+    const daysUntilExpiry = Math.ceil(
+      (expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    if (daysUntilExpiry <= 30) {
+      return (
+        <div className="mt-4 border-t border-navy-700 pt-4">
+          <div className="rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-3">
+            <p className="text-sm font-medium text-yellow-300">
+              Your membership expires on{" "}
+              {expiry.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+              .
+            </p>
+            <Link
+              href="/member/pay-dues"
+              className="mt-2 inline-block text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+            >
+              Renew Early &rarr;
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
+    // Active and not expiring soon
+    return (
+      <div className="mt-4 border-t border-navy-700 pt-4">
+        <div className="rounded-lg border border-green-700/50 bg-green-900/20 p-3">
+          <p className="text-sm text-green-300">
+            Membership active through{" "}
+            {expiry.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+            .
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Active with no expiry date (lifetime)
+  if (status === "active") {
+    return (
+      <div className="mt-4 border-t border-navy-700 pt-4">
+        <div className="rounded-lg border border-green-700/50 bg-green-900/20 p-3">
+          <p className="text-sm text-green-300">Membership active.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+/** Compact payment row for the dashboard preview. */
+function PaymentPreviewRow({ payment }: { payment: PaymentRow }) {
+  return (
+    <div className="flex items-center justify-between border-b border-navy-700 py-3 last:border-b-0">
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm text-white">
+          {payment.description ?? payment.payment_type.replace(/_/g, " ")}
+        </p>
+        <p className="text-xs text-gray-400">{formatDate(payment.created_at)}</p>
+      </div>
+      <div className="ml-4 flex items-center gap-3">
+        <span className="text-sm font-medium text-white">
+          {formatAmount(payment.amount_cents)}
+        </span>
+        <PaymentStatusBadge status={payment.status} />
+      </div>
+    </div>
+  );
+}
+
 export default async function MemberDashboardPage() {
-  const result = await getMemberProfile();
+  const [profileResult, paymentsResult] = await Promise.all([
+    getMemberProfile(),
+    getMemberPayments(),
+  ]);
 
   // Error state
-  if ("error" in result) {
+  if ("error" in profileResult) {
     return (
       <div className="space-y-8">
         <div className="rounded-lg border border-red-700 bg-red-900/30 p-6">
           <h2 className="font-heading text-lg font-semibold text-red-300">
             Unable to Load Profile
           </h2>
-          <p className="mt-2 text-sm text-red-200">{result.error}</p>
+          <p className="mt-2 text-sm text-red-200">{profileResult.error}</p>
         </div>
       </div>
     );
   }
 
-  const member = result;
+  const member = profileResult;
   const fullName =
     `${member.first_name} ${member.last_name}`.trim() || "Member";
+
+  // Get recent payments (last 3)
+  const payments = Array.isArray(paymentsResult) ? paymentsResult : [];
+  const recentPayments = payments.slice(0, 3);
 
   const quickLinks = [
     {
@@ -63,6 +234,12 @@ export default async function MemberDashboardPage() {
       href: "/member/profile/edit",
       icon: UserCircleIcon,
       description: "Update your personal information",
+    },
+    {
+      label: "Pay Dues",
+      href: "/member/pay-dues",
+      icon: BanknotesIcon,
+      description: "Pay or renew membership",
     },
     {
       label: "View Shows",
@@ -97,9 +274,7 @@ export default async function MemberDashboardPage() {
             <StatusBadge status={member.membership_status} />
           </div>
         </div>
-        <p className="mt-2 text-sm text-gray-400">
-          SWMRHA Member Portal
-        </p>
+        <p className="mt-2 text-sm text-gray-400">SWMRHA Member Portal</p>
       </div>
 
       {/* Cards Grid */}
@@ -135,14 +310,11 @@ export default async function MemberDashboardPage() {
               </div>
             )}
           </div>
-          {/* Renew placeholder — Phase 17 */}
-          {member.membership_status === "expired" && (
-            <div className="mt-4 border-t border-navy-700 pt-4">
-              <span className="text-sm text-gold-500">
-                Renewal will be available soon.
-              </span>
-            </div>
-          )}
+          {/* Contextual renewal / payment CTA */}
+          <MembershipCTA
+            status={member.membership_status}
+            expiryDate={member.membership_expiry}
+          />
         </div>
 
         {/* Profile Summary Card */}
@@ -192,7 +364,7 @@ export default async function MemberDashboardPage() {
         <h3 className="font-heading text-lg font-semibold text-white">
           Quick Links
         </h3>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {quickLinks.map((link) => {
             const Icon = link.icon;
             return (
@@ -214,16 +386,34 @@ export default async function MemberDashboardPage() {
 
       {/* Payment History Preview */}
       <div className="rounded-lg border border-navy-700 bg-navy-800 p-6">
-        <h3 className="font-heading text-lg font-semibold text-white">
-          Payment History
-        </h3>
-        <div className="mt-4 flex flex-col items-center justify-center py-8 text-center">
-          <CreditCardIcon className="h-12 w-12 text-navy-600" />
-          <p className="mt-3 text-sm text-gray-400">
-            No payment history yet. Your transactions will appear here once you
-            make a payment.
-          </p>
+        <div className="flex items-center justify-between">
+          <h3 className="font-heading text-lg font-semibold text-white">
+            Payment History
+          </h3>
+          {payments.length > 0 && (
+            <Link
+              href="/member/payments"
+              className="text-sm font-medium text-gold-500 transition-colors hover:text-gold-400"
+            >
+              View All &rarr;
+            </Link>
+          )}
         </div>
+        {recentPayments.length > 0 ? (
+          <div className="mt-4">
+            {recentPayments.map((payment) => (
+              <PaymentPreviewRow key={payment.id} payment={payment} />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-4 flex flex-col items-center justify-center py-8 text-center">
+            <CreditCardIcon className="h-12 w-12 text-navy-600" />
+            <p className="mt-3 text-sm text-gray-400">
+              No payment history yet. Your transactions will appear here once
+              you make a payment.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
