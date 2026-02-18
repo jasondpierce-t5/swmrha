@@ -1,6 +1,7 @@
 import {
   HomeIcon,
   UserCircleIcon,
+  BanknotesIcon,
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
@@ -24,6 +25,12 @@ export const memberNavigation: MemberNavItem[] = [
     href: "/member/profile",
     icon: UserCircleIcon,
     description: "View and edit your profile",
+  },
+  {
+    label: "Pay Dues",
+    href: "/member/pay-dues",
+    icon: BanknotesIcon,
+    description: "Pay or renew membership dues",
   },
   {
     label: "Payment History",
