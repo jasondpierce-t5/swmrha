@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 20 of 21 (Guest Checkout & Additional Fees)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-02-18 - Completed Phase 20 (parallel Wave 2 + checkpoint)
+Phase: 21 of 21 (Payment Admin & Polish)
+Plan: 2 of 2 in current phase
+Status: Milestone complete
+Last activity: 2026-02-18 - Completed Phase 21 (sequential waves + checkpoint)
 
-Progress: ████████░░ 78%
+Progress: ██████████ 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 54
+- Total plans completed: 56
 - Average duration: 6 min
-- Total execution time: 5h 30m
+- Total execution time: 5h 49m
 
 **By Phase:**
 
@@ -47,6 +47,7 @@ Progress: ████████░░ 78%
 | 18 Show Entry System | 4/4 | 22 min (parallel Wave 2 + checkpoint) | 6 min |
 | 19 Show Entry Payments | 2/2 | 10 min (sequential waves + checkpoint) | 5 min |
 | 20 Guest Checkout & Additional Fees | 4/4 | 20 min (parallel Wave 2 + checkpoint) | 5 min |
+| 21 Payment Admin & Polish | 2/2 | 19 min (sequential waves + checkpoint) | 10 min |
 
 ## Accumulated Context
 
@@ -78,6 +79,9 @@ v2.0 decisions:
 | 20 | Nullable member_id on payments for guest checkout | Guests have no member account; null member_id with guest_email/guest_name |
 | 20 | Fee purchase fulfillment via payment type dispatch | additional_fees case added to fulfillment.ts alongside entry_fees and membership |
 | 20 | Dual purchase flows: /purchase (guest) + /member/purchase (member) | Same checkout action detects auth automatically |
+| 21 | processRefund does NOT auto-change membership status | Admin manages member status separately; prevents accidental changes |
+| 21 | Full Stripe refund only (no partial) | Matches simple payment model; each checkout is single transaction |
+| 21 | Refund cascades to related records (entries, fee_purchases) | Automatic status propagation keeps data consistent |
 
 ### Deferred Issues
 
@@ -96,7 +100,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed Phase 20 (Guest Checkout & Additional Fees)
+Stopped at: Completed Phase 21 (Payment Admin & Polish) — v2.0 milestone complete
 Resume file: None
 
 ## Deployment

@@ -12,7 +12,7 @@ None
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-7) — SHIPPED 2026-02-14
 - ✅ [v1.1 Admin & Management](milestones/v1.1-ROADMAP.md) (Phases 8-13) — SHIPPED 2026-02-16
-- 🚧 **v2.0 Member Portal & Payments** — Phases 14-21 (in progress)
+- ✅ **v2.0 Member Portal & Payments** — Phases 14-21 — SHIPPED 2026-02-18
 
 ## Phases
 
@@ -47,7 +47,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 </details>
 
-### 🚧 v2.0 Member Portal & Payments (In Progress)
+### ✅ v2.0 Member Portal & Payments — SHIPPED 2026-02-18
 
 **Milestone Goal:** Full member portal with Stripe-powered payments for membership dues, show entries, and additional fees — with both member accounts and guest checkout.
 
@@ -128,16 +128,15 @@ Plans:
 - [x] 20-03: Guest Purchase UI & Checkout Flow (public /purchase page, success/cancel pages)
 - [x] 20-04: Member Fee Purchase & Integration (member portal purchase, checkout updates, navigation)
 
-#### Phase 21: Payment Admin & Polish
+#### Phase 21: Payment Admin & Polish — Complete
 
 **Goal**: Admin payment dashboard, refund processing, reports, UAT across all payment flows
 **Depends on**: Phase 20
-**Research**: Unlikely (extending established admin patterns from v1.1)
-**Plans**: 2
+**Completed**: 2026-02-18
 
 Plans:
-- [ ] 21-01: Admin Payment Data Layer & Payments List (server actions, list page, navigation, dashboard)
-- [ ] 21-02: Payment Detail & Refund Processing (detail page, Stripe refund, UAT checkpoint)
+- [x] 21-01: Admin Payment Data Layer & Payments List (server actions, list page, navigation, dashboard)
+- [x] 21-02: Payment Detail & Refund Processing (detail page, Stripe refund, UAT checkpoint)
 
 ## Progress
 
@@ -166,4 +165,4 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 18. Show Entry System | v2.0 | 4/4 | Complete | 2026-02-17 |
 | 19. Show Entry Payments | v2.0 | 2/2 | Complete | 2026-02-17 |
 | 20. Guest Checkout & Additional Fees | v2.0 | 4/4 | Complete | 2026-02-18 |
-| 21. Payment Admin & Polish | v2.0 | 0/2 | Not started | - |
+| 21. Payment Admin & Polish | v2.0 | 2/2 | Complete | 2026-02-18 |
