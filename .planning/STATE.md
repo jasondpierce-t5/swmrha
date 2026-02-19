@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 19 of 21 (Show Entry Payments)
-Plan: 2 of 2 in current phase
+Phase: 20 of 21 (Guest Checkout & Additional Fees)
+Plan: 4 of 4 in current phase
 Status: Phase complete
-Last activity: 2026-02-17 - Completed Phase 19 (sequential waves + checkpoint)
+Last activity: 2026-02-18 - Completed Phase 20 (parallel Wave 2 + checkpoint)
 
-Progress: ██████░░░░ 52%
+Progress: ████████░░ 78%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 50
+- Total plans completed: 54
 - Average duration: 6 min
-- Total execution time: 5h 10m
+- Total execution time: 5h 30m
 
 **By Phase:**
 
@@ -46,6 +46,7 @@ Progress: ██████░░░░ 52%
 | 17 Membership Payments | 3/3 | 18 min (parallel Wave 2 + checkpoint) | 6 min |
 | 18 Show Entry System | 4/4 | 22 min (parallel Wave 2 + checkpoint) | 6 min |
 | 19 Show Entry Payments | 2/2 | 10 min (sequential waves + checkpoint) | 5 min |
+| 20 Guest Checkout & Additional Fees | 4/4 | 20 min (parallel Wave 2 + checkpoint) | 5 min |
 
 ## Accumulated Context
 
@@ -74,6 +75,9 @@ v2.0 decisions:
 | 19 | One Stripe line item per entry (horse/rider combo with class descriptions) | Clear receipt itemization |
 | 19 | Payment type dispatch in fulfillment.ts (entry_fees vs membership) | Clean separation of fulfillment logic |
 | 19 | PayEntryButton for both draft and pending_payment entries | Allows retry on abandoned checkout |
+| 20 | Nullable member_id on payments for guest checkout | Guests have no member account; null member_id with guest_email/guest_name |
+| 20 | Fee purchase fulfillment via payment type dispatch | additional_fees case added to fulfillment.ts alongside entry_fees and membership |
+| 20 | Dual purchase flows: /purchase (guest) + /member/purchase (member) | Same checkout action detects auth automatically |
 
 ### Deferred Issues
 
@@ -91,8 +95,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-17
-Stopped at: Completed Phase 19 (Show Entry Payments)
+Last session: 2026-02-18
+Stopped at: Completed Phase 20 (Guest Checkout & Additional Fees)
 Resume file: None
 
 ## Deployment

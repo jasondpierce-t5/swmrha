@@ -116,16 +116,17 @@ Plans:
 - [x] 19-01: Entry Checkout Session & Webhook Fulfillment (server actions, multi-line-item checkout, payment dispatch)
 - [x] 19-02: Entry Payment UI & Checkout Flow (PayEntryButton, Save & Pay, context-aware success/cancel)
 
-#### Phase 20: Guest Checkout & Additional Fees
+#### Phase 20: Guest Checkout & Additional Fees — Complete
 
 **Goal**: Guest checkout flow for non-members, stall fees, banquet tickets, other event charges
 **Depends on**: Phase 19
-**Research**: Likely (guest checkout without auth, Stripe payment links or sessions)
-**Research topics**: Stripe guest checkout patterns, anonymous payment sessions, fee configuration
-**Plans**: TBD
+**Completed**: 2026-02-18
 
 Plans:
-- [ ] 20-01: TBD
+- [x] 20-01: Additional Fees Data Layer (migration, types, CRUD + checkout + fulfillment actions)
+- [x] 20-02: Admin Fee Items UI (list, create, edit, delete pages + navigation)
+- [x] 20-03: Guest Purchase UI & Checkout Flow (public /purchase page, success/cancel pages)
+- [x] 20-04: Member Fee Purchase & Integration (member portal purchase, checkout updates, navigation)
 
 #### Phase 21: Payment Admin & Polish
 
@@ -163,5 +164,5 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 17. Membership Payments | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 18. Show Entry System | v2.0 | 4/4 | Complete | 2026-02-17 |
 | 19. Show Entry Payments | v2.0 | 2/2 | Complete | 2026-02-17 |
-| 20. Guest Checkout & Additional Fees | v2.0 | 0/? | Not started | - |
+| 20. Guest Checkout & Additional Fees | v2.0 | 4/4 | Complete | 2026-02-18 |
 | 21. Payment Admin & Polish | v2.0 | 0/? | Not started | - |
