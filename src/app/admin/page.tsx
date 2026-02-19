@@ -4,6 +4,7 @@ import {
   CalendarDaysIcon,
   BuildingStorefrontIcon,
   TrophyIcon,
+  CreditCardIcon,
   PlusIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
@@ -11,6 +12,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getShows } from "@/lib/actions/shows";
 import { getSponsors } from "@/lib/actions/sponsors";
 import { getResults } from "@/lib/actions/results";
+import { getPaymentsSummary } from "@/lib/actions/admin-payments";
 
 export default async function AdminDashboardPage() {
   const supabase = await createClient();
@@ -31,6 +33,12 @@ export default async function AdminDashboardPage() {
   const resultsResult = await getResults();
   const resultsList = Array.isArray(resultsResult) ? resultsResult : [];
 
+  const paymentsSummaryResult = await getPaymentsSummary();
+  const paymentsSummary =
+    paymentsSummaryResult && !("error" in paymentsSummaryResult)
+      ? paymentsSummaryResult
+      : null;
+
   const contentCards = [
     {
       label: "Shows",
@@ -50,6 +58,12 @@ export default async function AdminDashboardPage() {
       icon: TrophyIcon,
       href: "/admin/results",
     },
+    {
+      label: "Payments",
+      count: paymentsSummary?.total_count ?? 0,
+      icon: CreditCardIcon,
+      href: "/admin/payments",
+    },
   ];
 
   const quickActions = [
@@ -68,6 +82,11 @@ export default async function AdminDashboardPage() {
       icon: PencilSquareIcon,
       href: "/admin/results",
     },
+    {
+      label: "View Payments",
+      icon: CreditCardIcon,
+      href: "/admin/payments",
+    },
   ];
 
   return (
@@ -84,7 +103,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Content summary cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {contentCards.map((card) => {
           const Icon = card.icon;
           return (

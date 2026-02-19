@@ -4,6 +4,7 @@ import {
   BuildingStorefrontIcon,
   TrophyIcon,
   UserGroupIcon,
+  CreditCardIcon,
   TagIcon,
   BanknotesIcon,
 } from "@heroicons/react/24/outline";
@@ -46,6 +47,12 @@ export const adminNavigation: AdminNavItem[] = [
     href: "/admin/members",
     icon: UserGroupIcon,
     description: "View and manage members",
+  },
+  {
+    label: "Payments",
+    href: "/admin/payments",
+    icon: CreditCardIcon,
+    description: "View payments, refunds, and revenue",
   },
   {
     label: "Membership Types",
