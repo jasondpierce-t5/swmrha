@@ -1,5 +1,31 @@
 # Project Milestones: SWMRHA Website Rebuild
 
+## v2.0 Member Portal & Payments (Shipped: 2026-02-18)
+
+**Delivered:** Full member portal with Stripe-powered payments for membership dues, show entries, and additional fees — with both member accounts and guest checkout.
+
+**Phases completed:** 14-21 (23 plans total)
+
+**Key accomplishments:**
+- Complete Stripe payment infrastructure — SDK singletons, webhook with signature verification, idempotent fulfillment, 4 payment types with dispatch-based processing
+- Full member portal with authentication — registration, email verification, dashboard, profile management, payment history, contextual dashboard CTAs
+- End-to-end membership management — database-driven membership types with admin CRUD, public pricing page, Stripe Checkout for dues/renewals with automatic membership activation
+- Show entry system with multi-step registration — show classes database, entry form with horse/rider class selection, fee snapshots, multi-line-item Stripe Checkout
+- Guest checkout & additional fees — dual-auth checkout flow, configurable fee types (stall, banquet, vendor), public and member purchase pages
+- Admin payment dashboard & refund processing — summary statistics, enriched payment list, detail pages, Stripe refund with cascade status updates
+
+**Stats:**
+- 127 files created/modified
+- 18,195 lines of TypeScript/TSX/CSS/SQL added (21,315 total)
+- 8 phases, 23 plans
+- 2 days (2026-02-17 → 2026-02-18)
+
+**Git range:** `feat(14-02)` → `feat(21-02)`
+
+**What's next:** TBD — potential enhancements including dynamic gallery management, reporting, or public-facing improvements
+
+---
+
 ## v1.1 Admin & Management (Shipped: 2026-02-16)
 
 **Delivered:** Full admin panel with Supabase-backed CRUD management for shows, sponsors, and results — all public pages now serve live data.

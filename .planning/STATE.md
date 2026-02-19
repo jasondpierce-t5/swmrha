@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-16)
+See: .planning/PROJECT.md (updated 2026-02-18)
 
 **Core value:** The site must deliver an immediate visual "wow" — a professional, western-aesthetic design inspired by NRHA.com that makes approval effortless and proves the Wix era is over.
-**Current focus:** v2.0 Member Portal & Payments
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 21 of 21 (Payment Admin & Polish)
-Plan: 2 of 2 in current phase
-Status: Milestone complete
-Last activity: 2026-02-18 - Completed Phase 21 (sequential waves + checkpoint)
+Phase: 21 of 21 (all milestones complete)
+Plan: N/A
+Status: Ready to plan next milestone
+Last activity: 2026-02-18 — v2.0 milestone complete
 
-Progress: ██████████ 100%
+Progress: ██████████ 100% (3 milestones shipped)
 
 ## Performance Metrics
 
@@ -54,34 +54,7 @@ Progress: ██████████ 100%
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-All decisions from v1.0 and v1.1 documented with outcomes.
-
-v2.0 decisions:
-| Phase | Decision | Rationale |
-|-------|----------|-----------|
-| 14 | Split signup trigger into BEFORE/AFTER INSERT | FK constraint requires auth.users row to exist before members insert |
-| 14 | Stripe SDK default API version | Keeps version aligned with installed package |
-| 14 | Email confirmation via /auth/confirm (token_hash) | Separate from PKCE callback flow |
-| 15 | (portal) route group for authenticated member routes | Prevents auth-checking layout from wrapping login/register pages |
-| 15 | updateMemberProfile restricts fields to name/phone/address | Membership fields are system-managed, not member-editable |
-| 16 | membership_types loosely coupled via slug (no FK to members) | Flexibility for future migration; convention-based matching |
-| 16 | price_cents integer storage with dollar display conversion | Standard Stripe pattern; avoids floating-point issues |
-| 17 | Payments SELECT-only RLS; all writes via service role admin client | System-managed writes ensure payment integrity |
-| 17 | Dynamic payment type resolution from member status | pending→dues, active/expired→renewal |
-| 17 | Idempotent webhook fulfillment with fallback payment creation | Handles duplicate webhooks and race conditions |
-| 17 | Calendar-aware month calculation for membership expiry | Date.setMonth() instead of raw millisecond math |
-| 18 | show_entry_classes.fee_cents snapshots class fee at entry time | Protects against later admin price changes |
-| 18 | Entry writes via service role admin client (SELECT-only RLS) | Consistent with payments pattern |
-| 18 | Entries saved as draft; payment integration deferred to Phase 19 | Clean separation of entry vs payment concerns |
-| 19 | One Stripe line item per entry (horse/rider combo with class descriptions) | Clear receipt itemization |
-| 19 | Payment type dispatch in fulfillment.ts (entry_fees vs membership) | Clean separation of fulfillment logic |
-| 19 | PayEntryButton for both draft and pending_payment entries | Allows retry on abandoned checkout |
-| 20 | Nullable member_id on payments for guest checkout | Guests have no member account; null member_id with guest_email/guest_name |
-| 20 | Fee purchase fulfillment via payment type dispatch | additional_fees case added to fulfillment.ts alongside entry_fees and membership |
-| 20 | Dual purchase flows: /purchase (guest) + /member/purchase (member) | Same checkout action detects auth automatically |
-| 21 | processRefund does NOT auto-change membership status | Admin manages member status separately; prevents accidental changes |
-| 21 | Full Stripe refund only (no partial) | Matches simple payment model; each checkout is single transaction |
-| 21 | Refund cascades to related records (entries, fee_purchases) | Automatic status propagation keeps data consistent |
+All decisions from v1.0, v1.1, and v2.0 documented with outcomes.
 
 ### Deferred Issues
 
@@ -95,12 +68,12 @@ None.
 
 - v1.0 MVP created: Initial website rebuild, 7 phases (Phase 1-7), shipped 2026-02-14
 - Milestone v1.1 created: Admin & Management features, 6 phases (Phase 8-13), shipped 2026-02-16
-- Milestone v2.0 created: Member Portal & Payments, 8 phases (Phase 14-21)
+- Milestone v2.0 created: Member Portal & Payments, 8 phases (Phase 14-21), shipped 2026-02-18
 
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed Phase 21 (Payment Admin & Polish) — v2.0 milestone complete
+Stopped at: v2.0 milestone archived — all 3 milestones complete
 Resume file: None
 
 ## Deployment
@@ -110,3 +83,4 @@ Resume file: None
 **Deployment:** Vercel (continuous deployment enabled)
 **v1.0 Completed:** 2026-02-14
 **v1.1 Completed:** 2026-02-16
+**v2.0 Completed:** 2026-02-18

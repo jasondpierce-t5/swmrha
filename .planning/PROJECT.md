@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A modern Next.js website for the Southwest Missouri Reining Horse Association (SWMRHA), replacing the outdated Wix site. Features a dark western-professional aesthetic inspired by NRHA.com, with a Supabase-backed admin panel for managing shows, sponsors, and results. All public pages serve live data from the database.
+A modern Next.js website for the Southwest Missouri Reining Horse Association (SWMRHA), replacing the outdated Wix site. Features a dark western-professional aesthetic inspired by NRHA.com, with a Supabase-backed admin panel, full member portal with Stripe-powered payments for membership dues, show entries, and additional fees, and guest checkout for non-members. All public pages serve live data from the database.
 
 ## Core Value
 
@@ -37,6 +37,20 @@ The site must deliver an immediate visual "wow" — a professional, western-aest
 - ✓ Results & standings CRUD management — v1.1
 - ✓ Server-side validation and error handling — v1.1
 - ✓ All public pages serving live Supabase data — v1.1
+- ✓ Member registration with email verification — v2.0
+- ✓ Member portal with dashboard, profile management, payment history — v2.0
+- ✓ Stripe payment infrastructure (SDK, webhooks, idempotent fulfillment) — v2.0
+- ✓ Membership dues/renewal payments via Stripe Checkout — v2.0
+- ✓ Database-driven membership types with admin CRUD — v2.0
+- ✓ Admin member management UI — v2.0
+- ✓ Show class management with admin CRUD — v2.0
+- ✓ Multi-step show entry registration with class selection — v2.0
+- ✓ Show entry payments with multi-line-item Stripe Checkout — v2.0
+- ✓ Additional fee types (stall, banquet, vendor) with admin CRUD — v2.0
+- ✓ Guest checkout for non-members — v2.0
+- ✓ Member fee purchase flow — v2.0
+- ✓ Admin payment dashboard with summary statistics — v2.0
+- ✓ Payment detail pages with refund processing — v2.0
 
 ### Active
 
@@ -44,18 +58,21 @@ The site must deliver an immediate visual "wow" — a professional, western-aest
 
 ### Out of Scope
 
-- Stripe payments for membership & show entries — future phase
-- Member portal / user accounts — future phase
 - Dynamic gallery management — gallery uses static images from original site
 - Offline mode — real-time data is the current pattern
 - Mobile native app — responsive web works well for barn/showground usage
+- Partial refunds — current model is full refund only
+- Email notifications for payment confirmations — not yet implemented
+- Password reset flow for members — not yet implemented
 
 ## Context
 
-Shipped v1.1 with 9,195 LOC (TypeScript, TSX, CSS, SQL) across 35 routes.
-Tech stack: Next.js 16.1.6, Tailwind CSS v4, Supabase (Auth, Database, Storage), Vercel.
-Database: 3 tables (shows, sponsors, results) with RLS policies.
-Admin panel: Full CRUD for shows, sponsors, results with live data on all public pages.
+Shipped v2.0 with 21,315 LOC (TypeScript, TSX, CSS, SQL).
+Tech stack: Next.js 16.1.6, Tailwind CSS v4, Supabase (Auth, Database, Storage), Stripe, Vercel.
+Database: 9 tables (shows, sponsors, results, members, membership_types, payments, show_classes, show_entries/show_entry_classes, additional_fee_types/fee_purchases) with RLS policies.
+Admin panel: Full CRUD for shows, sponsors, results, membership types, members, show classes, fee items, and payments.
+Member portal: Dashboard, profile, payment history, show entry registration, fee purchases.
+Payment system: Stripe Checkout for membership dues/renewals, show entries, additional fees, and guest checkout.
 Production URL: Deployed on Vercel with continuous deployment via GitHub.
 
 ## Constraints
@@ -63,7 +80,8 @@ Production URL: Deployed on Vercel with continuous deployment via GitHub.
 - **Tech stack**: Next.js 16+ (App Router), Tailwind CSS v4, TypeScript — non-negotiable
 - **Deployment**: Vercel with continuous deployment
 - **Backend**: Supabase (Auth, Database, Storage)
-- **Auth**: Admin-only access, manually created accounts, RBAC via `app_metadata.role`
+- **Payments**: Stripe (Checkout Sessions, Webhooks, Refunds API)
+- **Auth**: Dual-role system — admins via `app_metadata.role`, members via `members` table with email verification
 
 ## Key Decisions
 
@@ -81,6 +99,18 @@ Production URL: Deployed on Vercel with continuous deployment via GitHub.
 | No validation library | HTML5 attributes sufficient for admin scope | ✓ Good — kept dependencies minimal |
 | POST-based logout | CSRF protection via form submission | ✓ Good — follows security best practices |
 | Tier-based sort_order bands | Consistent sponsor ordering with room within tiers | ✓ Good — intuitive ordering |
+| Split BEFORE/AFTER INSERT triggers | FK constraint requires auth.users row before members insert | ✓ Good — resolved FK violation |
+| `(portal)` route group for member routes | Prevents auth-checking layout from wrapping login pages | ✓ Good — no redirect loops |
+| Loosely coupled membership_types (slug, no FK) | Flexibility for future migration | ✓ Good — convention-based matching |
+| price_cents integer storage | Standard Stripe pattern, avoids floating-point issues | ✓ Good — consistent across all fee types |
+| Payments SELECT-only RLS, service role writes | System-managed writes ensure payment integrity | ✓ Good — secure payment handling |
+| Idempotent webhook fulfillment | Handles duplicate webhooks and race conditions | ✓ Good — robust payment processing |
+| Fee snapshot in show_entry_classes | Protects against later admin price changes | ✓ Good — entry fees locked at creation |
+| One Stripe line item per entry | Clear receipt itemization for horse/rider combos | ✓ Good — readable Stripe receipts |
+| Nullable member_id for guest payments | Guests have no member account | ✓ Good — clean guest checkout |
+| Dual-auth checkout action | Single action handles both member and guest | ✓ Good — no code duplication |
+| Full refund only (no partial) | Matches simple payment model | — Pending — may need partial in future |
+| Refund does NOT auto-change membership status | Admin manages status separately | ✓ Good — prevents accidental changes |
 
 ---
-*Last updated: 2026-02-16 after v1.1 milestone*
+*Last updated: 2026-02-18 after v2.0 milestone*
