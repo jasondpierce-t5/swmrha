@@ -36,9 +36,17 @@ export default async function CheckoutCancelPage({
   const returnTo = params.return;
 
   const tryAgainHref =
-    returnTo === 'entries' ? '/member/entries' : '/member/pay-dues';
+    returnTo === 'fees'
+      ? '/member/purchase'
+      : returnTo === 'entries'
+        ? '/member/entries'
+        : '/member/pay-dues';
   const tryAgainLabel =
-    returnTo === 'entries' ? 'Return to My Entries' : 'Try Again';
+    returnTo === 'fees'
+      ? 'Return to Purchase Fees'
+      : returnTo === 'entries'
+        ? 'Return to My Entries'
+        : 'Try Again';
 
   return (
     <div className="space-y-6">

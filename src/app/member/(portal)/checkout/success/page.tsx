@@ -86,7 +86,32 @@ export default async function CheckoutSuccessPage({
 
   // --- State: Payment succeeded ---
   if (payment && payment.status === "succeeded") {
-    const isEntryPayment = payment.payment_type === "entry_fees";
+    const paymentType = payment.payment_type;
+    const isEntryPayment = paymentType === "entry_fees";
+    const isFeePayment = paymentType === "additional_fees";
+
+    // Heading text based on payment type
+    const headingText = isFeePayment
+      ? "Your fee purchase has been confirmed!"
+      : isEntryPayment
+        ? "Your show entries have been confirmed. Thank you!"
+        : "Your membership has been activated. Thank you for your support!";
+
+    // Secondary action link based on payment type
+    const secondaryHref = isFeePayment
+      ? "/member/purchase"
+      : isEntryPayment
+        ? "/member/entries"
+        : "/member/payments";
+
+    const secondaryLabel = isFeePayment
+      ? "Purchase More"
+      : isEntryPayment
+        ? "View My Entries"
+        : "View Payment History";
+
+    // Third action link for fee payments (payment history)
+    const showPaymentHistoryLink = isFeePayment;
 
     return (
       <div className="space-y-6">
@@ -97,9 +122,7 @@ export default async function CheckoutSuccessPage({
               Payment Successful!
             </h1>
             <p className="mt-2 text-sm text-gray-400">
-              {isEntryPayment
-                ? "Your show entries have been confirmed. Thank you!"
-                : "Your membership has been activated. Thank you for your support!"}
+              {headingText}
             </p>
 
             {/* Payment details */}
@@ -122,7 +145,7 @@ export default async function CheckoutSuccessPage({
                     </span>
                   </div>
                 )}
-                {isEntryPayment && payment.description && (
+                {(isEntryPayment || isFeePayment) && payment.description && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">Description</span>
                     <span className="text-white">
@@ -154,11 +177,19 @@ export default async function CheckoutSuccessPage({
                 Back to Dashboard
               </Link>
               <Link
-                href={isEntryPayment ? "/member/entries" : "/member/payments"}
+                href={secondaryHref}
                 className="rounded-lg border border-navy-700 px-5 py-2.5 text-sm font-medium text-gold-500 transition-colors hover:border-gold-500/30 hover:bg-gold-500/10"
               >
-                {isEntryPayment ? "View My Entries" : "View Payment History"}
+                {secondaryLabel}
               </Link>
+              {showPaymentHistoryLink && (
+                <Link
+                  href="/member/payments"
+                  className="rounded-lg border border-navy-700 px-5 py-2.5 text-sm font-medium text-gold-500 transition-colors hover:border-gold-500/30 hover:bg-gold-500/10"
+                >
+                  View Payment History
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -168,7 +199,13 @@ export default async function CheckoutSuccessPage({
 
   // --- State: Payment still processing ---
   if (payment && payment.status === "pending") {
-    const isEntryPayment = payment.payment_type === "entry_fees";
+    const pendingType = payment.payment_type;
+    const pendingMessage =
+      pendingType === "additional_fees"
+        ? " Your fee purchase will be confirmed once the payment is processed."
+        : pendingType === "entry_fees"
+          ? " Your entries will be confirmed once the payment is processed."
+          : " Your membership will be activated once the payment is confirmed.";
 
     return (
       <div className="space-y-6">
@@ -180,9 +217,7 @@ export default async function CheckoutSuccessPage({
             </h1>
             <p className="mt-2 max-w-md text-sm text-gray-400">
               Your payment is being processed. This usually takes a moment.
-              {isEntryPayment
-                ? " Your entries will be confirmed once the payment is processed."
-                : " Your membership will be activated once the payment is confirmed."}
+              {pendingMessage}
             </p>
 
             <div className="mt-8">
