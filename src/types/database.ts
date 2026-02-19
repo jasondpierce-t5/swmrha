@@ -138,14 +138,17 @@ export type MembershipTypeInsert = Omit<
 /** A full row from the `payments` table. */
 export interface PaymentRow {
   id: string;
-  member_id: string;
+  member_id: string | null;
   amount_cents: number;
+  /** 'membership_dues' | 'membership_renewal' | 'entry_fees' | 'additional_fees' */
   payment_type: string;
   membership_type_slug: string | null;
   description: string | null;
   stripe_checkout_session_id: string | null;
   stripe_payment_intent_id: string | null;
   status: string;
+  guest_email: string | null;
+  guest_name: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -215,4 +218,46 @@ export interface CreateShowEntryInput {
   horse_name: string;
   rider_name: string;
   class_ids: string[];
+}
+
+// ---------------------------------------------------------------------------
+// Additional Fee Types table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `additional_fee_types` table. */
+export interface FeeItemRow {
+  id: string;
+  name: string;
+  description: string | null;
+  price_cents: number;
+  category: string;
+  show_id: string | null;
+  max_quantity_per_order: number | null;
+  is_active: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Fields required to insert a new fee item (id and timestamps are generated). */
+export type FeeItemInsert = Omit<FeeItemRow, 'id' | 'created_at' | 'updated_at'>;
+
+// ---------------------------------------------------------------------------
+// Fee Purchases table
+// ---------------------------------------------------------------------------
+
+/** A full row from the `fee_purchases` table. */
+export interface FeePurchaseRow {
+  id: string;
+  payment_id: string | null;
+  fee_type_id: string;
+  quantity: number;
+  unit_price_cents: number;
+  total_cents: number;
+  show_id: string | null;
+  purchaser_name: string;
+  purchaser_email: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
 }

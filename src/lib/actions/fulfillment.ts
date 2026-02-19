@@ -94,6 +94,8 @@ export async function fulfillCheckoutSession(
           stripe_payment_intent_id: paymentIntentId,
           status: 'succeeded',
           description: fallbackDescription,
+          guest_email: null,
+          guest_name: null,
         } satisfies Omit<PaymentRow, 'id' | 'created_at' | 'updated_at'>)
         .select('id')
         .single();
