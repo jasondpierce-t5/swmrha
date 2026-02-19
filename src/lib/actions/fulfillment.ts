@@ -108,6 +108,36 @@ export async function fulfillCheckoutSession(
       } else if (fallbackPayment) {
         paymentRecordId = fallbackPayment.id as string;
       }
+    } else if (paymentType === 'additional_fees') {
+      // Guest payment fallback — no member_id available
+      const guestEmail = session.metadata?.guest_email ?? null;
+      const guestName = session.metadata?.guest_name ?? null;
+
+      const { data: fallbackPayment, error: insertError } = await admin
+        .from('payments')
+        .insert({
+          member_id: null,
+          amount_cents: session.amount_total ?? 0,
+          payment_type: 'additional_fees',
+          membership_type_slug: null,
+          stripe_checkout_session_id: session.id,
+          stripe_payment_intent_id: paymentIntentId,
+          status: 'succeeded',
+          description: 'SWMRHA Additional Fee Purchase (webhook fallback)',
+          guest_email: guestEmail,
+          guest_name: guestName,
+        } satisfies Omit<PaymentRow, 'id' | 'created_at' | 'updated_at'>)
+        .select('id')
+        .single();
+
+      if (insertError) {
+        console.error(
+          `Failed to create guest fallback payment for session ${session.id}:`,
+          insertError.message,
+        );
+      } else if (fallbackPayment) {
+        paymentRecordId = fallbackPayment.id as string;
+      }
     } else {
       console.error(
         `Cannot create fallback payment — missing metadata on session ${session.id}`,
@@ -118,12 +148,14 @@ export async function fulfillCheckoutSession(
   // --- 3. Dispatch based on payment type ---
   if (paymentType === 'entry_fees') {
     await fulfillEntryPayment(session, admin, paymentRecordId);
+  } else if (paymentType === 'additional_fees') {
+    await fulfillFeePurchase(session, admin, paymentRecordId);
   } else {
     await fulfillMembershipPayment(session, admin, memberId, membershipTypeSlug);
   }
 
   console.log(
-    `Fulfilled checkout session ${session.id} for member ${memberId}`,
+    `Fulfilled checkout session ${session.id} for ${memberId ? 'member' : 'guest'} ${memberId ?? session.metadata?.guest_email}`,
   );
 }
 
@@ -270,5 +302,51 @@ async function fulfillEntryPayment(
 
   console.log(
     `Confirmed ${entryIds.length} entries for session ${session.id}`,
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Fee purchase fulfillment
+// ---------------------------------------------------------------------------
+
+/**
+ * Fulfill an additional fee purchase: confirm fee_purchases with matching payment_id.
+ */
+async function fulfillFeePurchase(
+  session: Stripe.Checkout.Session,
+  admin: SupabaseClient,
+  paymentRecordId: string | null,
+): Promise<void> {
+  if (!paymentRecordId) {
+    console.error(
+      `No payment record ID for fee purchase session ${session.id} — cannot fulfill fee purchases`,
+    );
+    return;
+  }
+
+  // Update all fee_purchases with this payment_id to confirmed
+  const { data: updatedPurchases, error: purchaseError } = await admin
+    .from('fee_purchases')
+    .update({ status: 'confirmed' })
+    .eq('payment_id', paymentRecordId)
+    .select('id');
+
+  if (purchaseError) {
+    console.error(
+      `Failed to confirm fee purchases for session ${session.id}:`,
+      purchaseError.message,
+    );
+    return;
+  }
+
+  const count = updatedPurchases?.length ?? 0;
+
+  // Revalidate fee-related paths
+  revalidatePath('/purchase');
+  revalidatePath('/member/purchase');
+  revalidatePath('/member');
+
+  console.log(
+    `Confirmed ${count} fee purchase(s) for session ${session.id}`,
   );
 }
