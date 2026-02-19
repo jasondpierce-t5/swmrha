@@ -5,6 +5,7 @@ import {
   TrophyIcon,
   UserGroupIcon,
   TagIcon,
+  BanknotesIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 
@@ -51,5 +52,11 @@ export const adminNavigation: AdminNavItem[] = [
     href: "/admin/membership-types",
     icon: TagIcon,
     description: "Configure membership tiers and pricing",
+  },
+  {
+    label: "Fee Items",
+    href: "/admin/fees",
+    icon: BanknotesIcon,
+    description: "Manage stall fees, banquet tickets, and charges",
   },
 ];
