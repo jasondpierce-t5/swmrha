@@ -1,6 +1,8 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { getStripeServer } from '@/lib/stripe/server';
 import type {
   PaymentRow,
   ShowEntryRow,
@@ -264,4 +266,125 @@ export async function getPaymentByIdAdmin(
     show_entries,
     fee_purchases,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Write operations (admin-only via service role)
+// ---------------------------------------------------------------------------
+
+/**
+ * Process a full refund for a payment via Stripe and update related DB records.
+ *
+ * 1. Validates input and verifies payment is eligible (status === 'succeeded', has payment_intent)
+ * 2. Issues full refund via Stripe API
+ * 3. Updates payment status to 'refunded'
+ * 4. Updates related records based on payment_type
+ * 5. Revalidates admin and member paths
+ */
+export async function processRefund(
+  paymentId: string,
+): Promise<{ success: true } | { error: string }> {
+  if (!paymentId || paymentId.trim() === '') {
+    return { error: 'Payment ID is required.' };
+  }
+
+  const supabase = createAdminClient();
+
+  // --- 1. Fetch and validate payment ---
+  const { data: payment, error: fetchError } = await supabase
+    .from('payments')
+    .select('*')
+    .eq('id', paymentId.trim())
+    .maybeSingle();
+
+  if (fetchError) {
+    return { error: sanitizeSupabaseError(fetchError) };
+  }
+
+  if (!payment) {
+    return { error: 'Payment not found.' };
+  }
+
+  const paymentRow = payment as PaymentRow;
+
+  if (paymentRow.status !== 'succeeded') {
+    return { error: 'Only succeeded payments can be refunded.' };
+  }
+
+  if (!paymentRow.stripe_payment_intent_id) {
+    return { error: 'No Stripe Payment Intent found for this payment. Cannot process refund.' };
+  }
+
+  // --- 2. Process Stripe refund ---
+  try {
+    const stripe = getStripeServer();
+    await stripe.refunds.create({
+      payment_intent: paymentRow.stripe_payment_intent_id,
+    });
+  } catch (stripeError: unknown) {
+    const message =
+      stripeError instanceof Error ? stripeError.message : 'Unknown Stripe error';
+    console.error(`Stripe refund failed for payment ${paymentId}:`, message);
+    return { error: `Stripe refund failed: ${message}` };
+  }
+
+  // --- 3. Update payment status to 'refunded' ---
+  const { error: updateError } = await supabase
+    .from('payments')
+    .update({ status: 'refunded' })
+    .eq('id', paymentRow.id);
+
+  if (updateError) {
+    console.error(
+      `Payment ${paymentId} refunded in Stripe but DB update failed:`,
+      updateError.message,
+    );
+    return { error: 'Refund processed in Stripe but failed to update payment status. Please update manually.' };
+  }
+
+  // --- 4. Update related records based on payment_type ---
+  if (paymentRow.payment_type === 'entry_fees') {
+    const { error: entriesError } = await supabase
+      .from('show_entries')
+      .update({ status: 'refunded' })
+      .eq('payment_id', paymentRow.id);
+
+    if (entriesError) {
+      console.error(
+        `Failed to update show entries for refunded payment ${paymentId}:`,
+        entriesError.message,
+      );
+    }
+  }
+
+  if (paymentRow.payment_type === 'additional_fees') {
+    const { error: purchasesError } = await supabase
+      .from('fee_purchases')
+      .update({ status: 'refunded' })
+      .eq('payment_id', paymentRow.id);
+
+    if (purchasesError) {
+      console.error(
+        `Failed to update fee purchases for refunded payment ${paymentId}:`,
+        purchasesError.message,
+      );
+    }
+  }
+
+  if (
+    paymentRow.payment_type === 'membership_dues' ||
+    paymentRow.payment_type === 'membership_renewal'
+  ) {
+    // Do NOT auto-change membership status — admin manages separately via member edit page.
+    console.log(
+      `Membership payment ${paymentId} refunded. Admin should review member ${paymentRow.member_id} membership status.`,
+    );
+  }
+
+  // --- 5. Revalidate paths ---
+  revalidatePath('/admin/payments');
+  revalidatePath(`/admin/payments/${paymentRow.id}`);
+  revalidatePath('/member');
+
+  return { success: true };
 }
