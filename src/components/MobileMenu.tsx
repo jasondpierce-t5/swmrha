@@ -117,9 +117,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     };
   }, [isOpen]);
 
-  // Close on route change
+  // Close on route change (skip initial mount)
+  const prevPathnameRef = useRef(pathname);
   useEffect(() => {
-    onClose();
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      onClose();
+    }
   }, [pathname, onClose]);
 
   if (!isOpen) return null;
