@@ -133,10 +133,11 @@ Plans:
 **Goal**: Admin payment dashboard, refund processing, reports, UAT across all payment flows
 **Depends on**: Phase 20
 **Research**: Unlikely (extending established admin patterns from v1.1)
-**Plans**: TBD
+**Plans**: 2
 
 Plans:
-- [ ] 21-01: TBD
+- [ ] 21-01: Admin Payment Data Layer & Payments List (server actions, list page, navigation, dashboard)
+- [ ] 21-02: Payment Detail & Refund Processing (detail page, Stripe refund, UAT checkpoint)
 
 ## Progress
 
@@ -165,4 +166,4 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 18. Show Entry System | v2.0 | 4/4 | Complete | 2026-02-17 |
 | 19. Show Entry Payments | v2.0 | 2/2 | Complete | 2026-02-17 |
 | 20. Guest Checkout & Additional Fees | v2.0 | 4/4 | Complete | 2026-02-18 |
-| 21. Payment Admin & Polish | v2.0 | 0/? | Not started | - |
+| 21. Payment Admin & Polish | v2.0 | 0/2 | Not started | - |
