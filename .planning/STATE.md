@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 
 ## Current Position
 
-Phase: 18 of 21 (Show Entry System)
-Plan: 4 of 4 in current phase
+Phase: 19 of 21 (Show Entry Payments)
+Plan: 2 of 2 in current phase
 Status: Phase complete
-Last activity: 2026-02-17 - Completed Phase 18 (parallel Wave 2 + checkpoint)
+Last activity: 2026-02-17 - Completed Phase 19 (sequential waves + checkpoint)
 
-Progress: █████░░░░░ 46%
+Progress: ██████░░░░ 52%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 48
+- Total plans completed: 50
 - Average duration: 6 min
-- Total execution time: 5h 0m
+- Total execution time: 5h 10m
 
 **By Phase:**
 
@@ -45,6 +45,7 @@ Progress: █████░░░░░ 46%
 | 16 Membership Management | 3/3 | 12 min (parallel Wave 2) | 4 min |
 | 17 Membership Payments | 3/3 | 18 min (parallel Wave 2 + checkpoint) | 6 min |
 | 18 Show Entry System | 4/4 | 22 min (parallel Wave 2 + checkpoint) | 6 min |
+| 19 Show Entry Payments | 2/2 | 10 min (sequential waves + checkpoint) | 5 min |
 
 ## Accumulated Context
 
@@ -70,6 +71,9 @@ v2.0 decisions:
 | 18 | show_entry_classes.fee_cents snapshots class fee at entry time | Protects against later admin price changes |
 | 18 | Entry writes via service role admin client (SELECT-only RLS) | Consistent with payments pattern |
 | 18 | Entries saved as draft; payment integration deferred to Phase 19 | Clean separation of entry vs payment concerns |
+| 19 | One Stripe line item per entry (horse/rider combo with class descriptions) | Clear receipt itemization |
+| 19 | Payment type dispatch in fulfillment.ts (entry_fees vs membership) | Clean separation of fulfillment logic |
+| 19 | PayEntryButton for both draft and pending_payment entries | Allows retry on abandoned checkout |
 
 ### Deferred Issues
 
@@ -88,7 +92,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-17
-Stopped at: Completed Phase 18 (Show Entry System)
+Stopped at: Completed Phase 19 (Show Entry Payments)
 Resume file: None
 
 ## Deployment

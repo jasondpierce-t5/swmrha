@@ -106,16 +106,15 @@ Plans:
 - [x] 18-03: Show Entries Database & Server Actions (entries + junction tables, types, entry actions)
 - [x] 18-04: Member Show Entry UI & Dashboard Integration (multi-step form, entries list, navigation)
 
-#### Phase 19: Show Entry Payments
+#### Phase 19: Show Entry Payments — Complete
 
 **Goal**: Stripe checkout for show entries, confirmation flow, entry tracking in member portal
 **Depends on**: Phase 18
-**Research**: Likely (Stripe payment integration for entry fees)
-**Research topics**: Multi-item Stripe Checkout, line items for entries, payment confirmation flows
-**Plans**: TBD
+**Completed**: 2026-02-17
 
 Plans:
-- [ ] 19-01: TBD
+- [x] 19-01: Entry Checkout Session & Webhook Fulfillment (server actions, multi-line-item checkout, payment dispatch)
+- [x] 19-02: Entry Payment UI & Checkout Flow (PayEntryButton, Save & Pay, context-aware success/cancel)
 
 #### Phase 20: Guest Checkout & Additional Fees
 
@@ -163,6 +162,6 @@ Phases execute in numeric order: 1 → ... → 13 → 14 → 15 → 16 → 17 �
 | 16. Membership Management | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 17. Membership Payments | v2.0 | 3/3 | Complete | 2026-02-17 |
 | 18. Show Entry System | v2.0 | 4/4 | Complete | 2026-02-17 |
-| 19. Show Entry Payments | v2.0 | 0/? | Not started | - |
+| 19. Show Entry Payments | v2.0 | 2/2 | Complete | 2026-02-17 |
 | 20. Guest Checkout & Additional Fees | v2.0 | 0/? | Not started | - |
 | 21. Payment Admin & Polish | v2.0 | 0/? | Not started | - |
