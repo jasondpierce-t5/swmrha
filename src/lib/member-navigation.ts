@@ -52,4 +52,10 @@ export const memberNavigation: MemberNavItem[] = [
     icon: ClipboardDocumentListIcon,
     description: "View your show entries",
   },
+  {
+    label: "Purchase Fees",
+    href: "/member/purchase",
+    icon: BanknotesIcon,
+    description: "Stall fees, banquet tickets & more",
+  },
 ];

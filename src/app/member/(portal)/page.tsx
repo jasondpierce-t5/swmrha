@@ -326,6 +326,12 @@ export default async function MemberDashboardPage() {
       description: "View your show entries",
     },
     {
+      label: "Purchase Fees",
+      href: "/member/purchase",
+      icon: BanknotesIcon,
+      description: "Stall fees, banquet tickets & more",
+    },
+    {
       label: "Contact Us",
       href: "/contact",
       icon: EnvelopeIcon,
